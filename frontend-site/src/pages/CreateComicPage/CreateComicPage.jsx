@@ -17,7 +17,7 @@ function CreateComicPage() {
     const res = await openai.createImage({
       prompt: prompt,
       n: 1, // number of images to generate
-      size: "1024x1024",
+      size: "512×512",
     });
     setImageURL(res.data.data[0].url);
   };
