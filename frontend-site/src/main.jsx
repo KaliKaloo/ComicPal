@@ -1,13 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import "./index.css";
+import "./assets/index.css";
 import App from "./App";
-import PlaygroundPage from "./pages/PlaygroundPage";
-import CreateStoryPage from "./pages/CreateStoryPage";
-import CreateCharacterPage from "./pages/CreateCharacterPage";
-import CreateComicPage from "./pages/CreateComicPage";
-import About from "./pages/About";
+import PlaygroundPage from "./pages/Playground/PlaygroundPage";
+import CreateStoryPage from "./pages/CreateStory/CreateStoryPage";
+import CreateCharacterPage from "./pages/CreateCharacter/CreateCharacterPage";
+import CreateComicPage from "./pages/CreateComicPage/CreateComicPage";
+import About from "./pages/About/About";
 
 const router = createBrowserRouter([
   {
@@ -24,7 +24,7 @@ const router = createBrowserRouter([
   },
   {
     path: "CreateStory",
-    element: <CreateStoryPage />,
+    element: <CreateStoryPage/>,
   },
   {
     path: "CreateComicPage",
