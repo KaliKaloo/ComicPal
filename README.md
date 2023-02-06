@@ -1,1 +1,3 @@
 # AI-Tool-For-Comics
+## Overview
+This project examines the current and possible future role of AI in creative practice, focusing specifically on comic art and writing. A preliminary study mapping out how comic artists and writers use technology in their creative workflow will be carried out. The results of the study will inform the design of a new web-based tool using the DALL-E and OpenAI APIs designed to support artists in their creative practice. A study will then be run on this new tool in order to assess it’s ability to support artists in their work. Questions this project will address include: Does AI give a significant advantage over current practices such as using image search to create a reference board? and does it offer a boost in creativity?
