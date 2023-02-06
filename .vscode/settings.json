@@ -1,0 +1,15 @@
+{
+    "cSpell.words": [
+        "initialising",
+        "openai"
+    ],
+    "editor.suggest.snippetsPreventQuickSuggestions": false,
+    "editor.snippetSuggestions": "top",
+    "emmet.showSuggestionsAsSnippets": true,
+    "editor.quickSuggestions": {
+        "strings": "on"
+    },
+    "html.suggest.html5": false,
+    "typescript.suggest.paths": false,
+    "javascript.suggest.paths": false
+}
