@@ -6,13 +6,7 @@ import openaiLogo from "../../assets/openai-logo.svg";
 function CreateStoryPage() {
   const [input, setInput] = useState("");
   const [storyLog, setStoryLog] = useState([
-  {
-    user:"openapi",
-    message:"How can i help you today?"
-  },{
-    user:"me",
-    message:"I want to use openapi today"
-  }]);
+  ]);
 
   function clearStory(){
     setStoryLog([])
@@ -20,20 +14,23 @@ function CreateStoryPage() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    await setStoryLog([...storyLog, {user:"me", message: `${input}`}]);
-    await setInput("");
+    let newStoryLog = [...storyLog, {user:"me", message: `${input}`}];
+    setInput("");
+    setStoryLog(newStoryLog)
 
-    const response = await fetch("http://localhost:3080/",{
+    const messages = newStoryLog.map((message) => message.message).join("")
+
+    const response = await fetch("http://localhost:3080/story",{
       method:"POST",
       headers:{
         "Content-Type":"application/json"
       },
       body: JSON.stringify({
-        message: storyLog.map((message) => message.message).join("")
+        message: messages
       })
     });
     const data = await response.json();
-    await setStoryLog([...storyLog, {user:"openai", message:`${data.message}`}])
+    setStoryLog([...newStoryLog, {user:"openai", message:`${data.message}`}])
   }
 
   return (

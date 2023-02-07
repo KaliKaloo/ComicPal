@@ -1,20 +1,25 @@
 import { useState } from "react";
 import MainLayout from "../../layout/MainLayout";
 import "./CreateComicPage.css";
-import {openai} from "./../../lib/OpenAIConfig";
 
 function CreateComicPage() {
   const [prompt, setPrompt] = useState("");
   const [imageURL, setImageURL] = useState("");
 
-  const generateImage = async () => {
-    const res = await openai.createImage({
-      prompt: prompt,
-      n: 1, // number of images to generate
-      size: "512x512",
+  const generateImage = async(e) => {
+    e.preventDefault();
+    const response = await fetch("http://localhost:3080/image",{
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json"
+      },
+      body: JSON.stringify({
+        prompt: prompt,
+      })
     });
-    setImageURL(res.data.data[0].url);
-  };
+    const res = await response.json();
+    setImageURL(res.url);
+  }
 
   return (
     <MainLayout>
