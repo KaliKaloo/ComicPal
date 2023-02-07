@@ -5,7 +5,8 @@ import openaiLogo from "../../assets/openai-logo.svg";
 
 function CreateStoryPage() {
   const [input, setInput] = useState("");
-  const [storyLog, setStoryLog] = useState([{
+  const [storyLog, setStoryLog] = useState([
+  {
     user:"openapi",
     message:"How can i help you today?"
   },{
@@ -13,17 +14,33 @@ function CreateStoryPage() {
     message:"I want to use openapi today"
   }]);
 
+  function clearStory(){
+    setStoryLog([])
+  }
+
   async function handleSubmit(e) {
     e.preventDefault();
-    setStoryLog([...storyLog, {user:"me", message: `${input}`}]);
-    setInput("");
+    await setStoryLog([...storyLog, {user:"me", message: `${input}`}]);
+    await setInput("");
+
+    const response = await fetch("http://localhost:3080/",{
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json"
+      },
+      body: JSON.stringify({
+        message: storyLog.map((message) => message.message).join("")
+      })
+    });
+    const data = await response.json();
+    await setStoryLog([...storyLog, {user:"openai", message:`${data.message}`}])
   }
 
   return (
     <MainLayout>
       <div className="createStoryPageLayout">
         <aside className="sideMenu">
-          <div className="side-menu-button">
+          <div className="side-menu-button" onClick={clearStory}>
             <span>+</span>
             New Chat
           </div>

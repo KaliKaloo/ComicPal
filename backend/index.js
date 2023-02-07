@@ -6,20 +6,26 @@ const configuration = new Configuration({
   apiKey: process.env.Open_AI_Key,
 });
 const openai = new OpenAIApi(configuration);
+
+const bodyParser = require("body-parser");
+const cors = require("cors");
 const app = express();
+
+app.use(bodyParser.json());
+app.use(cors());
 const port = 3080;
 
 app.post("/", async (req, res) => {
+  const { message } = req.body;
   const response = await openai.createCompletion({
     model: "text-davinci-003",
-    prompt: "Say this is a test",
-    max_tokens: 7,
-    temperature: 0,
+    prompt: `${message}`,
+    max_tokens: 50,
+    temperature: 0.5,
   });
-  console.log(response.data.choices[0].text);
   res.json({
-    data: response.data
-  })
+    message: response.data.choices[0].text,
+  });
 });
 
 app.listen(port, () => {
