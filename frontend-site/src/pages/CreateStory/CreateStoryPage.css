@@ -36,6 +36,48 @@
     position: relative;
 }
 
+.story-log{
+    /* overflow-y: scroll; */
+    /* height:100%; */
+    text-align: left;
+}
+
+.story-message.openai{
+    background-color: #444654;
+}
+
+.story-message-center{
+    max-width: 640;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    padding:12px;
+    padding-left: 24px; 
+    padding-right:24px;
+}
+
+.avatar{
+    background-color: white;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display:flex;
+    align-items: center;
+    justify-content: center
+}
+
+.avatar.openai{
+    background-color: #0da37f;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+}
+
+.message{
+    padding-left: 40px; 
+    padding-right:40px;
+}
+
 .story-input-holder{
     padding: 24px;
     position: absolute;
@@ -55,3 +97,4 @@
     outline:none;
     box-shadow: 0 0 8px 0 rgba(0,0,0,0.25);
 }
+
