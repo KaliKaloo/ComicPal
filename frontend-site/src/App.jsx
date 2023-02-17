@@ -1,16 +1,12 @@
 import React from "react";
-// import { Configuration, OpenAIApi } from "openai";
-import "./assets/App.css";
 import "./assets/normal.css";
-import MainLayout from "./layout/MainLayout";
+import OverviewPage from "./pages/Overview/OverviewPage.jsx";
 
 function App() {
-  // const 
-
   return (
-    <MainLayout>
-      Overview
-    </MainLayout>
+    <div>
+      <OverviewPage/>
+    </div>
   );
 }
 
