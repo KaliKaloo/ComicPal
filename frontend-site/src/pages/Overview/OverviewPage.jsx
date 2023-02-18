@@ -1,32 +1,32 @@
-import React from 'react'
+import React from "react";
 import MainLayout from "../../layout/MainLayout";
 import styles from "../../assets/style";
+import {HeroSection, Info, HowToUse, GetStarted, Testimonials, Feedback,} from ".";
 
 const OverviewPage = () => {
   return (
     <MainLayout>
-      <div className={`${styles.paddingX} ${styles.flexCenter}`}>
-        <div className={`${styles.boxWidth}`}> 
-          navbar?
+      {/* <div className={`${styles.paddingX} ${styles.flexCenter}`}>
+        <div className={`${styles.boxWidth}`}>navbar?</div>
+      </div> */}
+
+      <div className={`${styles.flexStart}`}>
+        <div className={`${styles.boxWidth}`}>
+          <HeroSection/>
         </div>
       </div>
 
       <div className={`${styles.flexStart}`}>
         <div className={`${styles.boxWidth}`}>
-          Hero section
-        </div>
-      </div>
-
-      <div className={`${styles.flexStart}`}>
-        <div className={`${styles.boxWidth}`}>
-          Info about website
-          Why
-          How to uses
-          Footer
+          <HowToUse/>
+          <Info/>
+          <GetStarted/>
+          <Testimonials/>
+          <Feedback/>
         </div>
       </div>
     </MainLayout>
-  )
-}
+  );
+};
 
-export default OverviewPage
+export default OverviewPage;

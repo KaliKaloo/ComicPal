@@ -1,9 +1,11 @@
 import React from 'react'
 
-function Fotter() {
+function Footer() {
   return (
-    <div>Fotter</div>
+    <div className='bg-primaryGreen text-white'>
+      Footer
+    </div>
   )
 }
 
-export default Fotter
+export default Footer

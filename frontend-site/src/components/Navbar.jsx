@@ -2,13 +2,7 @@ import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Link, useLocation } from 'react-router-dom'
-
-
-const navigation = [
-  { name: 'Overview', link: '/', current: true },
-  { name: 'Playground', link: '/Playground', current: false },
-  { name: 'About', link: '/About', current: false },
-]
+import {navLinks} from "../constants"
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -18,7 +12,7 @@ export default function Navbar() {
   const location = useLocation();
 
   return (
-    <Disclosure as="nav" className="bg-primaryGreen mb-3">
+    <Disclosure as="nav" className="bg-primaryGreen mb-3 font-poppins">
       {({ open }) => (
         <>
           <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -50,11 +44,11 @@ export default function Navbar() {
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
-                    {navigation.map((item) => (
+                    {navLinks.map((item) => (
                       <Link key={item.name} 
                             to={item.link}
                             className={classNames(
-                               location.pathname == item.link ? 'bg-darkGreen text-white' : 'text-gray-300 hover:bg-lightGreen hover:text-white',
+                               location.pathname == item.link ? 'bg-darkGreen text-white ' : 'text-gray-300 hover:bg-lightGreen hover:text-white',
                                'px-3 py-2 rounded-md text-sm font-medium'
                              )}
                              aria-current={item.current ? 'page' : undefined}
@@ -135,7 +129,7 @@ export default function Navbar() {
 
           <Disclosure.Panel className="sm:hidden">
             <div className="space-y-1 px-2 pt-2 pb-3">
-              {navigation.map((item) => (
+              {navLinks.map((item) => (
                 <Disclosure.Button
                   key={item.name}
                   as={Link}
