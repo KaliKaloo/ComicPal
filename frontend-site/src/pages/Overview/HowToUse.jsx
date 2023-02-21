@@ -6,7 +6,7 @@ import { features } from "../../constants";
 function FeatureCard({ icon, title, content, index }) {
   return (
     <div
-      className={`flex flex-row p-6 rounded-[20px] ${
+      className={`flex flex-row  p-6 rounded-[20px] ${
         index !== features.length - 1 ? "mb-6" : "mb-0"
       } feature-card`}
     >
@@ -16,7 +16,7 @@ function FeatureCard({ icon, title, content, index }) {
         <img src={icon} alt="star" className="w-[50%] h-[50%] object-contain" />
       </div>
       <div className="flex-1 flex flex-col ml-3">
-        <h4 className="font-poppins font-semibold text-darkGreen text-[18px] leading-[23.4px] mb-1">
+        <h4 className="font-poppins font-semibold text-darkGreen text-[20px] leading-[23.4px] mb-1">
           {title}
         </h4>
         <p className="font-poppins font-normal text-darkGreen text-[16px] leading-[24px]">
@@ -29,9 +29,9 @@ function FeatureCard({ icon, title, content, index }) {
 
 function HowToUse() {
   return (
-    <section id="product" className={layout.sectionReverse}>
+    <section id="howtouse" className={`${layout.sectionReverse} sm:pb-16`}>
     <div className={layout.sectionImgReverse}>
-      <img src={overviewImg3} alt="billing" className="w-[100%] h-[100%] relative z-[5]" />
+      <img src={overviewImg3} alt="billing" className="w-[100%] h-[100%] relative z-[5] object-cover" />
 
       {/* gradient start */}
       <div className="absolute z-[3] -left-1/2 top-0 w-[50%] h-[50%] rounded-full white__gradient" />
@@ -50,12 +50,9 @@ function HowToUse() {
         placerat.
       </p>
 
-      <div className="flex flex-row flex-wrap sm:mt-10 mt-6">
-        <img src={apple} alt="google_play" className="w-[128.86px] h-[42.05px] object-contain mr-5 cursor-pointer" />
-        <img src={google} alt="google_play" className="w-[144.17px] h-[43.08px] object-contain cursor-pointer" />
-      </div>
+      
     </div> */}
-    <div className={`${layout.sectionImg} flex-col`}>
+    <div className={`${layout.sectionImg}  flex-col `}>
       {features.map((feature, index) => (
         <FeatureCard key={feature.id} {...feature} index={index} />
       ))}

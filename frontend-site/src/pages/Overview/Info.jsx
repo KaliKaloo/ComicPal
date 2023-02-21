@@ -2,23 +2,21 @@ import React from "react";
 import overviewImg1 from "../../assets/overviewImg1.png"
 import overviewImg2 from "../../assets/overviewImg2.png"
 import styles, { layout } from "../../assets/style";
-import MainButton from "../../components/ui/MainButton";
-
-
+import SecondaryButton from "../../components/ui/SecondaryButton";
 
 function Info() {
   return (
     // <div className="flex flex-row">
-    <div className="grid xl:grid-cols-2 gap-4">
+    <div className="grid xl:grid-cols-2 gap-0">
       <section className={layout.sectionReverse}>
           <div className={layout.sectionImgReverse}>
             <img src={overviewImg1} alt="overview img 1" className="object-cover w-[100%] h-[100%] relative z-[5]"/>
           </div>
           
-          <div className={`${layout.sectionInfo} pr-16 mt-10`}>
-            <h2 className={`${styles.heading2} w-[300px]`}>
+          <div className={`${layout.sectionInfo} pl-4 pr-16 mt-10`}>
+            <h2 className={`${styles.heading2} w-[300px] pb-4`}>
             Your Wingman,
-              <br className="sm:block hidden" /> for Creative Leadership!
+              <br className="sm:block hidden" /> <div className="text-secondary">for Creative Leadership!</div>
             </h2>
             <p className={`${styles.paragraphDark} max-w-[300px]`}>
               AI technology has revolutionized the creative space, but some artists
@@ -30,7 +28,7 @@ function Info() {
             </p>
             
             <div className="w-[300px]">
-              <MainButton styles="mt-6 mb-10 bg-blue-gradient" text="Get Started" />
+              <SecondaryButton styles="mt-6 mb-10 text-lightGreen outline-lightGreen" text="Learn More" />
             </div>
           </div>
         

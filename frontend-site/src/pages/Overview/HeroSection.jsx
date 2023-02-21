@@ -1,8 +1,7 @@
 import React from "react";
 import styles from "../../assets/style";
 import heroImg from "../../assets/heroImg.png";
-import { discount, robot } from "../../assetsTemp";
-import GetStarted from "./GetStarted";
+import MainButton from "../../components/ui/MainButton";
 
 function HeroSection() {
   return (
@@ -33,6 +32,11 @@ function HeroSection() {
         <p className={`${styles.paragraph} max-w-[470px] mt-5`}>
         An AI assisted tool built to help creatives brainstorm comic pages, panels and characters as well as storyboard. You are the creative lead with an AI assistant!
         </p>
+        <div className="flex flex-row justify-between items-center w-[470px]">
+          <MainButton styles="mt-6 mb-10 bg-darkGreen text-white" text="About" />
+          <MainButton styles="mt-6 mb-10 bg-secondary text-white" text="Get Started" />
+          <MainButton styles="mt-6 mb-10 bg-lightGreen text-white" text="How To Use" /></div>
+
       </div>
 
       <div className={`ss:hidden ${styles.flexCenter}`}>

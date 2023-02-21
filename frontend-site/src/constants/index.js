@@ -12,21 +12,21 @@ export const features = [
     icon: star,
     title: "Comic Pages",
     content:
-      "Give each panel a text prompt to generate reference images. Then drag and drop panels to build a page. ",
+      "Give each panel a text prompt to generate reference images. Then drag and drop panels to build a full page. ",
   },
   {
     id: "feature-2",
     icon: shield,
     title: "Character Design",
     content:
-      "Build a character design from scratch: physical features, personality, background etc.",
+      "Design a character from scratch. Brainstorm physical features, personalities, background etc, with the help of AI.",
   },
   {
     id: "feature-3",
     icon: send,
     title: "Story Creation",
     content:
-      "Work with our chatbot AI to build an amazing story together from start to finish!",
+      "Work with our chatbot AI to build an amazing story together from start to finish! You can piece together story points to create a full outline.",
   },
 ];
 
