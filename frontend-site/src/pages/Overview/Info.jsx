@@ -32,7 +32,7 @@ function FeatureCard({ icon, title, content, index }) {
 function Info() {
   return (
     // <div className="flex flex-row">
-    <section className="grid lg:grid-cols-2 gap-4">
+    <div className="grid lg:grid-cols-2 gap-4">
       <section className={layout.sectionReverse}>
           <div className={layout.sectionImgReverse}>
             <img src={overviewImg1} alt="overview img 1" className="w-[100%] h-[100%] relative z-[5]"/>
@@ -60,10 +60,10 @@ function Info() {
               <FeatureCard key={feature.id} {...feature} index={index} />
             ))}*/}
       </section>
-      <div className={layout.sectionImgReverse}>
+      <div>
           <img src={overviewImg2} alt="overview img 2" className="w-[100%] h-[100%] relative z-[5]" />
         </div>
-    </section>
+    </div>
   );
 }
 

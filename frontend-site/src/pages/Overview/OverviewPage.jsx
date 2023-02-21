@@ -6,18 +6,14 @@ import {HeroSection, Info, HowToUse, GetStarted, Testimonials, Feedback,} from "
 const OverviewPage = () => {
   return (
     <MainLayout>
-      {/* <div className={`${styles.paddingX} ${styles.flexCenter}`}>
-        <div className={`${styles.boxWidth}`}>navbar?</div>
-      </div> */}
-
       <div className={`${styles.flexStart}`}>
         <div className={`${styles.boxWidth}`}>
           <HeroSection/>
         </div>
       </div>
 
-      <div className={`bg-paleYellow ${styles.paddingX} ${styles.flexCenter}`}>
-        <div className={`${styles.boxWidth}`}>
+      <div className={`bg-paleYellow  ${styles.flexCenter}`}>
+        <div className={`xl:max-w-[1580px] w-full`}>
           <Info/>
           <HowToUse/>
           <Testimonials/>
