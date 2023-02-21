@@ -10,23 +10,23 @@ export const features = [
   {
     id: "feature-1",
     icon: star,
-    title: "Rewards",
+    title: "Comic Pages",
     content:
-      "The best credit cards offer some tantalizing combinations of promotions and prizes",
+      "Give each panel a text prompt to generate reference images. Then drag and drop panels to build a page. ",
   },
   {
     id: "feature-2",
     icon: shield,
-    title: "100% Secured",
+    title: "Character Design",
     content:
-      "We take proactive steps make sure your information and transactions are secure.",
+      "Build a character design from scratch: physical features, personality, background etc.",
   },
   {
     id: "feature-3",
     icon: send,
-    title: "Balance Transfer",
+    title: "Story Creation",
     content:
-      "A balance transfer credit card can save you a lot of money in interest charges.",
+      "Work with our chatbot AI to build an amazing story together from start to finish!",
   },
 ];
 

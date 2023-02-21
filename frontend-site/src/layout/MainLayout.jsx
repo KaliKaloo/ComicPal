@@ -1,10 +1,11 @@
 import React from 'react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
+import styles from '../assets/style'
 
 function MainLayout({children}) {
   return (
-    <div className="bg-paleYellow w-full h-screen overflow-hidden">
+    <div className="bg-primaryGreen w-full overflow-hidden">
         <Navbar/>
         <div>{children}</div>
         <Footer/>

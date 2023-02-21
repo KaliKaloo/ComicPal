@@ -16,11 +16,10 @@ const OverviewPage = () => {
         </div>
       </div>
 
-      <div className={`${styles.flexStart}`}>
+      <div className={`bg-paleYellow ${styles.paddingX} ${styles.flexCenter}`}>
         <div className={`${styles.boxWidth}`}>
-          <HowToUse/>
           <Info/>
-          <GetStarted/>
+          <HowToUse/>
           <Testimonials/>
           <Feedback/>
         </div>
