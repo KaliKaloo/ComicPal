@@ -32,14 +32,14 @@ function FeatureCard({ icon, title, content, index }) {
 function Info() {
   return (
     // <div className="flex flex-row">
-    <div className="grid lg:grid-cols-2 gap-4">
+    <div className="grid xl:grid-cols-2 gap-4">
       <section className={layout.sectionReverse}>
           <div className={layout.sectionImgReverse}>
-            <img src={overviewImg1} alt="overview img 1" className="w-[100%] h-[100%] relative z-[5]"/>
+            <img src={overviewImg1} alt="overview img 1" className="object-cover w-[100%] h-[100%] relative z-[5]"/>
           </div>
           
-          <div className={`${layout.sectionInfo} px-10`}>
-            <h2 className={styles.heading2}>
+          <div className={`${layout.sectionInfo} px-10 mt-10`}>
+            <h2 className={`${styles.heading2} w-[350px]`}>
             Your Wingman,
               <br className="sm:block hidden" /> for Creative Leadership!
             </h2>
@@ -51,8 +51,10 @@ function Info() {
               amount of AI assistance, ComicPal is here to help unleash your
               creativity and enhance your productivity!
             </p>
-
-            <MainButton styles="mt-10 bg-blue-gradient" text="Get Started" />
+            
+            <div className="w-[350px]">
+              <MainButton styles="mt-10 bg-blue-gradient" text="Get Started" />
+            </div>
           </div>
         {/* </div> */}
         {/* <div className={`${layout.sectionImg} flex-col`}>
