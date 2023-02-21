@@ -1,7 +1,7 @@
 import React from "react";
 import MainLayout from "../../layout/MainLayout";
 import styles from "../../assets/style";
-import {HeroSection, Info, HowToUse, GetStarted, Testimonials, Feedback,} from ".";
+import {HeroSection, Info, HowToUse, } from ".";
 
 const OverviewPage = () => {
   return (
@@ -16,8 +16,6 @@ const OverviewPage = () => {
         <div className={`${styles.boxWidth2}`}>
           <Info/>
           <HowToUse/>
-          <Testimonials/>
-          <Feedback/>
         </div>
       </div>
     </MainLayout>

@@ -16,14 +16,14 @@ export const features = [
   },
   {
     id: "feature-2",
-    icon: shield,
+    icon: star,
     title: "Character Design",
     content:
       "Design a character from scratch. Brainstorm physical features, personalities, background etc, with the help of AI.",
   },
   {
     id: "feature-3",
-    icon: send,
+    icon: star,
     title: "Story Creation",
     content:
       "Work with our chatbot AI to build an amazing story together from start to finish! You can piece together story points to create a full outline.",
@@ -80,83 +80,56 @@ export const footerLinks = [
     title: "Useful Links",
     links: [
       {
-        name: "Content",
-        link: "https://www.hoobank.com/content/",
+        name: "About",
+        link: "/about",
       },
       {
         name: "How it Works",
-        link: "https://www.hoobank.com/how-it-works/",
+        link: "#",
       },
       {
         name: "Create",
-        link: "https://www.hoobank.com/create/",
+        link: "/playground",
       },
       {
-        name: "Explore",
-        link: "https://www.hoobank.com/explore/",
-      },
-      {
-        name: "Terms & Services",
-        link: "https://www.hoobank.com/terms-and-services/",
+        name: "FAQ",
+        link: "#",
       },
     ],
   },
   {
-    title: "Community",
+    title: "Other",
     links: [
       {
-        name: "Help Center",
-        link: "https://www.hoobank.com/help-center/",
+        name: "OpenAI API",
+        link: "https://openai.com/api/",
       },
       {
-        name: "Partners",
-        link: "https://www.hoobank.com/partners/",
+        name: "Github",
+        link: "https://github.com/KaliKaloo/AI-Tool-For-Comics",
       },
       {
-        name: "Suggestions",
-        link: "https://www.hoobank.com/suggestions/",
-      },
-      {
-        name: "Blog",
-        link: "https://www.hoobank.com/blog/",
-      },
-      {
-        name: "Newsletters",
-        link: "https://www.hoobank.com/newsletters/",
+        name: "Thesis",
+        link: "#",
       },
     ],
   },
   {
-    title: "Partner",
+    title: "Author",
     links: [
       {
-        name: "Our Partner",
-        link: "https://www.hoobank.com/our-partner/",
+        name: "Pragya Gurung",
+        link: "https://www.linkedin.com/in/pragya-gurung/",
       },
       {
-        name: "Become a Partner",
-        link: "https://www.hoobank.com/become-a-partner/",
+        name: "wq19451@bristol.ac.uk",
+        link: "mailto:wq19451@bristol.ac.uk",
       },
     ],
   },
 ];
 
 export const socialMedia = [
-  {
-    id: "social-media-1",
-    icon: instagram,
-    link: "https://www.instagram.com/",
-  },
-  {
-    id: "social-media-2",
-    icon: facebook,
-    link: "https://www.facebook.com/",
-  },
-  {
-    id: "social-media-3",
-    icon: twitter,
-    link: "https://www.twitter.com/",
-  },
   {
     id: "social-media-4",
     icon: linkedin,

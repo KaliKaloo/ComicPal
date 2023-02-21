@@ -7,10 +7,10 @@ import SecondaryButton from "../../components/ui/SecondaryButton";
 function Info() {
   return (
     // <div className="flex flex-row">
-    <div className="grid xl:grid-cols-2 gap-0">
+    <div className="grid xl:grid-cols-2 gap-0 relative">
       <section className={layout.sectionReverse}>
           <div className={layout.sectionImgReverse}>
-            <img src={overviewImg1} alt="overview img 1" className="object-cover w-[100%] h-[100%] relative z-[5]"/>
+            <img src={overviewImg1} alt="overview img 1 " className="object-cover w-[100%] h-[100%] relative z-[5]"/>
           </div>
           
           <div className={`${layout.sectionInfo} pl-4 pr-16 mt-10`}>
