@@ -1,5 +1,6 @@
 const styles = {
     boxWidth: "xl:max-w-[1280px] w-full",
+    boxWidth2: "xl:max-w-[1480px] w-full",
   
     heading2: "font-poppins font-semibold xs:text-[20] text-[20px] pt-6 text-darkGreen xs:leading-[36.8px] leading-[56.8px]",
     paragraph: "font-poppins font-normal text-dimWhite text-[16px] leading-[30.8px]",
@@ -23,7 +24,7 @@ const styles = {
     sectionImgReverse: `flex-1 flex ${styles.flexCenter} md:mr-10 mr-0 md:mt-0 mt-10 relative`,
     sectionImg: `flex-1 flex ${styles.flexCenter} md:ml-10 ml-0 md:mt-0 mt-10 relative`,
 
-    sectionInfo: `flex-1 ${styles.flexCenter} flex-col`,
+    sectionInfo: `flex-1 flex justify-center items-center  flex-col`,
   };
   
   export default styles;
