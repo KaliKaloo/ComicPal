@@ -30,7 +30,7 @@ function GeneratePanel() {
           onChange={(e) => setPrompt(e.target.value)}
           placeholder="Type a prompt..."
         />
-        <SecondaryButton onclick={generateImage} text="Generate" />
+        <SecondaryButton styles="my-6 outline outline-2 outline-lightGreen" onClick={generateImage} text="Generate" />
 
         {imageURL.length > 0 ? (
           <img src={imageURL} alt="" className="result-image"></img>

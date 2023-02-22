@@ -3,8 +3,11 @@ import overviewImg1 from "../../assets/overviewImg1.png"
 import overviewImg2 from "../../assets/overviewImg2.png"
 import styles, { layout } from "../../assets/style";
 import SecondaryButton from "../../components/ui/SecondaryButton";
+import { useNavigate } from "react-router-dom"
 
 function Info() {
+  const navigate = useNavigate();
+
   return (
     // <div className="flex flex-row">
     <div className="grid xl:grid-cols-2 gap-0 relative">
@@ -28,7 +31,7 @@ function Info() {
             </p>
             
             <div className="w-[300px]">
-              <SecondaryButton styles="mt-6 mb-10 text-lightGreen outline outline-2 outline-offset-2 outline-lightGreen" text="Learn More" />
+              <SecondaryButton styles="mt-6 mb-10 text-lightGreen outline outline-2 outline-offset-2 outline-lightGreen" text="Learn More" onClick={() => navigate('/about')}/>
             </div>
           </div>
         

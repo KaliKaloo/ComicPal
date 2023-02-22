@@ -2,8 +2,11 @@ import React from "react";
 import styles from "../../assets/style";
 import heroImg from "../../assets/heroImg.png";
 import MainButton from "../../components/ui/MainButton";
+import { useNavigate } from "react-router-dom"
 
 function HeroSection() {
+  const navigate = useNavigate();
+  
   return (
     <section id="home" className={`flex lg:flex-row flex-col ${styles.paddingY} space-x-10`}>
       
@@ -33,9 +36,9 @@ function HeroSection() {
         An AI assisted tool built to help creatives brainstorm comic pages, panels and characters as well as storyboard. You are the creative lead with an AI assistant!
         </p>
         <div className="flex flex-row justify-between items-center w-[470px]">
-          <MainButton styles="mt-6 mb-10 bg-darkGreen text-white" text="About" />
-          <MainButton styles="mt-6 mb-10 bg-secondary text-white" text="Get Started" />
-          <MainButton styles="mt-6 mb-10 bg-lightGreen text-white" text="How To Use" /></div>
+          <MainButton styles="mt-6 mb-10 bg-darkGreen text-white" text="About" onClick={() => navigate('/about')}/>
+          <MainButton styles="mt-6 mb-10 bg-secondary text-white" text="Get Started" onClick={() => navigate('/playground')}/>
+          <MainButton styles="mt-6 mb-10 bg-lightGreen text-white" text="How To Use" onClick={() => navigate('#')}/></div>
 
       </div>
 
