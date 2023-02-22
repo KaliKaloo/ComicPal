@@ -10,7 +10,7 @@ function Info() {
     <div className="grid xl:grid-cols-2 gap-0 relative">
       <section className={layout.sectionReverse}>
           <div className={layout.sectionImgReverse}>
-            <img src={overviewImg1} alt="overview img 1 " className="object-cover w-[100%] h-[100%] relative z-[5]"/>
+            <img src={overviewImg1} alt="overview img 1 " className="object-cover w-[100%]  h-[100%] relative z-[5]"/>
           </div>
           
           <div className={`${layout.sectionInfo} pl-4 pr-16 mt-10`}>
@@ -28,7 +28,7 @@ function Info() {
             </p>
             
             <div className="w-[300px]">
-              <SecondaryButton styles="mt-6 mb-10 text-lightGreen outline-lightGreen" text="Learn More" />
+              <SecondaryButton styles="mt-6 mb-10 text-lightGreen outline outline-2 outline-offset-2 outline-lightGreen" text="Learn More" />
             </div>
           </div>
         
