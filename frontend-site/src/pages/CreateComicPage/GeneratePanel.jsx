@@ -23,21 +23,22 @@ function GeneratePanel() {
   }
 
   return (
-    <div>
-      <div className=" bg-white flex flex-col items-center border-solid border-2 border-black p-10 m-20 w-[400px] hover:scale-105 duration-300">
+    <div className="grid grid-cols-1 bg-white">
+
+        {imageURL.length > 0 ? (
+          <img src={imageURL} alt="" className="result-image"></img>
+        ) : (
+          <></>
+        )}
+      <div>
         <input
           className="text-center font-poppins"
           onChange={(e) => setPrompt(e.target.value)}
           placeholder="Type a prompt..."
         />
         <SecondaryButton styles="my-6 outline outline-2 outline-lightGreen" onClick={generateImage} text="Generate" />
-
-        {imageURL.length > 0 ? (
-          <img src={imageURL} alt="" className="result-image"></img>
-        ) : (
-          <></>
-        )}  
       </div>
+          
     </div>
   );
 }

@@ -13,7 +13,7 @@ const OverviewPage = () => {
       </div>
 
       <div className={`bg-paleYellow  ${styles.flexCenter}`}>
-        <div className={`${styles.boxWidth2}`}>
+        <div className={`w-full`}>
           <Info/>
           <HowToUse/>
         </div>

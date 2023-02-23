@@ -13,12 +13,12 @@ export default function Navbar() {
   const location = useLocation();
 
   return (
-    <Disclosure as="nav" className="bg-mediumGreen font-poppins mb-3">
+    <Disclosure as="nav" className="bg-mediumGreen font-poppins ">
       {({ open }) => (
         <>
           <div className={`${styles.paddingX} ${styles.flexCenter}`}>
-            <div className={`${styles.boxWidth}`}>
-              <div className="mx-auto xl:max-w-[1280px] w-full sm:px-1 px-5">
+            <div className={`w-full`}>
+              <div className="mx-auto  w-full sm:px-1 px-5">
                 <div className="relative flex h-14 items-center justify-between">
                   <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                     {/* Mobile menu button*/}

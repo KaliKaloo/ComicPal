@@ -1,6 +1,7 @@
 const styles = {
     boxWidth: "xl:max-w-[1280px] w-full",
     boxWidth2: "xl:max-w-[1580px] w-full",
+    
   
     heading2: "font-poppins font-semibold xs:text-[30] text-[24px] pt-6 text-darkGreen xs:leading-[36.8px] leading-[56.8px]",
     paragraph: "font-poppins font-normal text-dimWhite text-[16px] leading-[28.8px]",
