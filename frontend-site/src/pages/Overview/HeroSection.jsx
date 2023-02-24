@@ -11,7 +11,7 @@ function HeroSection() {
     <section id="home" className={`flex lg:flex-row flex-col ${styles.paddingY} space-x-10`}>
       
       <div className={`flex-1 flex ${styles.flexCenter} lg:my-0 my-10 relative mx-2`}>
-        <img src={heroImg} alt="hero-img" className=" w-[80%] h-[80%] lg:w-[90%] lg:h-[90%]  relative z-[5] object-contain" />
+        <img src={heroImg} alt="hero-img" className=" w-[80%] h-[80%] lg:w-[100%] lg:h-[100%]  relative z-[5] object-contain" />
       </div>
 
       <div className={`flex-1 ${styles.flexStart} flex-col xl:px-0 sm:px-10 px-6`}>

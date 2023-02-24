@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import MainLayout from "../../layout/MainLayout";
 import GeneratePanel from "./GeneratePanel";
-import "./CreateComicPage.css";
 import styles from "../../assets/style";
 
 function CreateComicPage() {
