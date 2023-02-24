@@ -5,28 +5,18 @@ import "./CreateComicPage.css";
 import styles from "../../assets/style";
 
 function CreateComicPage() {
-  const [panelList, setPanelList] = useState([]);
+  const [panelList, setPanels] = useState([]);
+  const [count, setCount] = useState(0);
 
-  const onAddBtnClick = (event) => {
-    const newList = [...panelList]
-    console.log(newList.length);
-    setPanelList(newList.concat(<GeneratePanel deleteFunc={deletePanel} index={newList.length} />));
-  }; 
-
-  const deletePanel = (i) => {
-    console.log(i)
-
-    const deleteP = [...panelList]
-    console.log(deleteP)
-    deleteP.filter((x, index) => index !== i);
-    // deleteP.splice(0,1)
-    setPanelList(deleteP);
+  const addPanel = () => {
+    setPanels([...panelList, { id: count }]);
+    setCount(count + 1);
   };
 
-  useEffect(() => {
+  const deletePanel = (id) => {
+    setPanels(panelList.filter((panel) => panel.id !== id));
+  };
 
-  }, []);
-  
   return (
     <MainLayout footer="noFooter">
       <div className="bg-gray-200 relative h-[calc(100vh-56px)] overflow-hidden flex">
@@ -35,7 +25,7 @@ function CreateComicPage() {
         >
           <div>
             <button
-              onClick={onAddBtnClick}
+              onClick={addPanel}
               className="bg-lightGreen block mb-4 py-2 px-4 rounded"
             >
               X
@@ -46,14 +36,14 @@ function CreateComicPage() {
           className={`flex justify-center flex-1 md:p-10 p:0 h-[calc(100vh-56px)] overflow-y-auto z-0`}
         >
           <div className="shadow-md bg-white md:w-[210mm] w-full h-[297mm] p-4">
-            
-           
-            {panelList.map((Comp, index)=>(
-              <div className="absolute z-10" key={index}>
-                 {Comp}
+            {panelList.map((panel) => (
+              <div className="absolute z-10" key={panel.id}>
+                <GeneratePanel
+                  key={panel.id}
+                  deleteFunc={() => deletePanel(panel.id)}
+                />
               </div>
             ))}
-
           </div>
         </div>
       </div>
