@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MainLayout from "../../layout/MainLayout";
 import GeneratePanel from "./GeneratePanel";
 import "./CreateComicPage.css";
@@ -8,25 +8,52 @@ function CreateComicPage() {
   const [panelList, setPanelList] = useState([]);
 
   const onAddBtnClick = (event) => {
-    setPanelList(panelList.concat(<GeneratePanel />));
+    const newList = [...panelList]
+    console.log(newList.length);
+    setPanelList(newList.concat(<GeneratePanel deleteFunc={deletePanel} index={newList.length} />));
+  }; 
+
+  const deletePanel = (i) => {
+    console.log(i)
+
+    const deleteP = [...panelList]
+    console.log(deleteP)
+    deleteP.filter((x, index) => index !== i);
+    // deleteP.splice(0,1)
+    setPanelList(deleteP);
   };
 
+  useEffect(() => {
+
+  }, []);
+  
   return (
     <MainLayout footer="noFooter">
-      <div className={` ${styles.flexStart} h-[calc(100vh-56px)] overflow-auto`}>
-        <div className="w-full flex flex-row ">
-          <div className={`flex-initial w-60 bg-gray-300 p-4 ${styles.flexStart}`}>
-              <button onClick={onAddBtnClick} className="bg-lightGreen">
-                Add panel
-              </button>
+      <div className="bg-gray-200 relative h-[calc(100vh-56px)] overflow-hidden flex">
+        <div
+          className={`sidebar bg-gray-600 text-blue-100 w-16 space-y-6 py-7 px-2 inset-y-0 left-0 relative ${styles.flexStart} `}
+        >
+          <div>
+            <button
+              onClick={onAddBtnClick}
+              className="bg-lightGreen block mb-4 py-2 px-4 rounded"
+            >
+              X
+            </button>
           </div>
+        </div>
+        <div
+          className={`flex justify-center flex-1 md:p-10 p:0 h-[calc(100vh-56px)] overflow-y-auto z-0`}
+        >
+          <div className="shadow-md bg-white md:w-[210mm] w-full h-[297mm] p-4">
+            
+           
+            {panelList.map((Comp, index)=>(
+              <div className="absolute z-10" key={index}>
+                 {Comp}
+              </div>
+            ))}
 
-          <div className="flex-1 bg-gray-200 p-6 overflow-auto">
-            <div className="rounded-lg bg-white w-[826px] h-[1169px] p-4">
-              {panelList.map((component, index) => (
-                <div key={index}>{component}</div>
-              ))}
-            </div>
           </div>
         </div>
       </div>
