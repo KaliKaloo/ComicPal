@@ -32,11 +32,14 @@ function CreateComicPage() {
           </div>
         </div>
         <div
-          className={`flex justify-center flex-1 md:p-10 p:0 h-[calc(100vh-56px)] overflow-y-auto z-0`}
+          className={`flex justify-center flex-1 md:p-12 p:0 h-[calc(100vh-56px)] overflow-y-auto`}
         >
-          <div className="shadow-md bg-white md:w-[210mm] w-full h-[297mm] p-4">
+          <div className="relative shadow-md bg-white md:w-[210mm] w-full h-[297mm]">
+
+            <button className="absolute top-0 right-0 mt-[-1.5em] bg-white rounded-md w-20 h-5">size v</button>
+
             {panelList.map((panel) => (
-              <div className="absolute z-10" key={panel.id}>
+              <div className="absolute" key={panel.id}>
                 <GeneratePanel
                   key={panel.id}
                   deleteFunc={() => deletePanel(panel.id)}
