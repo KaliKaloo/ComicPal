@@ -22,7 +22,7 @@ function GeneratePanel({ deleteFunc}) {
   
   return (
     <div
-      className={` ${panelClick ? "border-2 border-lightGreen":"border"} border-black overflow-hidden bg-gray-100 w-72 h-52 resize`}
+      className={` ${panelClick ? "border-lightGreen":"border-black "} border-2 overflow-hidden bg-gray-100 w-72 h-52 resize`}
       onClick={() => setPanelClick(true)}
     >
       {panelClick ? (

@@ -2,16 +2,26 @@ import { useState } from "react";
 import MainLayout from "../../layout/MainLayout";
 import GeneratePanel from "./GeneratePanel";
 import styles from "../../assets/style";
-import { DndContext, closestCenter, useSensors, useSensor, PointerSensor } from "@dnd-kit/core";
+import {
+  DndContext,
+  closestCenter,
+  useSensors,
+  useSensor,
+  PointerSensor,
+} from "@dnd-kit/core";
 import { Draggable } from "../../components/ui/Draggable";
 import { Droppable } from "../../components/ui/Droppable";
+import {
+  SquaresPlusIcon,
+  ChatBubbleBottomCenterIcon,
+} from "@heroicons/react/24/outline";
 
 function CreateComicPage() {
   const [panelList, setPanels] = useState([]);
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(1);
 
   const addPanel = () => {
-    setPanels([...panelList, { id: count, position:{x:0,y:0}}]);
+    setPanels([...panelList, { id: count, position: { x: 0, y: 0 } }]);
     setCount(count + 1);
   };
 
@@ -22,18 +32,23 @@ function CreateComicPage() {
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
-        distance: 8,
+        delay: 150,
+        tolerance:8
       },
     })
-  )
+  );
 
   function handleDragEnd(ev) {
-    console.log("stop");
-    const panel = panelList.find((x) => x.id === ev.active.id);
+    let panel = panelList.find((x) => x.id === ev.active.id);
     panel.position.x += ev.delta.x;
     panel.position.y += ev.delta.y;
+    console.log("clicked on " + ev.delta.x);
+
     const _panelList = panelList.map((x) => {
-      if (x.id === panel.id) return panel;
+      if (x.id === panel.id) {
+        console.log(panel.position);
+        return panel;
+      }
       return x;
     });
     setPanels(_panelList);
@@ -43,17 +58,22 @@ function CreateComicPage() {
     <MainLayout footer="noFooter">
       <DndContext onDragEnd={handleDragEnd} sensors={sensors}>
         <Droppable>
-          <div className="bg-gray-200 relative h-[calc(100vh-56px)] overflow-hidden flex">
+          <div className="bg-[#f0efeb] relative h-[calc(100vh-56px)] overflow-hidden flex items-center">
             <div
-              className={`sidebar bg-gray-600 text-blue-100 w-16 space-y-6 py-7 px-2 inset-y-0 left-0 relative ${styles.flexStart} z-40`}
+              className={`z-20 flex shrink-0 grow-0 justify-around gap-4 border-t border-gray-200 bg-white/50 p-2.5 shadow-lg backdrop-blur-lg  fixed top-2/4 -translate-y-2/4 left-3 min-h-[auto] lg:min-w-[64px] min-w-[40px] flex-col rounded-lg border`}
             >
               <div>
-                <button
+                <SquaresPlusIcon
                   onClick={addPanel}
-                  className="bg-lightGreen block mb-4 py-2 px-4 rounded"
+                  className="flex aspect-square min-h-[32px] lg:w-16 w-10 flex-col items-center justify-center gap-1 rounded-md p-1.5 md:p-3 text-gray-700 hover:bg-gray-100 "
+                />
+
+                <ChatBubbleBottomCenterIcon
+                  onClick={addPanel}
+                  className="flex aspect-square min-h-[32px] lg:w-16 w-10 flex-col items-center justify-center gap-1 rounded-md p-1.5 md:p-3 text-gray-700 hover:bg-gray-100 "
                 >
-                  X
-                </button>
+                  Speech
+                </ChatBubbleBottomCenterIcon>
               </div>
             </div>
             <div
@@ -74,9 +94,10 @@ function CreateComicPage() {
                     }}
                     id={panel.id}
                     key={panel.id}
+                    panel={panel}
                   >
-                    <div className={`absolute top:${panel.position.y}px left:${panel.position.x}px`}>
-                      <GeneratePanel  deleteFunc={() => deletePanel(panel.id)} />
+                    <div className={`absolute `}>
+                      <GeneratePanel deleteFunc={() => deletePanel(panel.id)} />
                     </div>
                   </Draggable>
                 ))}

@@ -43,8 +43,7 @@ function EditModal({ onClose, imgUrl, text }) {
       id="container"
       className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center z-40"
     >
-      
-      <div className="flex flex-col justify-between space-y-2 bg-white p-2 rounded w-[60%] h-[70%]">
+      <div className="flex flex-col justify-between space-y-2 bg-white p-2 rounded">
           <div className="overflow-hidden w-full h-full">
             {imageURL.length > 0 ? (
               <img
@@ -53,7 +52,7 @@ function EditModal({ onClose, imgUrl, text }) {
                 className="object-cover w-full h-full"
               ></img>
             ) : (
-              <div className="h-[100%] flex justify-center items-center text-gray-300">
+              <div className="h-80 w-96 flex justify-center items-center text-gray-300">
                  <PhotoIcon
                     className="h-20 w-20 hover:cursor-pointer p-1"
                     aria-hidden="true"

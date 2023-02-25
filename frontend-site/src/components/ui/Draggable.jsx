@@ -8,10 +8,10 @@ export function Draggable(props) {
   const style = transform ? {
     transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
   } : {};
-
   
   return (
-    <button ref={setNodeRef} style={{...style, ...props.styles}} {...listeners} {...attributes}>
+    
+    <button className="" ref={setNodeRef} style={{...style, ...props.styles}} {...listeners} {...attributes}>
       {props.children}
     </button>
   );
