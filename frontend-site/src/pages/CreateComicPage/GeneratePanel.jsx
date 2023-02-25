@@ -23,7 +23,7 @@ function GeneratePanel({ deleteFunc, shape }) {
   return (
     <div
       className={` ${
-        panelClick ? "border-lightGreen" : "border-black "
+        panelClick ? "border-lightGreen border-4" : "border-black "
       } border-2 overflow-hidden bg-gray-100 resize ${
         shape === "square" ? "w-72 h-52" : " rounded-full w-72 h-72 "
       } `}
@@ -32,15 +32,15 @@ function GeneratePanel({ deleteFunc, shape }) {
       {panelClick ? (
         <div
           ref={ref}
-          className="absolute inset-y-0 right-0 mr-[-3.5rem] z-10 flex shrink-0 grow-0 justify-around gap-4 border-t border-gray-200 bg-white/50 p-2.5 shadow-lg backdrop-blur-lg dark:border-slate-600/60 dark:bg-slate-800/50  top-2/4 -translate-y-2/4 h-24 w-10 min-h-[auto] min-w-[44px] flex-col rounded-lg border"
+          className="absolute inset-y-0 right-0 mr-[-3.5rem] z-10 flex shrink-0 grow-0 justify-around gap-4 border-t border-gray-200 bg-white/50 p-2.5 shadow-lg backdrop-blur-lg top-2/4 -translate-y-2/4 h-24 w-10 min-h-[auto] min-w-[44px] flex-col rounded-lg border"
         >
           <PencilIcon
-            className="h-6 w-6 hover:cursor-pointer p-1"
+            className="h-6 w-6 hover:cursor-pointer "
             onClick={() => setEditMode(true)}
           />
 
           <TrashIcon
-            className="h-6 w-6hover:cursor-pointer p-1"
+            className="h-6 w-6hover:cursor-pointer "
             onClick={() => deleteFunc()}
           />
         </div>

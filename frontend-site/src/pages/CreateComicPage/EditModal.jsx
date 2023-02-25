@@ -44,6 +44,10 @@ function EditModal({ onClose, imgUrl, text }) {
       className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center z-40"
     >
       <div className="flex flex-col justify-between space-y-2 bg-white p-2 rounded">
+          <XMarkIcon
+              className="text-right h-8 w-8 hover:cursor-pointer text-black"
+              onClick={() => handleOnClose(false)}
+            />
           <div className="overflow-hidden w-full h-full">
             {imageURL.length > 0 ? (
               <img
@@ -54,7 +58,7 @@ function EditModal({ onClose, imgUrl, text }) {
             ) : (
               <div className="h-80 w-96 flex justify-center items-center text-gray-300">
                  <PhotoIcon
-                    className="h-20 w-20 hover:cursor-pointer p-1"
+                    className="h-20 w-20 hover:cursor-pointer"
                     aria-hidden="true"
                   />
               </div>
@@ -62,23 +66,19 @@ function EditModal({ onClose, imgUrl, text }) {
           </div>
           <div className="bg-gray-200 bg-opacity-90 rounded-lg w-full mx-auto flex flex-row items-center">
             <textarea id="textarea"
-              className="h-8 pt-1.5 text-center break-words bg-transparent font-poppins text-sm rounded-md mx-auto w-[85%] focus:outline-none resize-y-auto "
+              className="h-8 pt-1.5 text-center break-words bg-transparent font-poppins text-sm rounded-md mx-auto w-[85%] focus:outline-none resize-none "
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
               placeholder="Type a prompt..."
             />
             <ArrowRightCircleIcon
-              className="h-6 w-6 mr-2 hover:cursor-pointer text-lightGreen"
+              className="h-7 w-7 hover:cursor-pointer text-lightGreen rounded-full hover:bg-lightGreen hover:bg-opacity-20"
               onClick={generateImage}
               aria-hidden="true"
             />
             <CheckIcon
-              className="h-6 w-6 hover:cursor-pointer p-1"
+              className="h-6 w-6 hover:cursor-pointer mx-2 hover:bg-gray-300 rounded-full "
               onClick={() => handleOnClose(true)}
-            />
-            <XMarkIcon
-              className="h-6 w-6 hover:cursor-pointer p-1"
-              onClick={() => handleOnClose(false)}
             />
           </div>
       </div>
