@@ -19,9 +19,10 @@ import {
 function CreateComicPage() {
   const [panelList, setPanels] = useState([]);
   const [count, setCount] = useState(1);
+  const [newPage, setNewPage] = useState(false);
 
   const addPanel = () => {
-    setPanels([...panelList, { id: count, position: { x: 0, y: 0 } }]);
+    setPanels([...panelList, { id: count, position: { x: 100, y: 100 } }]);
     setCount(count + 1);
   };
 
@@ -33,7 +34,7 @@ function CreateComicPage() {
     useSensor(PointerSensor, {
       activationConstraint: {
         delay: 150,
-        tolerance:8
+        tolerance: 8,
       },
     })
   );
@@ -58,7 +59,7 @@ function CreateComicPage() {
     <MainLayout footer="noFooter">
       <DndContext onDragEnd={handleDragEnd} sensors={sensors}>
         <Droppable>
-          <div className="bg-[#f0efeb] relative h-[calc(100vh-56px)] overflow-hidden flex items-center">
+          <div className="bg-[#f0efeb] relative h-[calc(100vh-56px)] flex items-center">
             <div
               className={`z-20 flex shrink-0 grow-0 justify-around gap-4 border-t border-gray-200 bg-white/50 p-2.5 shadow-lg backdrop-blur-lg  fixed top-2/4 -translate-y-2/4 left-3 min-h-[auto] lg:min-w-[64px] min-w-[40px] flex-col rounded-lg border`}
             >
@@ -76,31 +77,62 @@ function CreateComicPage() {
                 </ChatBubbleBottomCenterIcon>
               </div>
             </div>
+
             <div
-              className={`flex justify-center flex-1 md:p-12 p:0 h-[calc(100vh-56px)] overflow-y-auto`}
+              className={`flex ${
+                newPage ? "justify-start ml-20 " : "justify-center"
+              } flex-1 p-12 h-[calc(100vh-56px)] overflow-x-auto`}
             >
-              {/* THE COMIC PAGE */}
-              <div className="relative shadow-md bg-white md:w-[210mm] w-full h-[297mm]">
-                <button className="absolute top-0 right-0 mt-[-1.5em] bg-white rounded-md w-20 h-5">
+              {/* THE COMIC PAGEs */}
+              <div
+                id="page1"
+                className="flex-shrink-0 relative shadow-md bg-white md:w-[210mm] w-[calc(210mm*0.9)] h-[calc(297mm*0.9)] md:h-[297mm] "
+              >
+                <button className="absolute top-0 left-0 mt-[-1.5em] bg-white rounded-md w-20 h-5">
                   size v
                 </button>
-
-                {panelList.map((panel) => (
-                  <Draggable
-                    styles={{
-                      position: "absolute",
-                      left: `${panel.position.x}px`,
-                      top: `${panel.position.y}px`,
-                    }}
-                    id={panel.id}
-                    key={panel.id}
-                    panel={panel}
+                {!newPage ? (
+                  <button
+                    onClick={() => setNewPage(true)}
+                    className="absolute top-0 right-0 mt-[-1.5em] bg-white rounded-md w-20 h-5"
                   >
-                    <div className={`absolute `}>
-                      <GeneratePanel deleteFunc={() => deletePanel(panel.id)} />
-                    </div>
-                  </Draggable>
-                ))}
+                    new page
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => setNewPage(false)}
+                    className="absolute top-0 right-[-3.5rem] mt-[-1.5em] bg-white rounded-md w-10 h-5"
+                  >
+                    x
+                  </button>
+                )}
+
+                {newPage ? (
+                  <div className=" absolute md:ml-[215mm] ml-[195mm] shadow-md bg-white md:w-[210mm] w-[calc(210mm*0.9)] h-[calc(297mm*0.9)] md:h-[297mm]"></div>
+                ) : (
+                  <></>
+                )}
+
+                <div className="  ">
+                  {panelList.map((panel) => (
+                    <Draggable
+                      styles={{
+                        position: "absolute",
+                        left: `${panel.position.x}px`,
+                        top: `${panel.position.y}px`,
+                      }}
+                      id={panel.id}
+                      key={panel.id}
+                      panel={panel}
+                    >
+                      <div className={``}>
+                        <GeneratePanel
+                          deleteFunc={() => deletePanel(panel.id)}
+                        />
+                      </div>
+                    </Draggable>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
