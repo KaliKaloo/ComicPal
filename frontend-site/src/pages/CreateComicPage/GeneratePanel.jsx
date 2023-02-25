@@ -3,7 +3,7 @@ import { TrashIcon, PencilIcon } from "@heroicons/react/24/outline";
 import EditModal from "./EditModal";
 import useOnClickOutside from "../../hooks/useOnCliclOutside";
 
-function GeneratePanel({ deleteFunc }) {
+function GeneratePanel({ deleteFunc}) {
   const [panelClick, setPanelClick] = useState(true);
   const [editMode, setEditMode] = useState(false);
   const [prompt, setPrompt] = useState("");
