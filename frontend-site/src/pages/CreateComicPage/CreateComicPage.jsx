@@ -12,8 +12,9 @@ import {
 import { Draggable } from "../../components/ui/Draggable";
 import { Droppable } from "../../components/ui/Droppable";
 import {
-  SquaresPlusIcon,
+  RectangleGroupIcon,
   ChatBubbleBottomCenterIcon,
+  PlusCircleIcon
 } from "@heroicons/react/24/outline";
 
 function CreateComicPage() {
@@ -21,8 +22,8 @@ function CreateComicPage() {
   const [count, setCount] = useState(1);
   const [newPage, setNewPage] = useState(false);
 
-  const addPanel = () => {
-    setPanels([...panelList, { id: count, position: { x: 100, y: 100 } }]);
+  const addPanel = (shape) => {
+    setPanels([...panelList, { id: count, position: { x: 100, y: 100 }, shape:shape }]);
     setCount(count + 1);
   };
 
@@ -64,17 +65,14 @@ function CreateComicPage() {
               className={`z-20 flex shrink-0 grow-0 justify-around gap-4 border-t border-gray-200 bg-white/50 p-2.5 shadow-lg backdrop-blur-lg  fixed top-2/4 -translate-y-2/4 left-3 min-h-[auto] lg:min-w-[64px] min-w-[40px] flex-col rounded-lg border`}
             >
               <div>
-                <SquaresPlusIcon
-                  onClick={addPanel}
+                <RectangleGroupIcon
+                  onClick={()=>addPanel("square")}
                   className="flex aspect-square min-h-[32px] lg:w-16 w-10 flex-col items-center justify-center gap-1 rounded-md p-1.5 md:p-3 text-gray-700 hover:bg-gray-100 "
                 />
-
-                <ChatBubbleBottomCenterIcon
-                  onClick={addPanel}
+                <PlusCircleIcon
+                  onClick={()=>addPanel("circle")}
                   className="flex aspect-square min-h-[32px] lg:w-16 w-10 flex-col items-center justify-center gap-1 rounded-md p-1.5 md:p-3 text-gray-700 hover:bg-gray-100 "
-                >
-                  Speech
-                </ChatBubbleBottomCenterIcon>
+                />
               </div>
             </div>
 
@@ -127,7 +125,8 @@ function CreateComicPage() {
                     >
                       <div className={``}>
                         <GeneratePanel
-                          deleteFunc={() => deletePanel(panel.id)}
+                          deleteFunc={() => deletePanel(panel.id)} 
+                          shape={panel.shape}
                         />
                       </div>
                     </Draggable>

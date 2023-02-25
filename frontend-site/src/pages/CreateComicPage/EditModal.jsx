@@ -3,7 +3,7 @@ import {
   ArrowRightCircleIcon,
   CheckIcon,
   XMarkIcon,
-  PhotoIcon
+  PhotoIcon,
 } from "@heroicons/react/24/outline";
 import autosize from "autosize/dist/autosize.js"
 
