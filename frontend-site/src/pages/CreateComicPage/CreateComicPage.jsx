@@ -8,6 +8,8 @@ import {
   useSensors,
   useSensor,
   PointerSensor,
+  MouseSensor,
+  TouchSensor,
 } from "@dnd-kit/core";
 import { Draggable } from "../../components/ui/Draggable";
 import { Droppable } from "../../components/ui/Droppable";
@@ -48,7 +50,13 @@ function CreateComicPage() {
   };
 
   const sensors = useSensors(
-    useSensor(PointerSensor, {
+    useSensor(MouseSensor, {
+      activationConstraint: {
+        delay: 150,
+        tolerance: 8,
+      },
+    }),
+    useSensor(TouchSensor, {
       activationConstraint: {
         delay: 150,
         tolerance: 8,
