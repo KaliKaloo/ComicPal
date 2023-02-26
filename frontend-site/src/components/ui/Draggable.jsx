@@ -10,11 +10,10 @@ export function Draggable(props) {
         transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
       }
     : {};
-
   return (
     <div
       ref={setNodeRef}
-      style={{ ...style, ...props.styles }}
+      style={{ ...style, ...props.styles}}
       {...listeners}
       {...attributes}
     >
