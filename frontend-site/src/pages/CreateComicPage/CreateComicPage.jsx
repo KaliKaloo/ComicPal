@@ -21,22 +21,10 @@ import {
 import Tooltip from "../../components/ui/Tooltip";
 
 function CreateComicPage() {
-  const sizes = [
-    {
-      name: "210x297",
-      w: 210,
-      h: 297,
-    },
-    {
-      name: "174x264",
-      w: 174,
-      h: 264,
-    },
-  ];
   const [panelList, setPanels] = useState([]);
   const [count, setCount] = useState(1);
   const [newPage, setNewPage] = useState(false);
-  const [pageSize, setPageSize] = useState(sizes[0]);
+  const [pageSize, setPageSize] = useState("a4");
 
   const addPanel = (shape) => {
     setPanels([
@@ -71,8 +59,11 @@ function CreateComicPage() {
   }
 
   const handlePageSize = (size) => {
-    const selectedSize = sizes.find((x) => x.name === size);
-    setPageSize(selectedSize)
+    // console.log(size)
+    // const selectedSize = sizes.find((x) => x.name === size);
+    setPageSize(size);
+    // console.log(selectedSize)
+
   };
 
   return (
@@ -103,18 +94,19 @@ function CreateComicPage() {
               newPage ? "justify-start ml-20 " : "justify-center"
             } flex-1 p-12 h-full overflow-auto `}
           >
-            <Droppable styles={`h-[${pageSize.h}mm]`}>
-              {/* THE COMIC PAGEs */}
+            <Droppable styles={`h-a4`}>
+              {/* THE COMIC PAGES */}
               <div
                 id="page1"
-                className={` relative shadow-md bg-white md:w-[${pageSize.w}mm] w-[calc(${pageSize.w}mm*0.9)] md:h-[${pageSize.h}mm] h-[calc(${pageSize.h}mm*0.9)]`}
+                className={` relative shadow-md bg-white ${pageSize==='a4' ? 'w-a4 h-a4' : 'w-smallerPage h-smallerPage'}`}
               >
                 <select
                   onChange={(e) => handlePageSize(e.target.value)}
                   className="w-40 font-poppins text-sm absolute top-0 left-0 mt-[-1.6rem] h-5 text-gray-500 text-center shadow-sm outline-none "
                 >
-                  <option value="210x297">210mm x 297mm</option>
-                  <option value="174x264">174mm x 264mm</option>
+                  <option value="a4">210 x 297</option>
+                  <option value="smallerPage">174 x 264</option>
+
                 </select>
 
                 {!newPage ? (
@@ -130,7 +122,9 @@ function CreateComicPage() {
                 )}
 
                 {newPage ? (
-                  <div className={` absolute md:ml-[calc(${pageSize.w}mm+5mm)] ml-[calc(${pageSize.w}mm-15mm)] shadow-md bg-white md:w-[${pageSize.w}mm] w-[calc(${pageSize.w}*0.9)] md:h-[${pageSize.h}mm] h-[calc(${pageSize.h}mm*0.9)]`}></div>
+                  <div
+                    className={`absolute md:ml-[calc(w-a4+5mm)] ml-[calc(w-a4-15mm)] shadow-md bg-white ${pageSize==='a4' ? 'w-a4 h-a4 md:ml-a42 ml-a43' : 'w-smallerPage h-smallerPage md:ml-smallerPage2 ml-smallerPage3 '}`}
+                  />
                 ) : (
                   <></>
                 )}
