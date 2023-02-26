@@ -37,8 +37,8 @@ function HeroSection() {
         </p>
         <div className="flex flex-row justify-between items-center w-[470px]">
           <MainButton styles="mt-6 mb-10 bg-darkGreen text-white" text="About" onClick={() => navigate('/about')}/>
-          <MainButton styles="mt-6 mb-10 bg-secondary text-white" text="Get Started" onClick={() => navigate('/playground')}/>
-          <MainButton styles="mt-6 mb-10 bg-lightGreen text-white" text="How To Use" onClick={() => navigate('#')}/></div>
+          <MainButton styles="mt-6 mb-10 bg-secondary text-white hover:bg-[#E36021]" text="Get Started" onClick={() => navigate('/playground')}/>
+          <MainButton styles="mt-6 mb-10 bg-lightGreen text-white hover:bg-[#007864]" text="How To Use" onClick={() => navigate('#')}/></div>
 
       </div>
 

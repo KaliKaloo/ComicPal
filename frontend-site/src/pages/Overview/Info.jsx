@@ -31,7 +31,7 @@ function Info() {
             </p>
             
             <div className="w-[300px]">
-              <SecondaryButton styles="mt-6 mb-10 text-lightGreen outline outline-2 outline-offset-2 outline-lightGreen" text="Learn More" onClick={() => navigate('/about')}/>
+              <SecondaryButton styles="mt-6 mb-10 text-lightGreen outline outline-2 outline-offset-2 outline-lightGreen hover:text-secondary hover:scale-105" text="Learn More" onClick={() => navigate('/about')}/>
             </div>
           </div>
         

@@ -22,7 +22,7 @@ export default function Navbar() {
                 <div className="relative flex h-14 items-center justify-between">
                   <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                     {/* Mobile menu button*/}
-                    <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-lightGreen hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                    <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-dimWhite hover:bg-lightGreen hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                       <span className="sr-only">Open main menu</span>
                       {open ? (
                         <XMarkIcon
@@ -60,7 +60,7 @@ export default function Navbar() {
                             className={classNames(
                               location.pathname == item.link
                                 ? "bg-lightGreen text-white "
-                                : "text-gray-300 hover:bg-lightGreen hover:text-white",
+                                : "text-dimWhite hover:bg-lightGreen hover:text-dimWhite duration-200",
                               "px-3 py-2 rounded-md text-sm font-medium "
                             )}
                           >
@@ -75,7 +75,7 @@ export default function Navbar() {
                   {/* Profile dropdown */}
                   <Menu as="div" className="relative ml-3">
                     <div>
-                      <Menu.Button className="rounded-full bg-lightGreen bg-opacity-20 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-lightGreen focus:ring-offset-2 focus:ring-offset-mediumGreen">
+                      <Menu.Button className="rounded-full bg-lightGreen bg-opacity-20 p-1 text-dimWhite hover:text-white focus:outline-none focus:ring-2 focus:ring-lightGreen focus:ring-offset-2 focus:ring-offset-mediumGreen">
                         <span className="sr-only">Open help menu</span>
                         <BellIcon className="h-6 w-6" aria-hidden="true" />
                       </Menu.Button>
@@ -136,8 +136,8 @@ export default function Navbar() {
                       to={item.link}
                       className={classNames(
                         location.pathname == item.link
-                          ? "bg-gray-900 text-white"
-                          : "text-gray-300 hover:bg-lightGreen hover:text-white",
+                          ? "bg-lightGreen text-white"
+                          : "text-gray-300 hover:bg-lightGreen hover:text-dimWhite duration-200",
                         "block px-3 py-2 rounded-md text-base font-medium"
                       )}
                       aria-current={item.current ? "page" : undefined}
