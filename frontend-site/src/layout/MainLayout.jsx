@@ -8,7 +8,7 @@ function MainLayout({footer, children}) {
     <div className="bg-primaryGreen w-full overflow-hidden ">
         <Navbar />
         <div>{children}</div>
-        {footer=="noFooter" ? <></> : <Footer/>}
+        {footer=="noFooter" ? <></> : <Footer bgColor={"paleYellow"}/>}
         
     </div>
   )

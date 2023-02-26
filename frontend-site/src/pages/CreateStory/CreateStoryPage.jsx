@@ -34,7 +34,7 @@ function CreateStoryPage() {
   }
 
   return (
-    <MainLayout>
+    <MainLayout footer="noFooter">
       <div className="createStoryPageLayout">
         <aside className="sideMenu">
           <div className="side-menu-button" onClick={clearStory}>

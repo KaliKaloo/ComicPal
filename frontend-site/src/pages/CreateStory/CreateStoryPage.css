@@ -11,7 +11,8 @@
 .sideMenu{
     width: 250px;
     padding: 10px;
-    background-color:#020304;
+    background-color:#004A49;
+
 }
 
 .side-menu-button{
@@ -32,8 +33,10 @@
 }
 .storyBox{
     flex:1;
-    background-color: #004A49;
+    background-color: #ebeae4;
     position: relative;
+    color: black;
+
 }
 
 .story-log{
@@ -43,7 +46,7 @@
 }
 
 .story-message.openai{
-    background-color: #142d2d;
+    background-color: #eae7d9;
 }
 
 .story-message-center{
@@ -86,7 +89,7 @@
 }
 
 .story-input-textarea{
-    background-color: #f3f0e2;
+    background-color: #f2f1eb;
     width: 90%;
     padding: 12px;
     color: black;

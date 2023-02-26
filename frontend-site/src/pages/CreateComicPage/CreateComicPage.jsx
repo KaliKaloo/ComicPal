@@ -19,52 +19,67 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import Tooltip from "../../components/ui/Tooltip";
+import GenerateSpeechBubble from "./GenerateSpeechBubble";
 
 function CreateComicPage() {
-  const [panelList, setPanels] = useState([]);
+  const [panelList, setPanelsList] = useState([]);
   const [count, setCount] = useState(1);
+  const [speechList, setSpeechList] = useState([]);
   const [newPage, setNewPage] = useState(false);
   const [pageSize, setPageSize] = useState("a4");
+  let currentObject = ""
 
-  const addPanel = (shape) => {
-    setPanels([
+  const addPanel = (type, shape) => {
+    setPanelsList([
       ...panelList,
-      { id: count, position: { x: 100, y: 100 }, shape: shape },
+      {
+        id: count,
+        type: type,
+        position: { x: 100, y: 100 },
+        shape: shape,
+      },
     ]);
     setCount(count + 1);
   };
 
+  // const addSpeechBubble = () => {
+  //   setSpeechList([
+  //     ...speechList,
+  //     { id: count, list: "speechList", position: { x: 100, y: 100 } },
+  //   ]);
+  //   setCount(count + 1);
+  // };
+
   const deletePanel = (id) => {
-    setPanels(panelList.filter((panel) => panel.id !== id));
+    setPanelsList(panelList.filter((panel) => panel.id !== id));
   };
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
-        delay: 100,
+        delay: 150,
         tolerance: 8,
       },
     })
   );
 
   function handleDragEnd(ev) {
-    const panel = panelList.find((x) => x.id === ev.active.id);
-    panel.position.x += ev.delta.x;
-    panel.position.y += ev.delta.y;
-    const _panelList = panelList.map((x) => {
-      if (x.id === panel.id) return panel;
+    // console.log(currentObject)
+    // const objectList = currentObject === "panel" ? [...panelList] : [...speechList];
+    // console.log(objectList)
+    const object = panelList.find((x) => x.id === ev.active.id);
+    object.position.x += ev.delta.x;
+    object.position.y += ev.delta.y;
+    const _newList = panelList.map((x) => {
+      if (x.id === object.id) return object;
       return x;
     });
-    setPanels(_panelList);
+    // if (currentObject === "panel") {
+      setPanelsList(_newList);
+    // } else {
+      // setSpeechList(_newList);
+    // }
   }
-
-  const handlePageSize = (size) => {
-    // console.log(size)
-    // const selectedSize = sizes.find((x) => x.name === size);
-    setPageSize(size);
-    // console.log(selectedSize)
-
-  };
 
   return (
     <MainLayout footer="noFooter">
@@ -76,13 +91,19 @@ function CreateComicPage() {
             <div>
               <Tooltip text="Square Panel">
                 <RectangleGroupIcon
-                  onClick={() => addPanel("square")}
+                  onClick={() => addPanel("panel", "square")}
                   className="flex aspect-square min-h-[32px] lg:w-16 w-10 flex-col items-center justify-center gap-1 rounded-md p-1.5  text-gray-700 hover:bg-gray-100 "
                 />
               </Tooltip>
               <Tooltip text="Round Panel">
                 <PlusCircleIcon
-                  onClick={() => addPanel("circle")}
+                  onClick={() => addPanel("panel", "circle")}
+                  className="flex aspect-square min-h-[32px] lg:w-16 w-10 flex-col items-center justify-center gap-1 rounded-md p-1.5  text-gray-700 hover:bg-gray-100 "
+                />
+              </Tooltip>
+              <Tooltip text="Speech Bubble">
+                <ChatBubbleBottomCenterIcon
+                  onClick={() => addPanel("speech","")}
                   className="flex aspect-square min-h-[32px] lg:w-16 w-10 flex-col items-center justify-center gap-1 rounded-md p-1.5  text-gray-700 hover:bg-gray-100 "
                 />
               </Tooltip>
@@ -98,15 +119,18 @@ function CreateComicPage() {
               {/* THE COMIC PAGES */}
               <div
                 id="page1"
-                className={` relative shadow-md bg-white ${pageSize==='a4' ? 'w-a4 h-a4' : 'w-smallerPage h-smallerPage'}`}
+                className={` relative shadow-md bg-white ${
+                  pageSize === "a4"
+                    ? "w-a4 h-a4"
+                    : "w-smallerPage h-smallerPage"
+                }`}
               >
                 <select
-                  onChange={(e) => handlePageSize(e.target.value)}
+                  onChange={(e) => setPageSize(e.target.value)}
                   className="w-40 font-poppins text-sm absolute top-0 left-0 mt-[-1.6rem] h-5 text-gray-500 text-center shadow-sm outline-none "
                 >
                   <option value="a4">210 x 297</option>
                   <option value="smallerPage">174 x 264</option>
-
                 </select>
 
                 {!newPage ? (
@@ -123,12 +147,17 @@ function CreateComicPage() {
 
                 {newPage ? (
                   <div
-                    className={`absolute md:ml-[calc(w-a4+5mm)] ml-[calc(w-a4-15mm)] shadow-md bg-white ${pageSize==='a4' ? 'w-a4 h-a4 md:ml-a42 ml-a43' : 'w-smallerPage h-smallerPage md:ml-smallerPage2 ml-smallerPage3 '}`}
+                    className={`absolute md:ml-[calc(w-a4+5mm)] ml-[calc(w-a4-15mm)] shadow-md bg-white ${
+                      pageSize === "a4"
+                        ? "w-a4 h-a4 md:ml-a42 ml-a43"
+                        : "w-smallerPage h-smallerPage md:ml-smallerPage2 ml-smallerPage3 "
+                    }`}
                   />
                 ) : (
                   <></>
                 )}
 
+                {/* DISPLAY THE PANELS */}
                 {panelList.map((panel) => (
                   <Draggable
                     styles={{
@@ -140,12 +169,30 @@ function CreateComicPage() {
                     key={panel.id}
                     panel={panel}
                   >
-                    <div className={``}>
+                    { panel.type === "panel" &&
                       <GeneratePanel
                         deleteFunc={() => deletePanel(panel.id)}
                         shape={panel.shape}
                       />
-                    </div>
+                    }
+                  </Draggable>
+                ))}
+
+                {/* DISPLAY THE SPEECH BUBBLES */}
+                {panelList.map((panel) => (
+                  <Draggable
+                    styles={{
+                      position: "absolute",
+                      left: `${panel.position.x}px`,
+                      top: `${panel.position.y}px`,
+                    }}
+                    id={panel.id}
+                    key={panel.id}
+                    panel={panel}
+                  >
+                    { panel.type === "speech" &&
+                       <GenerateSpeechBubble />
+                    }
                   </Draggable>
                 ))}
               </div>

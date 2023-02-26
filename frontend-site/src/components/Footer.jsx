@@ -3,9 +3,9 @@ import styles from "../assets/style";
 import { logo } from "../assetsTemp";
 import { footerLinks, socialMedia } from "../constants";
 
-function Footer() {
+function Footer({bgColor}) {
   return (
-    <div className={`bg-primaryGreen ${styles.paddingX} ${styles.flexCenter}`}>
+    <div className={` bg-primaryGreen ${styles.paddingX} ${styles.flexCenter}`}>
       <div className={`${styles.boxWidth2}`}>
       <section className={`${styles.flexCenter} ${styles.paddingY} flex-col`}>
         <div className={`${styles.flexStart} md:flex-row flex-col mb-8 w-full`}>
