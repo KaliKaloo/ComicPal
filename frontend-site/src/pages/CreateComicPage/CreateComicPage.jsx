@@ -18,11 +18,25 @@ import {
   PlusCircleIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
+import Tooltip from "../../components/ui/Tooltip";
 
 function CreateComicPage() {
+  const sizes = [
+    {
+      name: "210x297",
+      w: 210,
+      h: 297,
+    },
+    {
+      name: "174x264",
+      w: 174,
+      h: 264,
+    },
+  ];
   const [panelList, setPanels] = useState([]);
   const [count, setCount] = useState(1);
   const [newPage, setNewPage] = useState(false);
+  const [pageSize, setPageSize] = useState(sizes[0]);
 
   const addPanel = (shape) => {
     setPanels([
@@ -56,6 +70,11 @@ function CreateComicPage() {
     setPanels(_panelList);
   }
 
+  const handlePageSize = (size) => {
+    const selectedSize = sizes.find((x) => x.name === size);
+    setPageSize(selectedSize)
+  };
+
   return (
     <MainLayout footer="noFooter">
       <DndContext onDragEnd={handleDragEnd} sensors={sensors}>
@@ -64,31 +83,40 @@ function CreateComicPage() {
             className={`z-20 flex shrink-0 grow-0 justify-around gap-4 border-t border-gray-200 bg-white/50 p-2.5 shadow-lg backdrop-blur-lg  fixed top-2/4 -translate-y-2/4 left-3 min-h-[auto] lg:min-w-[64px] min-w-[40px] flex-col rounded-lg border`}
           >
             <div>
-              <RectangleGroupIcon
-                onClick={() => addPanel("square")}
-                className="flex aspect-square min-h-[32px] lg:w-16 w-10 flex-col items-center justify-center gap-1 rounded-md p-1.5  text-gray-700 hover:bg-gray-100 "
-              />
-              <PlusCircleIcon
-                onClick={() => addPanel("circle")}
-                className="flex aspect-square min-h-[32px] lg:w-16 w-10 flex-col items-center justify-center gap-1 rounded-md p-1.5  text-gray-700 hover:bg-gray-100 "
-              />
+              <Tooltip text="Square Panel">
+                <RectangleGroupIcon
+                  onClick={() => addPanel("square")}
+                  className="flex aspect-square min-h-[32px] lg:w-16 w-10 flex-col items-center justify-center gap-1 rounded-md p-1.5  text-gray-700 hover:bg-gray-100 "
+                />
+              </Tooltip>
+              <Tooltip text="Round Panel">
+                <PlusCircleIcon
+                  onClick={() => addPanel("circle")}
+                  className="flex aspect-square min-h-[32px] lg:w-16 w-10 flex-col items-center justify-center gap-1 rounded-md p-1.5  text-gray-700 hover:bg-gray-100 "
+                />
+              </Tooltip>
             </div>
           </div>
 
           <div
             className={`flex ${
               newPage ? "justify-start ml-20 " : "justify-center"
-            } flex-1 p-12 h-[calc(100vh-56px)] overflow-x-auto`}
+            } flex-1 p-12 h-full overflow-auto `}
           >
-            <Droppable>
+            <Droppable styles={`h-[${pageSize.h}mm]`}>
               {/* THE COMIC PAGEs */}
               <div
                 id="page1"
-                className="flex-shrink-0 relative shadow-md bg-white md:w-[210mm] w-[calc(210mm*0.9)] h-[calc(297mm*0.9)] md:h-[297mm] "
+                className={` relative shadow-md bg-white md:w-[${pageSize.w}mm] w-[calc(${pageSize.w}mm*0.9)] md:h-[${pageSize.h}mm] h-[calc(${pageSize.h}mm*0.9)]`}
               >
-                <button className="font-poppins text-sm absolute top-0 left-0 mt-[-1.6em] text-left hover:text-lightGreen w-20 h-5 text-gray-600">
-                  Page size v
-                </button>
+                <select
+                  onChange={(e) => handlePageSize(e.target.value)}
+                  className="w-40 font-poppins text-sm absolute top-0 left-0 mt-[-1.6rem] h-5 text-gray-500 text-center shadow-sm outline-none "
+                >
+                  <option value="210x297">210mm x 297mm</option>
+                  <option value="174x264">174mm x 264mm</option>
+                </select>
+
                 {!newPage ? (
                   <PlusIcon
                     onClick={() => setNewPage(true)}
@@ -102,7 +130,7 @@ function CreateComicPage() {
                 )}
 
                 {newPage ? (
-                  <div className=" absolute md:ml-[215mm] ml-[195mm] shadow-md bg-white md:w-[210mm] w-[calc(210mm*0.9)] h-[calc(297mm*0.9)] md:h-[297mm]"></div>
+                  <div className={` absolute md:ml-[calc(${pageSize.w}mm+5mm)] ml-[calc(${pageSize.w}mm-15mm)] shadow-md bg-white md:w-[${pageSize.w}mm] w-[calc(${pageSize.w}*0.9)] md:h-[${pageSize.h}mm] h-[calc(${pageSize.h}mm*0.9)]`}></div>
                 ) : (
                   <></>
                 )}

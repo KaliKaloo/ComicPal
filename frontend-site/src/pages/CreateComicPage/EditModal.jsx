@@ -42,6 +42,7 @@ function EditModal({ onClose, imgUrl, text }) {
     <div
       id="container"
       className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center z-40"
+      
     >
       <div className="flex flex-col justify-between space-y-2 bg-white p-2 rounded">
           <XMarkIcon
