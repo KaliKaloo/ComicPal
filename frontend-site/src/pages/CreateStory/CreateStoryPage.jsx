@@ -39,7 +39,7 @@ function CreateStoryPage() {
         <aside className="sideMenu">
           <div className="side-menu-button" onClick={clearStory}>
             <span>+</span>
-            New Chat
+            Clear Chat
           </div>
         </aside>
 
@@ -66,11 +66,11 @@ function CreateStoryPage() {
 
 const StoryMessage = ({message}) => {
   return(
-    <div className={'story-message ${message.user === "openapi" && "openapi"}'}>
+    <div className={`story-message ${message.user === "openai" && "openai"}`}>
       <div className="story-message-center">
-        <div className={`avatar ${message.user === "openapi" && "openapi"}`}>
+        <div className={`avatar ${message.user === "openai" && "openai"}`}>
           {/* display svg */}
-          {message.user === "openapi" && <img
+          {message.user === "openai" && <img
                     src={openaiLogo}
                     alt="openai avatar"
                     width={30}

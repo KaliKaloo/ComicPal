@@ -1,17 +1,17 @@
 .createStoryPageLayout{
-    max-width: 1280px;
+    /* max-width: 1280px; */
     display: flex;
-    background-color: #282c34;
+    background-color: #004A49;
     color: white;
-    min-height: 85vh;
+    min-height: 92vh;
     /* overflow: hidden; */
     margin: 0 auto;
 }
 
 .sideMenu{
-    width: 260px;
+    width: 250px;
     padding: 10px;
-    background-color:#202123;
+    background-color:#020304;
 }
 
 .side-menu-button{
@@ -32,7 +32,7 @@
 }
 .storyBox{
     flex:1;
-    background-color: #343541;
+    background-color: #004A49;
     position: relative;
 }
 
@@ -43,7 +43,7 @@
 }
 
 .story-message.openai{
-    background-color: #444654;
+    background-color: #142d2d;
 }
 
 .story-message-center{
@@ -86,10 +86,10 @@
 }
 
 .story-input-textarea{
-    background-color: #40414f;
+    background-color: #f3f0e2;
     width: 90%;
     padding: 12px;
-    color: white;
+    color: black;
     font-size: 1.2em;
     border-radius:5px;
     border: none;
