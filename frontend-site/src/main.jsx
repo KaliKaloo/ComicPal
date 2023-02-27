@@ -8,6 +8,7 @@ import CreateStoryPage from "./pages/CreateStory/CreateStoryPage";
 import CreateCharacterPage from "./pages/CreateCharacter/CreateCharacterPage";
 import CreateComicPage from "./pages/CreateComicPage/CreateComicPage";
 import About from "./pages/About/About";
+import FeedbackPage from "./pages/Feedback/FeedbackPage";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
   {
     path: "CreateCharacter",
     element: <CreateCharacterPage />,
+  },
+  {
+    path: "FeedbackForm",
+    element: <FeedbackPage />,
   },
 ]);
 
