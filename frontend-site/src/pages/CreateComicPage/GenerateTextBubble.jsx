@@ -4,12 +4,12 @@ import useOnClickOutside from "../../hooks/useOnClickOutside";
 import {StopIcon, ChatBubbleOvalLeftIcon, ChatBubbleLeftIcon, TrashIcon} from "@heroicons/react/24/outline";
 
 function GenerateTextBubble({ deleteFunc, focus }) {
-  const [panelClick, setPanelClick] = useState(true);
+  const [bubbleClick, setbubbleClick] = useState(true);
   const [text, setText] = useState("");
   const [shape, setShape] = useState("round");
   const panelRef = useRef();
 
-  useOnClickOutside(panelRef, () => setPanelClick(false));
+  useOnClickOutside(panelRef, () => setbubbleClick(false));
 
   // standalone script to automatically adjust textarea height
   autosize(document.querySelectorAll("textarea"));
@@ -17,13 +17,13 @@ function GenerateTextBubble({ deleteFunc, focus }) {
   return (
     <div
       className={` ${
-        panelClick || focus === "onFocus"
+        bubbleClick || focus === "onFocus"
           ? " border-lightGreen border-dotted border-4"
           : "border-black "
       } border-2 ${shape === "round" && "rounded-full"} ${
         shape === "squareRound" && "rounded-lg"
       } overflow-hidden bg-white resize justify-center items-center flex flex-col h-40 w-40`}
-      onClick={() => setPanelClick(true)}
+      onClick={() => setbubbleClick(true)}
     >
       <div className="relative">
         <textarea
@@ -35,10 +35,10 @@ function GenerateTextBubble({ deleteFunc, focus }) {
         />
       </div>
 
-      {panelClick ? (
+      {bubbleClick ? (
         <div
           ref={panelRef}
-          className="absolute inset-y-0 right-0 mr-[-4rem] z-10 flex shrink-0 grow-0 justify-around gap-4 border-t border-gray-200 bg-white/50 p-2.5 shadow-lg backdrop-blur-lg top-2/4 -translate-y-2/4 h-44 w-10 min-h-[auto] min-w-[44px] flex-col rounded-lg border"
+          className="absolute inset-y-0 right-0 mr-[-3.5rem] z-10 flex shrink-0 grow-0 justify-around gap-4 border-t border-gray-200 bg-white/50 p-2.5 shadow-lg backdrop-blur-lg top-2/4 -translate-y-2/4 h-44 w-10 min-h-[auto] min-w-[44px] flex-col rounded-lg border"
         >
           <ChatBubbleOvalLeftIcon
             className="h-6 w-6 hover:cursor-pointer "
