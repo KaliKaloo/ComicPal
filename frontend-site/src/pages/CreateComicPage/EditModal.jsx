@@ -78,7 +78,7 @@ function EditModal({ onClose, imgUrl, text }) {
               aria-hidden="true"
             />
             <CheckIcon
-              className="h-6 w-6 hover:cursor-pointer mx-2 hover:bg-gray-300 rounded-full "
+              className="h-7 w-7 hover:cursor-pointer mx-2 hover:bg-gray-300 rounded-full "
               onClick={() => handleOnClose(true)}
             />
           </div>

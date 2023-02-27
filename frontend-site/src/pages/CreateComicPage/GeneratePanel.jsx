@@ -1,14 +1,14 @@
 import { useState, useRef } from "react";
 import { TrashIcon, PencilIcon } from "@heroicons/react/24/outline";
 import EditModal from "./EditModal";
-import useOnClickOutside from "../../hooks/useOnCliclOutside";
+import useOnClickOutside from "../../hooks/useOnClickOutside";
 
 function GeneratePanel({ deleteFunc, shape, focus }) {
   const [panelClick, setPanelClick] = useState(true);
   const [editMode, setEditMode] = useState(false);
   const [prompt, setPrompt] = useState("");
   const [imageURL, setImageURL] = useState("");
-  const ref = useRef();
+  const panelRef = useRef();
 
   const handleOnCloseEditMode = (save, url, text) => {
     setEditMode(false);
@@ -18,7 +18,7 @@ function GeneratePanel({ deleteFunc, shape, focus }) {
     }
   };
 
-  useOnClickOutside(ref, () => setPanelClick(false));
+  useOnClickOutside(panelRef, () => setPanelClick(false));
 
   return (
     <div
@@ -31,7 +31,7 @@ function GeneratePanel({ deleteFunc, shape, focus }) {
     >
       {panelClick ? (
         <div
-          ref={ref}
+          ref={panelRef}
           className="absolute inset-y-0 right-0 mr-[-3.5rem] z-10 flex shrink-0 grow-0 justify-around gap-4 border-t border-gray-200 bg-white/50 p-2.5 shadow-lg backdrop-blur-lg top-2/4 -translate-y-2/4 h-24 w-10 min-h-[auto] min-w-[44px] flex-col rounded-lg border"
         >
           <PencilIcon

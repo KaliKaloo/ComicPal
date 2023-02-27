@@ -4,10 +4,8 @@ import GeneratePanel from "./GeneratePanel";
 import styles from "../../assets/style";
 import {
   DndContext,
-  closestCenter,
   useSensors,
   useSensor,
-  PointerSensor,
   MouseSensor,
   TouchSensor,
 } from "@dnd-kit/core";
@@ -15,13 +13,13 @@ import { Draggable } from "../../components/ui/Draggable";
 import { Droppable } from "../../components/ui/Droppable";
 import {
   RectangleGroupIcon,
-  ChatBubbleBottomCenterIcon,
+  ChatBubbleOvalLeftIcon,
   PlusIcon,
   PlusCircleIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import Tooltip from "../../components/ui/Tooltip";
-import GenerateSpeechBubble from "./GenerateSpeechBubble";
+import GenerateTextBubble from "./GenerateTextBubble";
 
 function CreateComicPage() {
   const [panelList, setPanelsList] = useState([]);
@@ -39,7 +37,7 @@ function CreateComicPage() {
         type: type,
         position: { x: 100, y: 100 },
         shape: shape,
-        focus: ""
+        focus: "",
       },
     ]);
     setCount(count + 1);
@@ -66,7 +64,7 @@ function CreateComicPage() {
 
   function handleDragStart(ev) {
     const object = panelList.find((x) => x.id === ev.active.id);
-    object.focus = "onFocus"
+    object.focus = "onFocus";
     const _newList = panelList.map((x) => {
       if (x.id === object.id) return object;
       return x;
@@ -78,7 +76,7 @@ function CreateComicPage() {
     const object = panelList.find((x) => x.id === ev.active.id);
     object.position.x += ev.delta.x;
     object.position.y += ev.delta.y;
-    object.focus = "ofFocus";
+    object.focus = "";
     const _newList = panelList.map((x) => {
       if (x.id === object.id) return object;
       return x;
@@ -111,11 +109,12 @@ function CreateComicPage() {
                 />
               </Tooltip>
               <Tooltip text="Speech Bubble">
-                <ChatBubbleBottomCenterIcon
-                  onClick={() => addPanel("speech", "")}
+                <ChatBubbleOvalLeftIcon
+                  onClick={() => addPanel("speech")}
                   className="flex aspect-square min-h-[32px] lg:w-16 w-10 flex-col items-center justify-center gap-1 rounded-md p-1.5  text-gray-700 hover:bg-gray-200 "
                 />
               </Tooltip>
+              
             </div>
           </div>
 
@@ -198,7 +197,13 @@ function CreateComicPage() {
                     id={panel.id}
                     key={panel.id}
                   >
-                    {panel.type === "speech" && <GenerateSpeechBubble focus={panel.focus} />}
+                    {panel.type === "speech" && (
+                      <GenerateTextBubble
+                        deleteFunc={() => deletePanel(panel.id)}
+                        shape={panel.shape}
+                        focus={panel.focus}
+                      />
+                    )}
                   </Draggable>
                 ))}
               </div>
