@@ -36,7 +36,7 @@ export const features = [
     // content:
     //   "Design a character from scratch. Brainstorm physical features, personalities, background etc, with the help of AI.",
     content:
-      "Design a character from scratch with the help of AI.",
+      "Design a character from scratch with the help of AI. ",
   },
   {
     id: "feature-3",

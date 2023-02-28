@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import { TrashIcon, PencilIcon } from "@heroicons/react/24/outline";
 import EditModal from "./EditModal";
-import useOnClickOutside from "../../hooks/useOnClickOutside";
+import useOnClickOutside from "../../utils/useOnClickOutside";
 
 function GeneratePanel({ deleteFunc, shape, focus }) {
   const [panelClick, setPanelClick] = useState(true);
@@ -23,7 +23,9 @@ function GeneratePanel({ deleteFunc, shape, focus }) {
   return (
     <div
       className={` ${
-        panelClick || focus==="onFocus" ? " border-lightGreen border-dotted border-4" : "border-black "
+        panelClick || focus === "onFocus"
+          ? " border-lightGreen border-dotted border-4"
+          : "border-black "
       } border-2 overflow-hidden bg-gray-100 resize ${
         shape === "square" ? "w-72 h-52" : " rounded-full w-72 h-72 "
       } `}

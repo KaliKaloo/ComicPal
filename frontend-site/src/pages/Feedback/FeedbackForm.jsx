@@ -227,7 +227,7 @@ const FeedbackFrom = ({submitFunc}) => {
                   Realism percentage options when generating images
                 </div>
               </label>
-              <label className="flex space-x-3">
+              {/* <label className="flex space-x-3">
                 <input
                   type="checkbox"
                   className="checkbox checkbox-sm"
@@ -237,7 +237,7 @@ const FeedbackFrom = ({submitFunc}) => {
                 <div className="cursor-pointer">
                   Stylize options when generating images
                 </div>
-              </label>
+              </label> */}
             </div>
           </div>
           <div className="mb-8">
@@ -295,7 +295,7 @@ const FeedbackFrom = ({submitFunc}) => {
                   Realism percentage options when generating images
                 </div>
               </label>
-              <label className="flex space-x-3">
+              {/* <label className="flex space-x-3">
                 <input
                   type="checkbox"
                   className="checkbox checkbox-sm"
@@ -305,7 +305,7 @@ const FeedbackFrom = ({submitFunc}) => {
                 <div className="cursor-pointer">
                   Stylize options when generating images
                 </div>
-              </label>
+              </label> */}
             </div>
           </div>
 

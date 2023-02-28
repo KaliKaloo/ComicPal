@@ -1,21 +1,20 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import FeedbackCard from "../../components/ui/FeedbackCard";
 import MainLayout from "../../layout/MainLayout";
 import styles from "../../assets/style";
-import SecondaryButton from "../../components/ui/SecondaryButton";
 import { PhotoIcon } from "@heroicons/react/24/outline";
+// import exportAsImage from "../../utils/exportAsImage";
 
 function CreateCharacterPage() {
-  const [prompt, setPrompt] = useState("");
   const [characterPrompt1, setCharacterPrompt1] = useState("");
-  const [characterPrompt2, setCharacterPrompt2] = useState("");
   const [imageURL, setImageURL] = useState("");
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+  // const exportRef = useRef();
 
   const generateImage = async () => {
     const response = await fetch("http://localhost:3080/image", {
@@ -44,9 +43,13 @@ function CreateCharacterPage() {
       data.other;
 
     console.log(combinedData);
-    setCharacterPrompt1(combinedData)
-    generateImage()
+    setCharacterPrompt1(combinedData);
+    generateImage();
   };
+
+  function handleDownload() {
+    // exportAsImage(exportRef.current, "page1");
+  }
 
   return (
     <MainLayout footer="noFooter">
@@ -58,13 +61,17 @@ function CreateCharacterPage() {
         </div>
         <div className=" flex flex-col gap-10 lg:py-0 py-12 md:px-20 h-full lg:w-[80%]">
           <div className="flex-1 flex lg:flex-row flex-col justify-between gap-4 items-center ">
-            <div className="flex-1 bg-white items-center justify-center flex h-[70%] w-[70%] rounded-md shadow-lg">
+            <div className="relative flex-1 bg-white items-center justify-center flex h-[70%] w-[70%] rounded-md shadow-lg" 
+            // ref={exportRef}
+            >
+              {/* <div
+                onClick={() => handleDownload()}
+                className="absolute top-0 right-0 mr-[3.5rem] mt-[-1.6em] text-sm text-gray-500 hover:text-secondary cursor-pointer  w-5 h-5"
+              >
+                Download
+              </div> */}
               {imageURL !== "" ? (
-                <img
-                  src={imageURL}
-                  alt=""
-                  className="object-contain"
-                ></img>
+                <img  src={imageURL} alt="" className="object-contain"></img>
               ) : (
                 <div className="h-80 w-96 flex justify-center items-center text-gray-300">
                   <PhotoIcon
@@ -77,38 +84,48 @@ function CreateCharacterPage() {
 
             <div className="flex-1">
               <form
-                className="flex flex-col space-y-3"
+                className="flex flex-col space-y-3 lg:mt-16"
                 onSubmit={handleSubmit(onSubmit)}
               >
-                <label className="block text-gray-700 text-md font-bold mt-3 mb-2">Gender</label>
+                <label className="block text-gray-700 text-md font-bold mt-3 mb-2">
+                  Gender
+                </label>
                 <input
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   type="text"
                   id="Gender"
                   {...register("gender")}
                 />
-                <label className="block text-gray-700 text-md font-bold mt-3 mb-2">Eye Color</label>
+                <label className="block text-gray-700 text-md font-bold mt-3 mb-2">
+                  Eye Color
+                </label>
                 <input
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   type="text"
                   id="EyeColor"
                   {...register("eyeColor")}
                 />
-                <label className="block text-gray-700 text-md font-bold mt-3 mb-2">Skin description</label>
+                <label className="block text-gray-700 text-md font-bold mt-3 mb-2">
+                  Skin description
+                </label>
                 <textarea
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   type="text"
                   id="Skin"
                   {...register("skin")}
                 />
-                <label className="block text-gray-700 text-md font-bold mt-3 mb-2">Hair description</label>
+                <label className="block text-gray-700 text-md font-bold mt-3 mb-2">
+                  Hair description
+                </label>
                 <textarea
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   type="text"
                   id="Hair"
                   {...register("hair")}
                 />
-                <label className="block text-gray-700 text-md font-bold mt-3 mb-2">More details</label>
+                <label className="block text-gray-700 text-md font-bold mt-3 mb-2">
+                  More details
+                </label>
                 <textarea
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   type="text"

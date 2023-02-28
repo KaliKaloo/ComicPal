@@ -52,7 +52,7 @@ function HowToUse() {
 
       
     </div> */}
-      <div className={`${layout.sectionImg}  flex-col `}>
+      <div className={`flex-1 flex justify-center items-start  flex-col`}>
         {features.map((feature, index) => (
           <FeatureCard key={feature.id} {...feature} index={index} />
         ))}

@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import autosize from "autosize/dist/autosize.js";
-import useOnClickOutside from "../../hooks/useOnClickOutside";
+import useOnClickOutside from "../../utils/useOnClickOutside";
 import {StopIcon, ChatBubbleOvalLeftIcon, ChatBubbleLeftIcon, TrashIcon} from "@heroicons/react/24/outline";
 
 function GenerateTextBubble({ deleteFunc, focus }) {
