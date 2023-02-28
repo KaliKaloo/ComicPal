@@ -1,4 +1,5 @@
 const { Configuration, OpenAIApi } = require("openai");
+const home = require("./home");
 const express = require("express");
 require("dotenv").config();
 
@@ -14,6 +15,8 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 const port = 3080;
+
+app.use("/", home);
 
 app.post("/story", async (req, res) => {
   try {
@@ -52,5 +55,5 @@ app.post("/image", async (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Server listening at http://localhost:${port}`);
+  console.log(`Server listening at port ${port}`);
 });

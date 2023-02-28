@@ -17,7 +17,7 @@ function CreateCharacterPage() {
   // const exportRef = useRef();
 
   const generateImage = async () => {
-    const response = await fetch("http://localhost:3080/image", {
+    const response = await fetch("https://ai-tool-for-comics-7os3poqub-kalikaloo.vercel.app/image", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
