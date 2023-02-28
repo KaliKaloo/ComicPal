@@ -1,9 +1,8 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { feedbackQuestions } from "../constants";
-// import { Checkbox } from 'tailwind-react-ui'
+import { feedbackQuestions } from "../../constants";
 
-const FeedbackFrom = () => {
+const FeedbackFrom = ({submitFunc}) => {
   const {
     register,
     handleSubmit,
@@ -12,8 +11,7 @@ const FeedbackFrom = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    // data.preventDefault();
-    console.log(watch(data));
+    submitFunc();
     const formData = new FormData();
     for (const key in data) {
       if (key === "field") {
@@ -29,10 +27,9 @@ const FeedbackFrom = () => {
         body: formData,
       }
     )
-      .then((res) => res.json())
-      .then((resJson) => {
-        console.log(resJson);
-      })
+      // .then((res) => {
+      //   // console.log(res);
+      // })
       .catch((error) => console.log(error));
   };
 
@@ -43,8 +40,8 @@ const FeedbackFrom = () => {
           className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
           onSubmit={handleSubmit(onSubmit)}
         >
-          <h1 className="border-b-2 pb-2 mb-6">Feedback Form</h1>
-
+          <h1 className="border-b-2 pb-2 mb-2">Feedback Form</h1>
+          <p className="text-secondary text-sm mb-6">Note: Your feedback will be stored anonymously!</p>
           <div className="mb-8">
             <label className="block text-gray-700 text-sm font-bold mt-3 mb-2">
               {feedbackQuestions.questions.question1}
@@ -494,7 +491,7 @@ const FeedbackFrom = () => {
             <label className="block text-gray-700 text-sm font-bold mt-3 mb-2">
               {feedbackQuestions.questions.question12}
             </label>
-            <input
+            <textarea
               className="shadow appearance-none border rounded md:w-[80%] w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="text"
               id="Question12"

@@ -12,6 +12,9 @@
     width: 250px;
     padding: 10px;
     background-color:#004A49;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
 }
 
@@ -33,7 +36,7 @@
 }
 .storyBox{
     flex:1;
-    background-color: #ebeae4;
+    background-color: #edecea;
     position: relative;
     color: black;
 
@@ -89,7 +92,7 @@
 }
 
 .story-input-textarea{
-    background-color: #f2f1eb;
+    background-color: #f3f2f0;
     width: 90%;
     padding: 12px;
     color: black;

@@ -2,35 +2,38 @@ import { useState } from "react";
 import MainLayout from "../../layout/MainLayout";
 import "./CreateStoryPage.css";
 import openaiLogo from "../../assets/openai-logo.svg";
+import FeedbackCard from "../../components/ui/FeedbackCard";
 
 function CreateStoryPage() {
   const [input, setInput] = useState("");
-  const [storyLog, setStoryLog] = useState([
-  ]);
+  const [storyLog, setStoryLog] = useState([]);
 
-  function clearStory(){
-    setStoryLog([])
+  function clearStory() {
+    setStoryLog([]);
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
-    let newStoryLog = [...storyLog, {user:"me", message: `${input}`}];
+    let newStoryLog = [...storyLog, { user: "me", message: `${input}` }];
     setInput("");
-    setStoryLog(newStoryLog)
+    setStoryLog(newStoryLog);
 
-    const messages = newStoryLog.map((message) => message.message).join("")
+    const messages = newStoryLog.map((message) => message.message).join("");
 
-    const response = await fetch("http://localhost:3080/story",{
-      method:"POST",
-      headers:{
-        "Content-Type":"application/json"
+    const response = await fetch("http://localhost:3080/story", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        message: messages
-      })
+        message: messages,
+      }),
     });
     const data = await response.json();
-    setStoryLog([...newStoryLog, {user:"openai", message:`${data.message}`}])
+    setStoryLog([
+      ...newStoryLog,
+      { user: "openai", message: `${data.message}` },
+    ]);
   }
 
   return (
@@ -41,48 +44,48 @@ function CreateStoryPage() {
             <span>+</span>
             Clear Chat
           </div>
+          <div className="scale-75 mb-[-1rem] ml-[-1rem]">
+            <FeedbackCard />
+          </div>
         </aside>
 
         <section className="storyBox">
           <div className="story-log">
             {storyLog.map((message, index) => (
-              <StoryMessage key={index} message={message}/>
+              <StoryMessage key={index} message={message} />
             ))}
           </div>
           <div className="story-input-holder">
             <form onSubmit={handleSubmit}>
-              <input 
-              rows="1" 
-              value={input}
-              onChange={(e)=> setInput(e.target.value)}
-              className="story-input-textarea"></input>
+              <input
+                rows="1"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                className="story-input-textarea"
+              ></input>
             </form>
           </div>
         </section>
+        
       </div>
     </MainLayout>
   );
 }
 
-const StoryMessage = ({message}) => {
-  return(
+const StoryMessage = ({ message }) => {
+  return (
     <div className={`story-message ${message.user === "openai" && "openai"}`}>
       <div className="story-message-center">
         <div className={`avatar ${message.user === "openai" && "openai"}`}>
           {/* display svg */}
-          {message.user === "openai" && <img
-                    src={openaiLogo}
-                    alt="openai avatar"
-                    width={30}
-                    height={30}
-                  />}
+          {message.user === "openai" && (
+            <img src={openaiLogo} alt="openai avatar" width={30} height={30} />
+          )}
         </div>
-        <div className="message">
-          {message.message}
-        </div>
+        <div className="message">{message.message}</div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default CreateStoryPage;
