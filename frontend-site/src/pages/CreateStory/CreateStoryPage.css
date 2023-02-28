@@ -46,6 +46,7 @@
     /* overflow-y: scroll; */
     /* height:100%; */
     text-align: left;
+    margin-bottom: 100px;
 }
 
 .story-message.openai{
