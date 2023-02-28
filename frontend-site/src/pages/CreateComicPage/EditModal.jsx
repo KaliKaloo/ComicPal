@@ -9,15 +9,18 @@ import {
   ChevronDownIcon,
 } from "@heroicons/react/24/outline";
 import autosize from "autosize/dist/autosize.js";
+import Spinner from "../../components/ui/Spinner";
 
 function EditModal({ onClose, imgUrl, text }) {
   const [prompt, setPrompt] = useState(text);
   const [imageURL, setImageURL] = useState(imgUrl);
   const realismLevels = ["0%", "30%", "50%", "70%", "100%"]
   const [realismLevel, setRealismLevel] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const generateImage = async (e) => {
     e.preventDefault();
+    setIsLoading(true)
     let newPrompt = realismLevel==="" ||realismLevel==="100%" ? prompt : prompt+". "+realismLevel+" photo realistic"
     console.log(newPrompt)
     const response = await fetch("http://localhost:3080/image", {
@@ -31,6 +34,7 @@ function EditModal({ onClose, imgUrl, text }) {
     });
     const res = await response.json();
     setImageURL(res.url);
+    setIsLoading(false)
   };
 
   const handleOnClose = (save) => {
@@ -64,13 +68,18 @@ function EditModal({ onClose, imgUrl, text }) {
 
         </div>
         <div className="overflow-hidden w-full h-full">
+          
           {imageURL.length > 0 ? (
             <img
               src={imageURL}
               alt=""
               className="object-cover w-full h-full"
             ></img>
-          ) : (
+          ) : (isLoading) ? 
+          <div className="flex justify-center items-center">
+            <Spinner/>
+          </div>
+          :(
             <div className="h-80 w-96 flex justify-center items-center text-gray-300">
               <PhotoIcon
                 className="h-20 w-20 hover:cursor-pointer"

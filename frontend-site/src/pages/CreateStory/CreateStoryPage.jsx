@@ -3,10 +3,12 @@ import MainLayout from "../../layout/MainLayout";
 import "./CreateStoryPage.css";
 import openaiLogo from "../../assets/openai-logo.svg";
 import FeedbackCard from "../../components/ui/FeedbackCard";
+import Spinner from "../../components/ui/Spinner";
 
 function CreateStoryPage() {
   const [input, setInput] = useState("");
   const [storyLog, setStoryLog] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   function clearStory() {
     setStoryLog([]);
@@ -15,9 +17,11 @@ function CreateStoryPage() {
   async function handleSubmit(e) {
     e.preventDefault();
     let newStoryLog = [...storyLog, { user: "me", message: `${input}` }];
+    newStoryLog = [...newStoryLog, { user: "openai", message: `...` }]
     setInput("");
     setStoryLog(newStoryLog);
-
+    console.log(newStoryLog)
+    
     const messages = newStoryLog.map((message) => message.message).join("");
 
     const response = await fetch("http://localhost:3080/story", {
@@ -30,6 +34,8 @@ function CreateStoryPage() {
       }),
     });
     const data = await response.json();
+    newStoryLog.pop();
+    console.log(newStoryLog)
     setStoryLog([
       ...newStoryLog,
       { user: "openai", message: `${data.message}` },
@@ -52,7 +58,11 @@ function CreateStoryPage() {
         <section className="storyBox">
           <div className="story-log">
             {storyLog.map((message, index) => (
-              <StoryMessage key={index} message={message} />
+              <StoryMessage
+                isLoading={isLoading}
+                key={index}
+                message={message}
+              />
             ))}
           </div>
           <div className="story-input-holder">
@@ -66,7 +76,6 @@ function CreateStoryPage() {
             </form>
           </div>
         </section>
-        
       </div>
     </MainLayout>
   );
