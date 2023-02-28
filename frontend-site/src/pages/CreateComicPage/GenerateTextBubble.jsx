@@ -25,7 +25,7 @@ function GenerateTextBubble({ deleteFunc, focus }) {
       } overflow-hidden bg-white resize justify-center items-center flex flex-col h-40 w-40`}
       onClick={() => setbubbleClick(true)}
     >
-      <div className="relative">
+      <div className={`relative ${shape =="round" ? "w-[70%]" : "w-[90%]"} `}>
         <textarea
           id="textarea"
           className="py-3 text-center break-words font-poppins text-sm w-full resize-none mx-auto focus:outline-none"
