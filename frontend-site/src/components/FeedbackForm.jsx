@@ -12,17 +12,39 @@ const FeedbackFrom = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    alert(JSON.stringify(data));
+    // data.preventDefault();
     console.log(watch(data));
+    const formData = new FormData();
+    for (const key in data) {
+      if (key === "field") {
+        formData.append(key, data[key][1]);
+      } else {
+        formData.append(key, data[key]);
+      }
+    }
+    fetch(
+      "https://script.google.com/macros/s/AKfycbwcuSinKb8mp_TYQ4WR02Qo33zEIYfal--wG1OYV7ngd0a1FjM-g4ADQN_RCFBsm5YoFA/exec",
+      {
+        method: "POST",
+        body: formData,
+      }
+    )
+      .then((res) => res.json())
+      .then((resJson) => {
+        console.log(resJson);
+      })
+      .catch((error) => console.log(error));
   };
 
   return (
     <>
-      <div className="w-3/5 md:mx-20 md:my-20 mx-10 my-20 text-left font-poppins">
+      <div className="w-3/5 md:mx-20 md:my-10 mx-10 my-20 text-left font-poppins">
         <form
           className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
           onSubmit={handleSubmit(onSubmit)}
         >
+          <h1 className="border-b-2 pb-2 mb-6">Feedback Form</h1>
+
           <div className="mb-8">
             <label className="block text-gray-700 text-sm font-bold mt-3 mb-2">
               {feedbackQuestions.questions.question1}
@@ -116,7 +138,7 @@ const FeedbackFrom = () => {
               {feedbackQuestions.questions.question4}
             </label>
             <textarea
-              className="shadow appearance-none border rounded w-[80%] py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow appearance-none border rounded md:w-[80%] w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="text"
               id="Question4"
               {...register("Question4")}
@@ -155,7 +177,7 @@ const FeedbackFrom = () => {
             <label className="block text-gray-700 text-sm font-bold mt-3 mb-2">
               {feedbackQuestions.questions.question6}
             </label>
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid md:grid-cols-2 gap-2">
               <label className="flex space-x-3">
                 <input
                   type="checkbox"
@@ -225,7 +247,7 @@ const FeedbackFrom = () => {
             <label className="block text-gray-700 text-sm font-bold mt-3 mb-2">
               {feedbackQuestions.questions.question7}
             </label>
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid md:grid-cols-2 gap-2">
               <label className="flex space-x-3">
                 <input
                   type="checkbox"
@@ -294,7 +316,7 @@ const FeedbackFrom = () => {
             <label className="block text-gray-700 text-sm font-bold mt-3 mb-2">
               {feedbackQuestions.questions.question8}
             </label>
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid md:grid-cols-2 gap-2">
               <label className="flex space-x-3">
                 <input
                   type="checkbox"
@@ -347,7 +369,7 @@ const FeedbackFrom = () => {
             <label className="block text-gray-700 text-sm font-bold mt-3 mb-2">
               {feedbackQuestions.questions.question9}
             </label>
-            <div className="flex space-x-6">
+            <div className="md:flex space-x-6">
               <label>
                 <div className="cursor-pointer">0%</div>
                 <input
@@ -473,7 +495,7 @@ const FeedbackFrom = () => {
               {feedbackQuestions.questions.question12}
             </label>
             <input
-              className="shadow appearance-none border rounded w-[80%] py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow appearance-none border rounded md:w-[80%] w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="text"
               id="Question12"
               {...register("Question12")}

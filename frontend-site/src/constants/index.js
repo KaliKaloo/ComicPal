@@ -55,7 +55,7 @@ export const feedbackQuestions = {
       "In comparison to your usual method, did using ComicPal make it easier to create a comic?",
     question6: "What features did you like?",
     question7: "What features did you dislike?",
-    question8: "What new features would you like have?",
+    question8: "What new features would you like to have?",
     question9:
       "When generating images, what percentage of realism did you like the most?",
     question10: "Did using ComicPal make you feel more/less creative?",
