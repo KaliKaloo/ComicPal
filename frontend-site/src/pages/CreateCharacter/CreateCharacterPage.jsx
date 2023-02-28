@@ -4,11 +4,13 @@ import FeedbackCard from "../../components/ui/FeedbackCard";
 import MainLayout from "../../layout/MainLayout";
 import styles from "../../assets/style";
 import { PhotoIcon } from "@heroicons/react/24/outline";
+import Spinner from "../../components/ui/Spinner";
 // import exportAsImage from "../../utils/exportAsImage";
 
 function CreateCharacterPage() {
   const [characterPrompt1, setCharacterPrompt1] = useState("");
   const [imageURL, setImageURL] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -17,17 +19,23 @@ function CreateCharacterPage() {
   // const exportRef = useRef();
 
   const generateImage = async () => {
-    const response = await fetch("https://ai-tool-for-comics-7os3poqub-kalikaloo.vercel.app/image", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        prompt: characterPrompt1,
-      }),
-    });
+    setIsLoading(true);
+
+    const response = await fetch(
+      "https://ai-tool-for-comics-4xidawny7-kalikaloo.vercel.app/image",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          prompt: characterPrompt1,
+        }),
+      }
+    );
     const res = await response.json();
     setImageURL(res.url);
+    setIsLoading(false);
   };
 
   const onSubmit = (data) => {
@@ -61,8 +69,9 @@ function CreateCharacterPage() {
         </div>
         <div className=" flex flex-col gap-10 lg:py-0 py-12 md:px-20 h-full lg:w-[80%]">
           <div className="flex-1 flex lg:flex-row flex-col justify-between gap-4 items-center ">
-            <div className="relative flex-1 bg-white items-center justify-center flex h-[70%] w-[70%] rounded-md shadow-lg" 
-            // ref={exportRef}
+            <div
+              className="relative flex-1 bg-white items-center justify-center flex h-[70%] w-[70%] rounded-md shadow-lg"
+              // ref={exportRef}
             >
               {/* <div
                 onClick={() => handleDownload()}
@@ -70,8 +79,12 @@ function CreateCharacterPage() {
               >
                 Download
               </div> */}
-              {imageURL !== "" ? (
-                <img  src={imageURL} alt="" className="object-contain"></img>
+              {isLoading ? (
+                <div className="flex justify-center items-center">
+                  <Spinner />
+                </div>
+              ) : imageURL !== "" ? (
+                <img src={imageURL} alt="" className="object-contain"></img>
               ) : (
                 <div className="h-80 w-96 flex justify-center items-center text-gray-300">
                   <PhotoIcon

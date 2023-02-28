@@ -14,27 +14,33 @@ import Spinner from "../../components/ui/Spinner";
 function EditModal({ onClose, imgUrl, text }) {
   const [prompt, setPrompt] = useState(text);
   const [imageURL, setImageURL] = useState(imgUrl);
-  const realismLevels = ["0%", "30%", "50%", "70%", "100%"]
+  const realismLevels = ["0%", "30%", "50%", "70%", "100%"];
   const [realismLevel, setRealismLevel] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const generateImage = async (e) => {
     e.preventDefault();
-    setIsLoading(true)
-    let newPrompt = realismLevel==="" ||realismLevel==="100%" ? prompt : prompt+". "+realismLevel+" photo realistic"
-    console.log(newPrompt)
-    const response = await fetch("https://ai-tool-for-comics-jamq2mcbc-kalikaloo.vercel.app/image", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        prompt: newPrompt,
-      }),
-    });
+    setIsLoading(true);
+    let newPrompt =
+      realismLevel === "" || realismLevel === "100%"
+        ? prompt
+        : prompt + ". " + realismLevel + " photo realistic";
+    console.log(newPrompt);
+    const response = await fetch(
+      "https://ai-tool-for-comics-4xidawny7-kalikaloo.vercel.app/image",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          prompt: newPrompt,
+        }),
+      }
+    );
     const res = await response.json();
     setImageURL(res.url);
-    setIsLoading(false)
+    setIsLoading(false);
   };
 
   const handleOnClose = (save) => {
@@ -47,7 +53,7 @@ function EditModal({ onClose, imgUrl, text }) {
 
   const handleRealismDropdown = (level) => {
     setRealismLevel(level);
-  }
+  };
 
   // standalone script to automatically adjust textarea height
   autosize(document.querySelectorAll("textarea"));
@@ -63,23 +69,25 @@ function EditModal({ onClose, imgUrl, text }) {
             className="text-right h-8 w-8 hover:cursor-pointer text-black"
             onClick={() => handleOnClose(false)}
           />
-          
-          <Dropdown handleRealisim={handleRealismDropdown} defaultText={"Realisim"} dropList={realismLevels}/>
 
+          <Dropdown
+            handleRealisim={handleRealismDropdown}
+            defaultText={"Realisim"}
+            dropList={realismLevels}
+          />
         </div>
         <div className="overflow-hidden w-full h-full">
-          
-          {imageURL !=="" ? (
+          {isLoading ? (
+            <div className="flex justify-center items-center">
+              <Spinner />
+            </div>
+          ) : imageURL !== "" ? (
             <img
               src={imageURL}
               alt=""
               className="object-cover w-full h-full"
             ></img>
-          ) : (isLoading) ? 
-          <div className="flex justify-center items-center">
-            <Spinner/>
-          </div>
-          :(
+          ) : (
             <div className="h-80 w-96 flex justify-center items-center text-gray-300">
               <PhotoIcon
                 className="h-20 w-20 hover:cursor-pointer"

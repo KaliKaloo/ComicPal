@@ -24,7 +24,7 @@ function CreateStoryPage() {
     
     const messages = newStoryLog.map((message) => message.message).join("");
 
-    const response = await fetch("https://ai-tool-for-comics-7os3poqub-kalikaloo.vercel.app/story", {
+    const response = await fetch("https://ai-tool-for-comics-4xidawny7-kalikaloo.vercel.app/story", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
