@@ -20,7 +20,7 @@ function PlaygroundPage() {
               className="mt-8 h-64 w-[200px] mx-auto border-solid border-2 border-darkGreen"
             />
             <h2 className="text-xl font-bold text-center p-6">
-              Develop A Story
+              Plan A Story
             </h2>
             {/* <SecondaryButton
               styles="mb-8 mx-auto bg-lightGreen outline-none text-white w-[200px]"

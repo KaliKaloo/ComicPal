@@ -45,27 +45,24 @@ export const features = [
   },
 ];
 
-export const feedbackQuestions = [
-  {
-    id: "story",
-    question1:
-      "Money is only a tool. It will take you wherever you wish, but it will not replace you as the driver.",
-    question1:
-      "Money is only a tool. It will take you wherever you wish, but it will not replace you as the driver.",
-    question1:
-      "Money is only a tool. It will take you wherever you wish, but it will not replace you as the driver.",
-    question1:
-      "Money is only a tool. It will take you wherever you wish, but it will not replace you as the driver.",
-    question1:
-      "Money is only a tool. It will take you wherever you wish, but it will not replace you as the driver.",
-    question1:
-      "Money is only a tool. It will take you wherever you wish, but it will not replace you as the driver.",
-    question1:
-      "Money is only a tool. It will take you wherever you wish, but it will not replace you as the driver.",
-    question1:
-      "Money is only a tool. It will take you wherever you wish, but it will not replace you as the driver.",
+export const feedbackQuestions = {
+  questions: {
+    question1: "Did you enjoy using ComicPal to create a comic?",
+    question2: "Was it easy to navigate and use?",
+    question3: "Did it fit into your creative workflow?",
+    question4: "Step-by-step, what is your usual process of creating a comic?",
+    question5:
+      "In comparison to your usual method, did using ComicPal make it easier to create a comic?",
+    question6: "What features did you like?",
+    question7: "What features did you dislike?",
+    question8: "What new features would you like have?",
+    question9:
+      "When generating images, what percentage of realism did you like the most?",
+    question10: "Did using ComicPal make you feel more/less creative?",
+    question11: "Would you use ComicPal again?",
+    question12: "Any additional comments?",
   },
-];
+};
 
 export const footerLinks = [
   {

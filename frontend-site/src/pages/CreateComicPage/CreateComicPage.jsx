@@ -27,7 +27,6 @@ function CreateComicPage() {
   const [speechList, setSpeechList] = useState([]);
   const [newPage, setNewPage] = useState(false);
   const [pageSize, setPageSize] = useState("a4");
-  let currentObject = "";
 
   const addObject = (type, shape) => {
     setObjectList([

@@ -18,14 +18,15 @@ function EditModal({ onClose, imgUrl, text }) {
 
   const generateImage = async (e) => {
     e.preventDefault();
-    console.log(prompt+" "+realismLevel)
+    let newPrompt = realismLevel==="" ||realismLevel==="100%" ? prompt : prompt+". "+realismLevel+" photo realistic"
+    console.log(newPrompt)
     const response = await fetch("http://localhost:3080/image", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        prompt: prompt+" "+realismLevel+" realistic",
+        prompt: newPrompt,
       }),
     });
     const res = await response.json();
