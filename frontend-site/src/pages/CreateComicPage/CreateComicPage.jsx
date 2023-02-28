@@ -1,7 +1,6 @@
 import { useState, useRef } from "react";
 import MainLayout from "../../layout/MainLayout";
 import GeneratePanel from "./GeneratePanel";
-import exportAsImage from "../../utils/exportAsImage";
 import {
   DndContext,
   useSensors,

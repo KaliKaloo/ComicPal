@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import { TrashIcon, PencilIcon } from "@heroicons/react/24/outline";
 import EditModal from "./EditModal";
-import useOnClickOutside from "../../utils/useOnClickOutside";
+import useOnClickOutside from "../../lib/useOnClickOutside";
 
 function GeneratePanel({ deleteFunc, shape, focus }) {
   const [panelClick, setPanelClick] = useState(true);

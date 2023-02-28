@@ -23,7 +23,7 @@ function EditModal({ onClose, imgUrl, text }) {
     setIsLoading(true)
     let newPrompt = realismLevel==="" ||realismLevel==="100%" ? prompt : prompt+". "+realismLevel+" photo realistic"
     console.log(newPrompt)
-    const response = await fetch("https://ai-tool-for-comics-7os3poqub-kalikaloo.vercel.app/image", {
+    const response = await fetch("https://ai-tool-for-comics-jamq2mcbc-kalikaloo.vercel.app/image", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
