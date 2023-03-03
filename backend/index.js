@@ -2,6 +2,7 @@ const { Configuration, OpenAIApi } = require("openai");
 const home = require("./home");
 const express = require("express");
 const axios = require('axios');
+const path = require("path");
 require("dotenv").config();
 
 const configuration = new Configuration({
@@ -17,7 +18,7 @@ app.use(bodyParser.json());
 app.use(cors());
 const port = 3080;
 
-app.use("/", home);
+app.use(express.static(path.join(__dirname, 'public')))
 
 app.post("/story", async (req, res) => {
   try {
@@ -69,4 +70,5 @@ app.get("/proxy", async (req, res) => {
 
 app.listen(port, () => {
   console.log(`Server listening at port ${port}`);
+  console.log(path.join(__dirname, "public"));
 });
