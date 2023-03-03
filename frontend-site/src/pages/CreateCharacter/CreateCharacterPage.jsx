@@ -33,8 +33,8 @@ function CreateCharacterPage() {
         }),
       }
     );
-    const res = await response;
-    setImageURL(res);
+    const res = await response.json();
+    setImageURL(res.url);
     setIsLoading(false);
   };
 
