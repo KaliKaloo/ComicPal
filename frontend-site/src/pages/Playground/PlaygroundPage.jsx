@@ -7,64 +7,63 @@ import playgroundStory from "../../assets/playgroundStory.png";
 import playgroundCharacter from "../../assets/playgroundCharacter.png";
 
 function PlaygroundPage() {
-  return (
-    <MainLayout>
-      <div className="w-full py-[6rem] px-4 ">
-        <div
-          className={`max-w-[1240px] mx-auto grid lg:grid-cols-3 md:grid-cols-2 md:px-4 px-14 gap-8 font-poppins`}
-        >
-          <Link to="/CreateStory">
-          <div className="w-full bg-paleYellow shadow-xl flex flex-col p-4 my-4 rounded-lg hover:scale-105 duration-300 hover:text-secondary ">
-          <img
-              src={playgroundStory}
-              className="mt-8 h-64 w-[200px] mx-auto border-solid border-2 border-darkGreen"
-            />
-            <h2 className="text-xl font-bold text-center p-6">
-              Plan A Story
-            </h2>
-            {/* <SecondaryButton
+	return (
+		<MainLayout>
+			<div className="w-full py-[6rem] px-4 ">
+				<div
+					className={`max-w-[1240px] mx-auto grid lg:grid-cols-3 md:grid-cols-2 md:px-4 px-14 gap-8 font-poppins`}
+				>
+					<Link to="/CreateStory">
+						<div className="w-full bg-paleYellow shadow-xl flex flex-col p-4 my-4 rounded-lg hover:scale-105 duration-300 hover:text-secondary ">
+							<img
+								src={playgroundStory}
+								className="mt-8 h-64 w-[200px] mx-auto border-solid border-2 border-darkGreen"
+							/>
+							<h2 className="text-xl font-bold text-center p-6">
+								Plan A Story
+							</h2>
+							{/* <SecondaryButton
               styles="mb-8 mx-auto bg-lightGreen outline-none text-white w-[200px]"
               text="Lets Go!"
             /> */}
-          </div>
-          </Link>
+						</div>
+					</Link>
 
-          <Link to="/CreateComicPage">
-          <div className="w-full bg-paleYellow shadow-xl flex flex-col p-4 my-4 rounded-lg hover:scale-105 duration-300 hover:text-secondary">
-          <img
-              src={playgroundComic}
-              className="mt-8 h-64 w-[200px] mx-auto border-solid border-2 border-darkGreen"
-            />
-            <h2 className="text-xl font-bold text-center p-6">
-              Create A Comic Page
-            </h2>
-            {/* <SecondaryButton
+					<Link to="/CreateComicPage">
+						<div className="w-full bg-paleYellow shadow-xl flex flex-col p-4 my-4 rounded-lg hover:scale-105 duration-300 hover:text-secondary">
+							<img
+								src={playgroundComic}
+								className="mt-8 h-64 w-[200px] mx-auto border-solid border-2 border-darkGreen"
+							/>
+							<h2 className="text-xl font-bold text-center p-6">
+								Create A Comic Page
+							</h2>
+							{/* <SecondaryButton
               styles="mb-8 mx-auto bg-lightGreen outline-none text-white w-[200px]"
               text="Lets Go!"
             /> */}
-          </div>
-          </Link>
+						</div>
+					</Link>
 
-          <Link to="/CreateCharacter">
-          <div className="w-full bg-paleYellow shadow-xl flex flex-col p-4 my-4 rounded-lg hover:scale-105 duration-300 hover:text-secondary">
-          <img
-              src={playgroundCharacter}
-              className="mt-8 h-64 w-[200px] mx-auto border-solid border-2 border-darkGreen"
-            />
-            <h2 className="text-xl font-bold text-center p-6">
-              Design A Character
-            </h2>
-            {/* <SecondaryButton
+					<Link to="/CreateCharacter">
+						<div className="w-full bg-paleYellow shadow-xl flex flex-col p-4 my-4 rounded-lg hover:scale-105 duration-300 hover:text-secondary">
+							<img
+								src={playgroundCharacter}
+								className="mt-8 h-64 w-[200px] mx-auto border-solid border-2 border-darkGreen"
+							/>
+							<h2 className="text-xl font-bold text-center p-6">
+								Design A Character
+							</h2>
+							{/* <SecondaryButton
               styles="mb-8 mx-auto bg-lightGreen outline-none text-white w-[200px]"
               text="Lets Go!"
             /> */}
-          </div>
-          </Link>
-
-        </div>
-      </div>
-    </MainLayout>
-  );
+						</div>
+					</Link>
+				</div>
+			</div>
+		</MainLayout>
+	);
 }
 
 export default PlaygroundPage;

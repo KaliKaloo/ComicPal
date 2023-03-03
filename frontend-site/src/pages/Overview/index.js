@@ -3,9 +3,4 @@ import Info from "./Info";
 import HowToUse from "./HowToUse";
 import GetStarted from "./GetStarted";
 
-export { 
-    HeroSection, 
-    Info, 
-    HowToUse, 
-    GetStarted, 
-};
+export { HeroSection, Info, HowToUse, GetStarted };
