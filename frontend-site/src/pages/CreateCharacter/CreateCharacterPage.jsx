@@ -71,7 +71,7 @@ function CreateCharacterPage() {
           <div className="flex-1 flex lg:flex-row flex-col justify-between gap-4 items-center ">
             <div
               className="relative flex-1 bg-white items-center justify-center flex h-[70%] w-[70%] rounded-md shadow-lg"
-              // ref={exportRef}
+              ref={exportRef}
             >
               <div
                 onClick={() => handleDownload()}
