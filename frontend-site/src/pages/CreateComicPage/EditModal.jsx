@@ -68,7 +68,7 @@ function EditModal({ onClose, imgUrl, text }) {
 
           <Dropdown
             handleRealisim={handleRealismDropdown}
-            defaultText={"Realisim"}
+            defaultText={"Realism"}
             dropList={realismLevels}
           />
         </div>

@@ -6,7 +6,7 @@ import "./CreateStoryPage.css";
 
 function CreateStoryPage() {
   const [input, setInput] = useState("");
-  const [storyLog, setStoryLog] = useState([]);
+  const [storyLog, setStoryLog] = useState([{user: "openai", message: `Lets make a story together. Start by asking me a question about the story you want to make :)`}]);
   const [isLoading, setIsLoading] = useState(false);
 
   function clearStory() {
