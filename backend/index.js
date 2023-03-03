@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 app.use(cors());
 const port = 3080;
 
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, 'dist')))
 
 app.post("/story", async (req, res) => {
   try {
