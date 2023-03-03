@@ -1,9 +1,8 @@
 import { useState } from "react";
-import MainLayout from "../../layout/MainLayout";
-import "./CreateStoryPage.css";
 import openaiLogo from "../../assets/openai-logo.svg";
 import FeedbackCard from "../../components/ui/FeedbackCard";
-import Spinner from "../../components/ui/Spinner";
+import MainLayout from "../../layout/MainLayout";
+import "./CreateStoryPage.css";
 
 function CreateStoryPage() {
   const [input, setInput] = useState("");
@@ -24,7 +23,7 @@ function CreateStoryPage() {
     
     const messages = newStoryLog.map((message) => message.message).join("");
 
-    const response = await fetch("https://ai-tool-for-comics-4xidawny7-kalikaloo.vercel.app/story", {
+    const response = await fetch("http://localhost:3080/story", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

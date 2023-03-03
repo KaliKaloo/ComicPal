@@ -1,14 +1,10 @@
-import { useState } from "react";
-import { Menu, Transition } from "@headlessui/react";
-import Dropdown from "../../components/ui/Dropdown";
 import {
   ArrowRightCircleIcon,
-  CheckIcon,
-  XMarkIcon,
-  PhotoIcon,
-  ChevronDownIcon,
+  CheckIcon, PhotoIcon, XMarkIcon
 } from "@heroicons/react/24/outline";
 import autosize from "autosize/dist/autosize.js";
+import { useState } from "react";
+import Dropdown from "../../components/ui/Dropdown";
 import Spinner from "../../components/ui/Spinner";
 
 function EditModal({ onClose, imgUrl, text }) {
@@ -27,7 +23,7 @@ function EditModal({ onClose, imgUrl, text }) {
         : prompt + ". " + realismLevel + " photo realistic";
     console.log(newPrompt);
     const response = await fetch(
-      "https://ai-tool-for-comics-4xidawny7-kalikaloo.vercel.app/image",
+      "http://localhost:3080/image",
       {
         method: "POST",
         headers: {

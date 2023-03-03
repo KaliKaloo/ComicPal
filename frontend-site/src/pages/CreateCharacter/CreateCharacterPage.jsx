@@ -1,11 +1,11 @@
-import { useState, useRef } from "react";
-import { useForm } from "react-hook-form";
-import FeedbackCard from "../../components/ui/FeedbackCard";
-import MainLayout from "../../layout/MainLayout";
-import styles from "../../assets/style";
 import { PhotoIcon } from "@heroicons/react/24/outline";
+import { useRef, useState } from "react";
+import { useForm } from "react-hook-form";
+import styles from "../../assets/style";
+import FeedbackCard from "../../components/ui/FeedbackCard";
 import Spinner from "../../components/ui/Spinner";
-// import exportAsImage from "../../utils/exportAsImage";
+import MainLayout from "../../layout/MainLayout";
+import exportAsImage from "../../lib/exportAsImage";
 
 function CreateCharacterPage() {
   const [characterPrompt1, setCharacterPrompt1] = useState("");
@@ -16,13 +16,13 @@ function CreateCharacterPage() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  // const exportRef = useRef();
+  const exportRef = useRef();
 
   const generateImage = async () => {
     setIsLoading(true);
 
     const response = await fetch(
-      "https://ai-tool-for-comics-4xidawny7-kalikaloo.vercel.app/image",
+      "http://localhost:3080/image",
       {
         method: "POST",
         headers: {
@@ -33,8 +33,8 @@ function CreateCharacterPage() {
         }),
       }
     );
-    const res = await response.json();
-    setImageURL(res.url);
+    const res = await response;
+    setImageURL(res);
     setIsLoading(false);
   };
 
@@ -56,7 +56,7 @@ function CreateCharacterPage() {
   };
 
   function handleDownload() {
-    // exportAsImage(exportRef.current, "page1");
+    exportAsImage(exportRef.current, "page1");
   }
 
   return (
@@ -73,12 +73,12 @@ function CreateCharacterPage() {
               className="relative flex-1 bg-white items-center justify-center flex h-[70%] w-[70%] rounded-md shadow-lg"
               // ref={exportRef}
             >
-              {/* <div
+              <div
                 onClick={() => handleDownload()}
                 className="absolute top-0 right-0 mr-[3.5rem] mt-[-1.6em] text-sm text-gray-500 hover:text-secondary cursor-pointer  w-5 h-5"
               >
                 Download
-              </div> */}
+              </div>
               {isLoading ? (
                 <div className="flex justify-center items-center">
                   <Spinner />

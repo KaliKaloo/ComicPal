@@ -1,6 +1,7 @@
 const { Configuration, OpenAIApi } = require("openai");
 const home = require("./home");
 const express = require("express");
+const axios = require('axios');
 require("dotenv").config();
 
 const configuration = new Configuration({
@@ -46,12 +47,24 @@ app.post("/image", async (req, res) => {
       size: "512x512",
     });
     res.status(200).json({
-      url: response.data.data[0].url,
+      url: "http://localhost:3080/proxy?url=" + encodeURIComponent(response.data.data[0].url),
     });
   } catch (error) {
     console.log(error);
     res.status(500).send({ error });
   }
+});
+
+app.get("/proxy", async (req, res) => {
+  const response2 = await axios.get(
+    req.query.url,
+    { responseType: 'arraybuffer' }
+  );
+  const buffer = Buffer.from(response2.data, 'utf-8');
+
+  res.writeHead(200, { "Content-Type": "image/png" });
+  res.write(buffer);
+  res.end();
 });
 
 app.listen(port, () => {

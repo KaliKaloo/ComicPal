@@ -1,32 +1,26 @@
-import { useState, useRef } from "react";
-import MainLayout from "../../layout/MainLayout";
-import GeneratePanel from "./GeneratePanel";
 import {
-  DndContext,
-  useSensors,
-  useSensor,
-  MouseSensor,
-  TouchSensor,
+  DndContext, MouseSensor,
+  TouchSensor, useSensor, useSensors
 } from "@dnd-kit/core";
+import {
+  ChatBubbleOvalLeftIcon, PlusCircleIcon, PlusIcon, RectangleGroupIcon, XMarkIcon
+} from "@heroicons/react/24/outline";
+import { useRef, useState } from "react";
 import { Draggable } from "../../components/ui/Draggable";
 import { Droppable } from "../../components/ui/Droppable";
-import {
-  RectangleGroupIcon,
-  ChatBubbleOvalLeftIcon,
-  PlusIcon,
-  PlusCircleIcon,
-  XMarkIcon,
-} from "@heroicons/react/24/outline";
-import Tooltip from "../../components/ui/Tooltip";
-import GenerateTextBubble from "./GenerateTextBubble";
 import FeedbackCard from "../../components/ui/FeedbackCard";
+import Tooltip from "../../components/ui/Tooltip";
+import MainLayout from "../../layout/MainLayout";
+import exportAsImage from "../../lib/exportAsImage";
+import GeneratePanel from "./GeneratePanel";
+import GenerateTextBubble from "./GenerateTextBubble";
 
 function CreateComicPage() {
   const [objectList, setObjectList] = useState([]);
   const [count, setCount] = useState(1);
   const [newPage, setNewPage] = useState(false);
   const [pageSize, setPageSize] = useState("a4");
-  // const exportRef = useRef();
+  const exportRef = useRef();
 
   const addObject = (type, shape) => {
     setObjectList([
@@ -84,7 +78,7 @@ function CreateComicPage() {
   }
 
   function handleDownload() {
-    // exportAsImage(exportRef.current, "page1");
+    exportAsImage(exportRef.current, "page1");
   }
 
   return (
@@ -131,7 +125,7 @@ function CreateComicPage() {
             <Droppable styles={`h-a4`}>
               {/* THE COMIC PAGES */}
               <div className="relative" 
-              // ref={exportRef}
+              ref={exportRef}
               >
                 <div className={`flex `}>
                   <div
@@ -149,12 +143,12 @@ function CreateComicPage() {
                       <option value="a4">210 x 297</option>
                       <option value="smallerPage">174 x 264</option>
                     </select>
-                    {/* <div
+                    <div
                       onClick={() => handleDownload()}
                       className="absolute top-0 right-0 mr-[5.5rem] mt-[-1.6em] text-gray-500 hover:text-secondary cursor-pointer  w-5 h-5"
                     >
                       Download
-                    </div> */}
+                    </div>
                     {!newPage ? (
                       <PlusIcon
                         onClick={() => setNewPage(true)}
