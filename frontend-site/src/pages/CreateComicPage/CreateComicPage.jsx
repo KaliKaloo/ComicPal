@@ -121,7 +121,7 @@ function CreateComicPage() {
             className={`flex ${
               newPage ? "justify-start ml-20" : "justify-center"
             } flex-1 p-12 h-full overflow-auto `}
-          >
+            >
             <Droppable styles={`h-a4`}>
               {/* THE COMIC PAGES */}
               <div className="relative" 
