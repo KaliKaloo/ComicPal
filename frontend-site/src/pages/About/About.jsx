@@ -2,12 +2,14 @@ import React from "react";
 import MainLayout from "../../layout/MainLayout";
 import styles, { layout } from "../../assets/style";
 import { Link } from "react-router-dom";
+import about1 from "../../assets/about1.jpg";
+import about2 from "../../assets/about2.jpg";
 
 function About() {
 	return (
 		<MainLayout>
 			<div className={`${styles.flexStart}`}>
-				<div className={`${styles.boxWidth}`}>
+				<div className={``}>
 					<section
 						id="howToUse"
 						className={`${layout.sectionReverse} py-10 bg-paleYellow`}
@@ -15,7 +17,7 @@ function About() {
 						{/* <div className={`${styles.paddingX} ${styles.paddingY}`}> */}
 						<div className={`${layout.sectionImgReverse}`}>
 							<img
-								src=""
+								src={about1}
 								alt="billing"
 								className="h-full relative object-cover"
 							/>
@@ -82,7 +84,7 @@ function About() {
 						</div>
 						<div className={`${layout.sectionImg}`}>
 							<img
-								src=""
+								src={about2}
 								alt="billing"
 								className="h-full relative object-cover"
 							/>

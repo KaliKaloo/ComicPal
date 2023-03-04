@@ -64,7 +64,8 @@ function CreateCharacterPage() {
 				<div className="absolute bottom-0 left-0 ml-[-2rem] md:scale-75 z-40 scale-0 duration-200">
 					<FeedbackCard noIcon={true} />
 				</div>
-				<div className=" flex flex-col gap-10 lg:py-0 py-12 md:px-20 h-full lg:w-[80%]">
+
+				<div className=" flex flex-col gap-10 lg:py-0 py-12  h-full w-[80%]">
 					<div className="flex-1 flex lg:flex-row flex-col justify-between gap-4 items-center ">
 						<div
 							className="relative flex-1 bg-white items-center justify-center flex h-[70%] w-[70%] rounded-md shadow-lg"
@@ -96,9 +97,9 @@ function CreateCharacterPage() {
 							)}
 						</div>
 
-						<div className="flex-1">
+						<div className="flex-1 w-full">
 							<form
-								className="flex flex-col space-y-3 lg:mt-16"
+								className="flex flex-col space-y-3 lg:mt-16 w-full"
 								onSubmit={handleSubmit(onSubmit)}
 							>
 								<label className="block text-gray-700 text-md font-bold mt-3 mb-2">

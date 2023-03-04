@@ -20,7 +20,7 @@ function Info() {
 					/>
 				</div>
 
-				<div className={`${layout.sectionInfo} pl-4 pr-16 mt-10`}>
+				<div className={`${layout.sectionInfo} px-16 mt-10`}>
 					<h2 className={`${styles.heading2} w-[300px] pb-4`}>
 						Your Wingman,
 						<br className="sm:block hidden" />{" "}

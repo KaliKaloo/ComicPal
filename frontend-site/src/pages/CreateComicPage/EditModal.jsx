@@ -14,6 +14,8 @@ function EditModal({ onClose, imgUrl, text }) {
 	const [imageURL, setImageURL] = useState(imgUrl);
 	const realismLevels = ["0%", "30%", "50%", "70%", "100%"];
 	const [realismLevel, setRealismLevel] = useState("");
+	const styleOptions = ["N/A", "Oil Painting", "Watercolour", "Pencil Sketch", "Marvel Comics", "Cartoon", "Anime"];
+	const [styleOption, setStyleOption] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
 
 	const generateImage = async (e) => {
@@ -23,6 +25,8 @@ function EditModal({ onClose, imgUrl, text }) {
 			realismLevel === "" || realismLevel === "100%"
 				? prompt
 				: prompt + ". " + realismLevel + " photo realistic";
+
+		newPrompt = styleOption==="N/A" ? newPrompt : newPrompt+" "+styleOption+" style";
 		console.log(newPrompt);
 		const response = await fetch("http://localhost:3080/image", {
 			method: "POST",
@@ -50,6 +54,10 @@ function EditModal({ onClose, imgUrl, text }) {
 		setRealismLevel(level);
 	};
 
+	const handleStyleDropdown = (style) => {
+		setStyleOption(style);
+	};
+
 	// standalone script to automatically adjust textarea height
 	autosize(document.querySelectorAll("textarea"));
 
@@ -64,12 +72,20 @@ function EditModal({ onClose, imgUrl, text }) {
 						className="text-right h-8 w-8 hover:cursor-pointer text-black"
 						onClick={() => handleOnClose(false)}
 					/>
+					
+					<div className="flex gap-2">
+						<Dropdown
+							handleRealisim={handleStyleDropdown}
+							defaultText={"Style"}
+							dropList={styleOptions}
+						/>
+						<Dropdown
+							handleRealisim={handleRealismDropdown}
+							defaultText={"Realism"}
+							dropList={realismLevels}
+						/>
 
-					<Dropdown
-						handleRealisim={handleRealismDropdown}
-						defaultText={"Realism"}
-						dropList={realismLevels}
-					/>
+					</div>
 				</div>
 				<div className="overflow-hidden w-full h-full">
 					{isLoading ? (

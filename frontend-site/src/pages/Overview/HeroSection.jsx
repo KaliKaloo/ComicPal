@@ -62,7 +62,7 @@ function HeroSection() {
 					<MainButton
 						styles="mt-6 mb-10 bg-lightGreen text-white hover:bg-[#007864]"
 						text="How To Use"
-						onClick={() => navigate("#")}
+						href="#howToUse"
 					/>
 				</div>
 			</div>

@@ -80,7 +80,7 @@ export default function Navbar() {
 											as="div"
 											className="relative ml-3"
 										>
-											<div>
+											{/* <div>
 												<Menu.Button className="rounded-full bg-lightGreen bg-opacity-20 p-1 text-dimWhite hover:text-white focus:outline-none focus:ring-2 focus:ring-lightGreen focus:ring-offset-2 focus:ring-offset-mediumGreen">
 													<span className="sr-only">
 														Open help menu
@@ -90,7 +90,7 @@ export default function Navbar() {
 														aria-hidden="true"
 													/>
 												</Menu.Button>
-											</div>
+											</div> */}
 											<Transition
 												as={Fragment}
 												enter="transition ease-out duration-100"
