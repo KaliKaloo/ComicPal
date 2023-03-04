@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { feedbackQuestions } from "../../constants";
+import Likert from 'react-likert-scale';
 
 const FeedbackFrom = ({ submitFunc }) => {
 	const {
