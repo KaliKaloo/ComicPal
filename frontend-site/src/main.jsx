@@ -11,38 +11,38 @@ import About from "./pages/About/About";
 import FeedbackPage from "./pages/Feedback/FeedbackPage";
 
 const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-  },
-  {
-    path: "Playground",
-    element: <PlaygroundPage />,
-  },
-  {
-    path: "About",
-    element: <About />,
-  },
-  {
-    path: "CreateStory",
-    element: <CreateStoryPage/>,
-  },
-  {
-    path: "CreateComicPage",
-    element: <CreateComicPage />,
-  },
-  {
-    path: "CreateCharacter",
-    element: <CreateCharacterPage />,
-  },
-  {
-    path: "FeedbackForm",
-    element: <FeedbackPage />,
-  },
+	{
+		path: "/",
+		element: <App />,
+	},
+	{
+		path: "Playground",
+		element: <PlaygroundPage />,
+	},
+	{
+		path: "About",
+		element: <About />,
+	},
+	{
+		path: "CreateStory",
+		element: <CreateStoryPage />,
+	},
+	{
+		path: "CreateComicPage",
+		element: <CreateComicPage />,
+	},
+	{
+		path: "CreateCharacter",
+		element: <CreateCharacterPage />,
+	},
+	{
+		path: "FeedbackForm",
+		element: <FeedbackPage />,
+	},
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>
+	<React.StrictMode>
+		<RouterProvider router={router} />
+	</React.StrictMode>
 );

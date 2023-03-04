@@ -1,10 +1,12 @@
 const { Configuration, OpenAIApi } = require("openai");
 const home = require("./home");
 const express = require("express");
+const axios = require('axios');
+const path = require("path");
 require("dotenv").config();
 
 const configuration = new Configuration({
-  apiKey: process.env.Open_AI_Key,
+  apiKey: process.env.Open_AI_Key
 });
 const openai = new OpenAIApi(configuration);
 
@@ -16,7 +18,7 @@ app.use(bodyParser.json());
 app.use(cors());
 const port = 3080;
 
-app.use("/", home);
+app.use(express.static(path.join(__dirname, 'dist')))
 
 app.post("/story", async (req, res) => {
   try {
@@ -46,7 +48,7 @@ app.post("/image", async (req, res) => {
       size: "512x512",
     });
     res.status(200).json({
-      url: response.data.data[0].url,
+      url: "http://localhost:3080/proxy?url=" + encodeURIComponent(response.data.data[0].url),
     });
   } catch (error) {
     console.log(error);
@@ -54,6 +56,19 @@ app.post("/image", async (req, res) => {
   }
 });
 
+app.get("/proxy", async (req, res) => {
+  const response2 = await axios.get(
+    req.query.url,
+    { responseType: 'arraybuffer' }
+  );
+  const buffer = Buffer.from(response2.data, 'utf-8');
+
+  res.writeHead(200, { "Content-Type": "image/png" });
+  res.write(buffer);
+  res.end();
+});
+
 app.listen(port, () => {
   console.log(`Server listening at port ${port}`);
+  console.log(path.join(__dirname, "public"));
 });
