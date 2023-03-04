@@ -28,7 +28,7 @@ function EditModal({ onClose, imgUrl, text }) {
 
 		newPrompt = styleOption==="N/A" ? newPrompt : newPrompt+" "+styleOption+" style";
 		console.log(newPrompt);
-		const response = await fetch("http://localhost:3080/image", {
+		const response = await fetch(process.env.NODE_ENV === "production" ? "https://ai-tool-for-comics.vercel.app/image" : "http://localhost:3080/image", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",

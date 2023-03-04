@@ -28,7 +28,7 @@ function CreateStoryPage() {
 
 		const messages = newStoryLog.map((message) => message.message).join("");
 
-		const response = await fetch("http://localhost:3080/story", {
+		const response = await fetch(process.env.NODE_ENV === "production" ? "https://ai-tool-for-comics.vercel.app/story" :"http://localhost:3080/story", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
