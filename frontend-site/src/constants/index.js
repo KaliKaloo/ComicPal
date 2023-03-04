@@ -19,6 +19,7 @@ export const navLinks = [
 	{ name: "Overview", link: "/" },
 	{ name: "Playground", link: "/Playground" },
 	{ name: "About", link: "/About" },
+	{ name: "Feedback", link: "/FeedbackForm" },
 ];
 
 export const features = [
@@ -48,21 +49,22 @@ export const features = [
 
 export const feedbackQuestions = {
 	questions: {
-		question1: "Did you enjoy using ComicPal to create a comic?",
-		question2: "Was it easy to navigate and use?",
-		question3: "Did it fit into your creative workflow?",
+		question1: "1. I enjoyed using ComicPal to create a comic",
+		question2: "2. It was easy to navigate and use",
+		question3: "3. It fit into my creative workflow",
 		question4:
-			"Step-by-step, what is your usual process of creating a comic?",
+			"4. Step-by-step, what is your usual process of creating a comic?",
 		question5:
-			"In comparison to your usual method, did using ComicPal make it easier to create a comic?",
-		question6: "What features did you like?",
-		question7: "What features did you dislike?",
-		question8: "What new features would you like to have?",
+			"5. In comparison to your usual method, using ComicPal make it easier to create a comic?",
+		question6: "6. What features did you like?",
+		question7: "7. What features did you dislike?",
+		question8: "8. What new features would you like to have?",
 		question9:
-			"When generating images, what percentage of realism did you like the most?",
-		question10: "Did using ComicPal make you feel more/less creative?",
-		question11: "Would you use ComicPal again?",
-		question12: "Any additional comments?",
+			"9. When generating images, what percentage of realism did you like the most?",
+		question10: "10. How creative did ComicPal make you feel?",
+		question11: "11. I would use ComicPal again",
+		question12: "12. How do you feel about AI in the comic industry?",
+		question13: "13. Any additional comments?",
 	},
 };
 
@@ -79,7 +81,7 @@ export const footerLinks = [
 				link: "#",
 			},
 			{
-				name: "Create",
+				name: "Get Started",
 				link: "/playground",
 			},
 			{
@@ -96,7 +98,7 @@ export const footerLinks = [
 				link: "https://openai.com/api/",
 			},
 			{
-				name: "Github",
+				name: "GitHub",
 				link: "https://github.com/KaliKaloo/AI-Tool-For-Comics",
 			},
 			{

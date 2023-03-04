@@ -3,49 +3,43 @@ import { useForm } from "react-hook-form";
 import LikertScale from "../../components/LikertScale";
 import { feedbackQuestions } from "../../constants";
 
-const FeedbackFrom = ({ submitFunc }) => {
-	const {
-		register,
-		handleSubmit,
-		watch,
-		formState: { errors },
-	} = useForm();
-
+const FeedbackForm = ({ submitFunc }) => {
+	const { register, handleSubmit, formState: { errors } } = useForm();
 	const [likertAnswers, setLikertAnswers] = useState({});
+	const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
 
 	const updateLikertAnswers = (key, value) => {
-		setLikertAnswers(likertAnswers => {
+		setLikertAnswers((likertAnswers) => {
 			return { ...likertAnswers, [key]: value };
 		});
 	};
 
 	const onSubmit = (data) => {
-		submitFunc();
+		setSubmitButtonDisabled(true);
+		
 		const formData = new FormData();
 
-		for (const key in data) {
-			if (key === "field") {
-				formData.append(key, data[key][1]);
+		for (const [key, value] of Object.entries(data)) {
+			if (key === "Question8ii") {
+				formData.set(
+					"Question8",
+					[formData.get("Question8"), value].join(",")
+				);
 			} else {
-				formData.append(key, data[key]);
+				formData.append(key, value);
 			}
 		}
 
-		for (const [key, value] of Object.entries(likertAnswers)) {
-			formData.append(key, value.text);
+		for (const [key, answer] of Object.entries(likertAnswers)) {
+			formData.append(key, answer.value);
 		}
 
 		fetch(
 			"https://script.google.com/macros/s/AKfycbwcuSinKb8mp_TYQ4WR02Qo33zEIYfal--wG1OYV7ngd0a1FjM-g4ADQN_RCFBsm5YoFA/exec",
-			{
-				method: "POST",
-				body: formData,
-			}
+			{ method: "POST", body: formData }
 		)
-			// .then((res) => {
-			//   // console.log(res);
-			// })
-			.catch((error) => console.log(error));
+		.then(() => submitFunc())
+		.catch((error) => console.log(error));
 	};
 
 	return (
@@ -64,11 +58,8 @@ const FeedbackFrom = ({ submitFunc }) => {
 					</label>
 					<LikertScale
 						checked={likertAnswers.Question1}
-						onChange={val => {
-							updateLikertAnswers(
-								"Question1",
-								val
-							);
+						onChange={(val) => {
+							updateLikertAnswers("Question1", val);
 						}}
 					/>
 				</div>
@@ -79,11 +70,8 @@ const FeedbackFrom = ({ submitFunc }) => {
 					</label>
 					<LikertScale
 						checked={likertAnswers.Question2}
-						onChange={val => {
-							updateLikertAnswers(
-								"Question2",
-								val
-							);
+						onChange={(val) => {
+							updateLikertAnswers("Question2", val);
 						}}
 					/>
 				</div>
@@ -93,11 +81,8 @@ const FeedbackFrom = ({ submitFunc }) => {
 					</label>
 					<LikertScale
 						checked={likertAnswers.Question3}
-						onChange={val => {
-							updateLikertAnswers(
-								"Question3",
-								val
-							);
+						onChange={(val) => {
+							updateLikertAnswers("Question3", val);
 						}}
 					/>
 				</div>
@@ -118,11 +103,8 @@ const FeedbackFrom = ({ submitFunc }) => {
 					</label>
 					<LikertScale
 						checked={likertAnswers.Question5}
-						onChange={val => {
-							updateLikertAnswers(
-								"Question5",
-								val
-							);
+						onChange={(val) => {
+							updateLikertAnswers("Question5", val);
 						}}
 					/>
 				</div>
@@ -303,8 +285,8 @@ const FeedbackFrom = ({ submitFunc }) => {
 								{...register("Question8")}
 							/>
 							<div className="cursor-pointer">
-								Edit the generated images by cropping,
-								rotating etc
+								Edit the generated images by cropping, rotating
+								etc
 							</div>
 						</label>
 						<label className="flex space-x-3">
@@ -315,9 +297,8 @@ const FeedbackFrom = ({ submitFunc }) => {
 								{...register("Question8")}
 							/>
 							<div className="cursor-pointer">
-								When planning a story, have a narrative
-								timeline with the ability to move around
-								story points
+								When planning a story, have a narrative timeline
+								with the ability to move around story points
 							</div>
 						</label>
 						<label className="flex space-x-3">
@@ -332,6 +313,15 @@ const FeedbackFrom = ({ submitFunc }) => {
 								when creating a comic page
 							</div>
 						</label>
+						<label className="block text-gray-700 text-sm font-bold mt-3 mb-2">
+							other:
+						</label>
+						<textarea
+							className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+							type="text"
+							id="Question8ii"
+							{...register("Question8ii")}
+						/>
 					</div>
 				</div>
 				<div className="mb-8">
@@ -339,65 +329,19 @@ const FeedbackFrom = ({ submitFunc }) => {
 						{feedbackQuestions.questions.question9}
 					</label>
 					<div className="md:flex space-x-6">
-						<label>
-							<div className="cursor-pointer">0%</div>
-							<input
-								type="radio"
-								id="Question9"
-								name="radio-1"
-								className="radio"
-								value="0%"
-								{...register("Question9")}
-							/>
-						</label>
-
-						<label>
-							<div className="cursor-pointer">30%</div>
-							<input
-								type="radio"
-								id="Question9"
-								name="radio-1"
-								className="radio"
-								value="30%"
-								{...register("Question9")}
-							/>
-						</label>
-
-						<label>
-							<div className="cursor-pointer">50%</div>
-							<input
-								type="radio"
-								id="Question9"
-								name="radio-1"
-								className="radio"
-								value="50%"
-								{...register("Question9")}
-							/>
-						</label>
-
-						<label>
-							<div className="cursor-pointer">70%</div>
-							<input
-								type="radio"
-								id="Question9"
-								name="radio-1"
-								className="radio"
-								value="70%"
-								{...register("Question9")}
-							/>
-						</label>
-
-						<label>
-							<div className="cursor-pointer">100%</div>
-							<input
-								type="radio"
-								id="Question9"
-								name="radio-1"
-								className="radio"
-								value="100%"
-								{...register("Question9")}
-							/>
-						</label>
+						<LikertScale
+							checked={likertAnswers.Question9}
+							onChange={(val) => {
+								updateLikertAnswers("Question9", val);
+							}}
+							customOptions={[
+								{ value: "0%" },
+								{ value: "25%" },
+								{ value: "50%" },
+								{ value: "75%" },
+								{ value: "100%" },
+							]}
+						/>
 					</div>
 				</div>
 				<div className="mb-8">
@@ -406,12 +350,16 @@ const FeedbackFrom = ({ submitFunc }) => {
 					</label>
 					<LikertScale
 						checked={likertAnswers.Question10}
-						onChange={val => {
-							updateLikertAnswers(
-								"Question10",
-								val
-							)
+						onChange={(val) => {
+							updateLikertAnswers("Question10", val);
 						}}
+						customOptions={[
+							{ value: "Very Uncreative" },
+							{ value: "Uncreative" },
+							{ value: "Neutral" },
+							{ value: "Creative" },
+							{ value: "Very Creative" },
+						]}
 					/>
 				</div>
 				<div className="mb-8">
@@ -420,11 +368,8 @@ const FeedbackFrom = ({ submitFunc }) => {
 					</label>
 					<LikertScale
 						checked={likertAnswers.Question11}
-						onChange={val => {
-							updateLikertAnswers(
-								"Question11",
-								val
-							);
+						onChange={(val) => {
+							updateLikertAnswers("Question11", val);
 						}}
 					/>
 				</div>
@@ -440,11 +385,34 @@ const FeedbackFrom = ({ submitFunc }) => {
 						{...register("Question12")}
 					/>
 				</div>
+				<div className="mb-8">
+					<label className="block text-gray-700 text-sm font-bold mt-3 mb-2">
+						{feedbackQuestions.questions.question13}
+					</label>
+					<textarea
+						className="shadow appearance-none border rounded md:w-[80%] w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+						type="text"
+						id="Question13"
+						{...register("Question13")}
+					/>
+				</div>
 
-				<div className="flex justify-end">
+				<div className="flex justify-end gap-3 items-center">
+					<label className="text-secondary flex gap-3 text-sm ">
+						<input
+							type="checkbox"
+							className="checkbox checkbox-sm"
+							onChange={(e) => setSubmitButtonDisabled(!e.target.checked)}
+						/>
+						<div className="cursor-pointer">
+							I acknowledge that my feedback will be collected
+							anonymously
+						</div>
+					</label>
 					<button
 						type="submit"
-						className="w-32 bg-secondary hover:bg-[#E36021] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-3"
+						disabled={submitButtonDisabled}
+						className="w-32 disabled:bg-[#ed9b75] bg-secondary hover:bg-[#E36021] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline "
 					>
 						Submit
 					</button>
@@ -454,4 +422,4 @@ const FeedbackFrom = ({ submitFunc }) => {
 	);
 };
 
-export default FeedbackFrom;
+export default FeedbackForm;

@@ -1,11 +1,11 @@
 
-export default function LikertScale({ onChange, checked }) {
-	const options = [
-		{ value: "Strongly Disagree" , text: "Strongly Disagree" },
-		{ value: "Disagree", text: "Disagree" },
-		{ value: "Neutral", text: "Neutral" },
-		{ value: "Agree", text: "Agree" },
-		{ value: "Strongly Agree", text: "Strongly Agree" }
+export default function LikertScale({ onChange, checked, customOptions}) {
+	const options = customOptions || [
+		{ value: "Strongly Disagree"  },
+		{ value: "Disagree"},
+		{ value: "Neutral"},
+		{ value: "Agree"},
+		{ value: "Strongly Agree" }
 	].map(response => {
 		return { ...response, checked: response.value === checked?.value };
 	});
@@ -16,7 +16,7 @@ export default function LikertScale({ onChange, checked }) {
 				return (
 					<label key={i} className="text-center">
 						<div className="cursor-pointer text-sm mb-1">
-							{option.text}
+							{option.value}
 						</div>
 						<input
 							type="radio"
