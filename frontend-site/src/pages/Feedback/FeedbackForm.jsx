@@ -16,7 +16,7 @@ const FeedbackForm = ({ submitFunc }) => {
 
 	const onSubmit = (data) => {
 		setSubmitButtonDisabled(true);
-		
+
 		const formData = new FormData();
 
 		for (const [key, value] of Object.entries(data)) {
@@ -313,15 +313,17 @@ const FeedbackForm = ({ submitFunc }) => {
 								when creating a comic page
 							</div>
 						</label>
-						<label className="block text-gray-700 text-sm font-bold mt-3 mb-2">
-							other:
-						</label>
-						<textarea
-							className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-							type="text"
-							id="Question8ii"
-							{...register("Question8ii")}
-						/>
+						<div className="mb-3 mt-1">
+							<label className="block mb-2">
+								Other:
+							</label>
+							<textarea
+								className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+								type="text"
+								id="Question8ii"
+								{...register("Question8ii")}
+							/>
+						</div>
 					</div>
 				</div>
 				<div className="mb-8">
