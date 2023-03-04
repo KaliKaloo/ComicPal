@@ -12,7 +12,7 @@ import Spinner from "../../components/ui/Spinner";
 function EditModal({ onClose, imgUrl, text }) {
 	const [prompt, setPrompt] = useState(text);
 	const [imageURL, setImageURL] = useState(imgUrl);
-	const realismLevels = ["0%", "30%", "50%", "70%", "100%"];
+	const realismLevels = ["0%", "25%", "50%", "75%", "100%"];
 	const [realismLevel, setRealismLevel] = useState("");
 	const styleOptions = ["N/A", "Oil Painting", "Watercolour", "Pencil Sketch", "Marvel Comics", "Cartoon", "Anime"];
 	const [styleOption, setStyleOption] = useState("");
