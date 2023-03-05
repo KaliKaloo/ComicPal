@@ -8,7 +8,6 @@ import MainLayout from "../../layout/MainLayout";
 import exportAsImage from "../../lib/exportAsImage";
 
 function CreateCharacterPage() {
-	const [characterPrompt1, setCharacterPrompt1] = useState("");
 	const [imageURL, setImageURL] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
 	const {
@@ -18,24 +17,9 @@ function CreateCharacterPage() {
 	} = useForm();
 	const exportRef = useRef();
 
-	const generateImage = async () => {
+	const onSubmit = async (data) => {
 		setIsLoading(true);
 
-		const response = await fetch(process.env.NODE_ENV === "production" ? "https://comicpal.vercel.app/image" : "http://localhost:3080/image", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({
-				prompt: characterPrompt1,
-			}),
-		});
-		const res = await response.json();
-		setImageURL(res.url);
-		setIsLoading(false);
-	};
-
-	const onSubmit = (data) => {
 		let combinedData =
 			data.gender +
 			" with " +
@@ -47,9 +31,23 @@ function CreateCharacterPage() {
 			"skin. " +
 			data.other;
 
-		console.log(combinedData);
-		setCharacterPrompt1(combinedData);
-		generateImage();
+		const response = await fetch(
+			process.env.NODE_ENV === "production"
+				? "https://comicpal.vercel.app/image"
+				: "http://localhost:3080/image",
+			{
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					prompt: combinedData,
+				}),
+			}
+		);
+		const res = await response.json();
+		setImageURL(res.url);
+		setIsLoading(false);
 	};
 
 	function handleDownload() {
