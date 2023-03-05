@@ -60,7 +60,7 @@ function HeroSection() {
 					<MainButton
 						styles="mt-6 mb-10 bg-lightGreen text-white hover:bg-[#007864]"
 						text="How To Use"
-						href="#howToUse"
+						href="https://www.youtube.com/watch?v=Dqs-RYhIk44"
 					/>
 				</div>
 			</div>
