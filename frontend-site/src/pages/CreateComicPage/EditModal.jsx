@@ -26,9 +26,10 @@ function EditModal({ onClose, imgUrl, text }) {
 				? prompt
 				: prompt + ". " + realismLevel + " photo realistic";
 
-		newPrompt = styleOption==="N/A" ? newPrompt : newPrompt+" "+styleOption+" style";
+		newPrompt = styleOption==="N/A" || styleOption==="" ? (newPrompt) : (newPrompt+" "+styleOption+" style");
+
 		console.log(newPrompt);
-		const response = await fetch(process.env.NODE_ENV === "production" ? "https://ai-tool-for-comics.vercel.app/image" : "http://localhost:3080/image", {
+		const response = await fetch(process.env.NODE_ENV === "production" ? "https://comicpal.vercel.app/image" : "http://localhost:3080/image", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
