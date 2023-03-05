@@ -24,11 +24,10 @@ function CreateStoryPage() {
 		newStoryLog = [...newStoryLog, { user: "openai", message: `...` }];
 		setInput("");
 		setStoryLog(newStoryLog);
-		console.log(newStoryLog);
 
 		const messages = newStoryLog.map((message) => message.message).join("");
 
-		const response = await fetch(process.env.NODE_ENV === "production" ? "https://ai-tool-for-comics.vercel.app/story" :"http://localhost:3080/story", {
+		const response = await fetch(process.env.NODE_ENV === "production" ? "https://comicpal.vercel.app/story" :"http://localhost:3080/story", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -39,7 +38,6 @@ function CreateStoryPage() {
 		});
 		const data = await response.json();
 		newStoryLog.pop();
-		console.log(newStoryLog);
 		setStoryLog([
 			...newStoryLog,
 			{ user: "openai", message: `${data.message}` },
