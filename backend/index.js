@@ -48,7 +48,7 @@ app.post("/image", async (req, res) => {
       size: "512x512",
     });
     res.status(200).json({
-      url: "http://localhost:3080/proxy?url=" + encodeURIComponent(response.data.data[0].url),
+      url: "https://comicpal.vercel.app/proxy?url=" + encodeURIComponent(response.data.data[0].url),
     });
   } catch (error) {
     console.log(error);
