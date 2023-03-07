@@ -18,7 +18,13 @@ app.use(bodyParser.json());
 app.use(cors());
 const port = 3080;
 
-app.use(express.static(path.join(__dirname, 'dist')))
+app.use(express.static('dist'));
+
+app.get('/*', function(req, res) {
+  res.sendFile(
+    path.join(__dirname + '/dist/index.html')
+  );
+});
 
 app.post("/story", async (req, res) => {
   try {
