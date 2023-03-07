@@ -18,14 +18,6 @@ app.use(bodyParser.json());
 app.use(cors());
 const port = 3080;
 
-app.use(express.static('dist'));
-
-app.get('/*', function(req, res) {
-  res.sendFile(
-    path.join(__dirname + '/dist/index.html')
-  );
-});
-
 app.post("/story", async (req, res) => {
   try {
     const { message } = req.body;
@@ -72,6 +64,14 @@ app.get("/proxy", async (req, res) => {
   res.writeHead(200, { "Content-Type": "image/png" });
   res.write(buffer);
   res.end();
+});
+
+app.use(express.static('dist'));
+
+app.get('/*', function(req, res) {
+  res.sendFile(
+    path.join(__dirname + '/dist/index.html')
+  );
 });
 
 app.listen(port, () => {
