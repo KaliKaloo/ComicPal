@@ -1,6 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styles from "../assets/style";
-import { logo } from "../assetsTemp";
 import { footerLinks, socialMedia } from "../constants";
 
 function Footer({ bgColor }) {
@@ -48,9 +48,9 @@ function Footer({ bgColor }) {
 														: "mb-0"
 												}`}
 											>
-												<a href={`${link.link}`}>
+												<Link to={`${link.link}`}>
 													{link.name}
-												</a>
+												</Link>
 											</li>
 										))}
 									</ul>

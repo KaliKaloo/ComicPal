@@ -1,18 +1,5 @@
 import {
-	people01,
-	people02,
-	people03,
-	facebook,
-	instagram,
-	linkedin,
-	twitter,
-	airbnb,
-	binance,
-	coinbase,
-	dropbox,
-	send,
-	shield,
-	star,
+	linkedin, star
 } from "../assetsTemp";
 
 export const navLinks = [
@@ -77,17 +64,9 @@ export const footerLinks = [
 				link: "/about",
 			},
 			{
-				name: "How it Works",
-				link: "#",
-			},
-			{
 				name: "Get Started",
 				link: "/playground",
-			},
-			{
-				name: "FAQ",
-				link: "#",
-			},
+			}
 		],
 	},
 	{
