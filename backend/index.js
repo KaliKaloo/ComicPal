@@ -66,7 +66,7 @@ app.get("/proxy", async (req, res) => {
   res.end();
 });
 
-app.use(express.static('dist'));
+app.use(express.static(path.join(__dirname, 'dist')));
 
 app.get('/*', function(req, res) {
   res.sendFile(
@@ -75,6 +75,5 @@ app.get('/*', function(req, res) {
 });
 
 app.listen(port, () => {
-  console.log(`Server listening at port ${port}`);
-  console.log(path.join(__dirname, "public"));
+  console.log(`Server listening at port http://localhost:${port}`);
 });
