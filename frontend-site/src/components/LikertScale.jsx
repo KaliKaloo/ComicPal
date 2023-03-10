@@ -9,10 +9,10 @@ export default function LikertScale({ onChange, checked, customOptions }) {
 	];
 
 	return (
-		<div className="flex space-x-12">
+		<div className="flex space-x-12 flex-wrap">
 			{options.map((option, i) => {
 				return (
-					<label key={i} className="text-center">
+					<label key={i} className="text-center my-2">
 						<div className="cursor-pointer text-sm mb-1">
 							{option.value}
 						</div>
