@@ -68,6 +68,7 @@ app.get("/proxy", async (req, res) => {
 app.use(express.static(path.join(__dirname, 'dist')));
 
 app.get('/*', function(req, res) {
+  res.setHeader('Cache-Control', 's-maxage=60, stale-while-revalidate');
   res.sendFile(
     path.join(__dirname + '/dist/index.html')
   );
