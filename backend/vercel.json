@@ -6,11 +6,11 @@
     ],
     
 	"redirects": [
-		{ "source": "/(.*)", "destination": "/index.js" }
+		{ "source": "/:path((?!uk/).*)", "destination": "/index.js" }
 	],
 	"headers": [
         {
-            "source": "/(.*)",
+            "source": "/:path((?!uk/).*)",
             "headers" : [
                 {
                     "key" : "Cache-Control",
