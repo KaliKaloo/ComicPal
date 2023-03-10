@@ -7,7 +7,7 @@ const hash = Math.floor(Math.random() * 90000) + 10000;
 export default defineConfig({
     build: {
         outDir: '../backend/dist',
-        emptyOutDir: true,
+		emptyOutDir: true,
         rollupOptions: {
             output: {
                 entryFileNames: `[name]` + hash + `.js`,
