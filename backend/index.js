@@ -1,5 +1,4 @@
 const { Configuration, OpenAIApi } = require("openai");
-const home = require("./home");
 const express = require("express");
 const axios = require('axios');
 const path = require("path");
