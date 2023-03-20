@@ -35,9 +35,10 @@ function GenerateTextBubble({ deleteFunc, focus }) {
 					shape == "round" ? "w-[70%]" : "w-[90%]"
 				} `}
 			>
-				<textarea
+				<div
 					id="textarea"
-					className="py-3 text-center break-words font-poppins text-sm w-full resize-none mx-auto focus:outline-none"
+					contenteditable="true"
+					className="text-center break-words font-poppins text-sm w-full resize-none mx-auto focus:outline-none cursor-text"
 					value={text}
 					onChange={(e) => setText(e.target.value)}
 					placeholder="text"
