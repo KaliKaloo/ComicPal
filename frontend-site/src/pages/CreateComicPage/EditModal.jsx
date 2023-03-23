@@ -139,7 +139,7 @@ function EditModal({ onClose, imgUrl, text }) {
 						/>
 						<ArrowRightCircleIcon
 							className="h-10 w-10 text-lightGreen hover:cursor-pointer mx-2 hover:bg-gray-300 rounded-full "
-							onClick={() => handleOnClose(true)}
+							onClick={generateImage}
 						/>
 					</div>
 				</div>
@@ -163,3 +163,4 @@ function EditModal({ onClose, imgUrl, text }) {
 }
 
 export default EditModal;
+

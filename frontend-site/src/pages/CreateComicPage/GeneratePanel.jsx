@@ -1,9 +1,10 @@
 import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
-import { useRef, useState } from "react";
+import { useRef, useState, Component } from "react";
 import useOnClickOutside from "../../lib/useOnClickOutside";
 import EditModal from "./EditModal";
+import { createPortal } from "react-dom";
 
-function GeneratePanel({ deleteFunc, shape, focus }) {
+function GeneratePanel({ deleteFunc, shape, focus, editModeAppear }) {
 	const [panelClick, setPanelClick] = useState(true);
 	const [editMode, setEditMode] = useState(false);
 	const [prompt, setPrompt] = useState("");
@@ -17,6 +18,11 @@ function GeneratePanel({ deleteFunc, shape, focus }) {
 			setPrompt(text);
 		}
 	};
+
+	// const handleTierGaterClick = (e) => {
+	// 	e.stopPropagation(e);
+	// 	e.preventDefault(e);
+	// };
 
 	useOnClickOutside(panelRef, () => setPanelClick(false));
 
@@ -61,18 +67,21 @@ function GeneratePanel({ deleteFunc, shape, focus }) {
 					<div></div>
 				)}
 			</div>
-
-			{editMode ? (
-				<EditModal
-					onClose={handleOnCloseEditMode}
-					imgUrl={imageURL}
-					text={prompt}
-				/>
-			) : (
-				<></>
-			)}
+			
+				{editMode ? (
+					<div >
+					<EditModal
+					 	onClose={handleOnCloseEditMode}
+					 	imgUrl={imageURL}
+					 	text={prompt}
+					 	/>
+					</div>
+				) : (
+					<></>
+				)}
 		</div>
 	);
 }
 
 export default GeneratePanel;
+

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 export default function FeedbackCard({ noIcon }) {
 	return (
-		<Link to="/FeedbackForm">
+		<Link to="/FeedbackForm" target="_blank">
 			<div className="max-w-sm p-6 bg-darkGreen hover:bg-mediumGreen duration-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 text-white">
 				{noIcon ? (
 					<></>

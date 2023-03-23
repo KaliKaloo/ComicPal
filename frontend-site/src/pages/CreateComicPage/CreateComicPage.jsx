@@ -62,8 +62,8 @@ function CreateComicPage() {
 		})
 	);
 
-	function handleDragStart(ev) {
-		const object = objectList.find((x) => x.id === ev.active.id);
+	function handleDragStart(e) {
+		const object = objectList.find((x) => x.id === e.active.id);
 		object.focus = "onFocus";
 		const _newList = objectList.map((x) => {
 			if (x.id === object.id) return object;
@@ -72,10 +72,10 @@ function CreateComicPage() {
 		setObjectList(_newList);
 	}
 
-	function handleDragEnd(ev) {
-		const object = objectList.find((x) => x.id === ev.active.id);
-		object.position.x += ev.delta.x;
-		object.position.y += ev.delta.y;
+	function handleDragEnd(e) {
+		const object = objectList.find((x) => x.id === e.active.id);
+		object.position.x += e.delta.x;
+		object.position.y += e.delta.y;
 		object.focus = "";
 		const _newList = objectList.map((x) => {
 			if (x.id === object.id) return object;
@@ -102,24 +102,24 @@ function CreateComicPage() {
 					<div
 						className={`z-20 flex shrink-0 grow-0 justify-around gap-4 border-t border-gray-200 bg-white/50 p-2.5 shadow-lg backdrop-blur-lg  fixed top-2/4 -translate-y-2/4 left-3 min-h-[auto] lg:min-w-[64px] min-w-[40px] flex-col rounded-lg border`}
 					>
-							<Tooltip text="Square Panel">
-								<RectangleGroupIcon
-									onClick={() => addObject("panel", "square")}
-									className="flex aspect-square min-h-[32px] lg:w-16 w-12 flex-col items-center justify-center gap-1 rounded-md p-1.5  text-gray-700 hover:bg-gray-200 duration-200"
-								/>
-							</Tooltip>
-							<Tooltip text="Round Panel">
-								<PlusCircleIcon
-									onClick={() => addObject("panel", "circle")}
-									className="flex aspect-square min-h-[32px] lg:w-16 w-12 flex-col items-center justify-center gap-1 rounded-md p-1.5  text-gray-700 hover:bg-gray-200 duration-200 "
-								/>
-							</Tooltip>
-							<Tooltip text="Speech Bubble">
-								<ChatBubbleOvalLeftIcon
-									onClick={() => addObject("speech")}
-									className="flex aspect-square min-h-[32px] lg:w-16 w-12 flex-col items-center justify-center gap-1 rounded-md p-1.5  text-gray-700 hover:bg-gray-200 duration-200"
-								/>
-							</Tooltip>
+						<Tooltip text="Square Panel">
+							<RectangleGroupIcon
+								onClick={() => addObject("panel", "square")}
+								className="flex aspect-square min-h-[32px] lg:w-16 w-12 flex-col items-center justify-center gap-1 rounded-md p-1.5  text-gray-700 hover:bg-gray-200 duration-200"
+							/>
+						</Tooltip>
+						<Tooltip text="Round Panel">
+							<PlusCircleIcon
+								onClick={() => addObject("panel", "circle")}
+								className="flex aspect-square min-h-[32px] lg:w-16 w-12 flex-col items-center justify-center gap-1 rounded-md p-1.5  text-gray-700 hover:bg-gray-200 duration-200 "
+							/>
+						</Tooltip>
+						<Tooltip text="Speech Bubble">
+							<ChatBubbleOvalLeftIcon
+								onClick={() => addObject("speech")}
+								className="flex aspect-square min-h-[32px] lg:w-16 w-12 flex-col items-center justify-center gap-1 rounded-md p-1.5  text-gray-700 hover:bg-gray-200 duration-200"
+							/>
+						</Tooltip>
 					</div>
 
 					<div
@@ -211,6 +211,7 @@ function CreateComicPage() {
 										)}
 									</Draggable>
 								))}
+						
 
 								{/* DISPLAY THE SPEECH BUBBLES */}
 								{objectList.map((obj) => (

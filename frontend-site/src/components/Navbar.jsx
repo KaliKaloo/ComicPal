@@ -70,6 +70,7 @@ export default function Navbar() {
 																: "text-dimWhite hover:bg-lightGreen hover:text-dimWhite duration-200",
 															"px-3 py-2 rounded-md text-sm font-medium "
 														)}
+														target={item.name==="Feedback" && "_blank"}
 													>
 														{item.name}
 													</Link>
