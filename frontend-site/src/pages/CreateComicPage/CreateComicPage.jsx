@@ -50,13 +50,13 @@ function CreateComicPage() {
 	const sensors = useSensors(
 		useSensor(MouseSensor, {
 			activationConstraint: {
-				delay: 150,
+				delay: 250,
 				tolerance: 8,
 			},
 		}),
 		useSensor(TouchSensor, {
 			activationConstraint: {
-				delay: 150,
+				delay: 250,
 				tolerance: 8,
 			},
 		})

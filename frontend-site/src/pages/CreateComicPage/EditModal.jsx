@@ -138,7 +138,7 @@ function EditModal({ onClose, imgUrl, text }) {
 							placeholder="Type a prompt..."
 						/>
 						<ArrowRightCircleIcon
-							className="h-10 w-10 text-lightGreen hover:cursor-pointer mx-2 hover:bg-gray-300 rounded-full "
+							className="h-10 w-10 text-lightGreen hover:cursor-pointer mx-2 hover:bg-black hover:bg-opacity-10 rounded-md "
 							onClick={generateImage}
 						/>
 					</div>
@@ -146,13 +146,13 @@ function EditModal({ onClose, imgUrl, text }) {
 				<div className="flex justify-center items-center ">
 					<button
 						onClick={() => handleOnClose(false)}
-						className={`p-3 w-24 bg-secondary text-white hover:bg-[#E36021] m-2 text-md font-poppins font-medium rounded-full duration-300 `}
+						className={`p-3 w-24 bg-secondary text-white hover:bg-[#E36021] m-2 text-base font-poppins font-medium rounded-full duration-300 `}
 					>
 						Cancel
 					</button>
 					<button
 						onClick={() => handleOnClose(true)}
-						className={`p-3 w-24 bg-lightGreen text-white hover:bg-[#007864] m-2 text-md font-poppins font-medium rounded-full duration-300`}
+						className={`p-3 w-24 bg-lightGreen text-white hover:bg-[#007864] m-2 text-base font-poppins font-medium rounded-full duration-300`}
 					>
 						Save
 					</button>

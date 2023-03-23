@@ -1,12 +1,11 @@
 import { useState } from "react";
 import openaiLogo from "../../assets/openai-logo.svg";
-import FeedbackCard from "../../components/ui/FeedbackCard";
 import MainLayout from "../../layout/MainLayout";
-import "./CreateStoryPage.css";
 import {
-	ChatBubbleOvalLeftIcon,
-	PresentationChartLineIcon,
+	ArrowRightCircleIcon,
 } from "@heroicons/react/24/outline";
+import autosize from "autosize/dist/autosize.js";
+import { Link } from "react-router-dom";
 
 function CreateStoryPage() {
 	const [input, setInput] = useState("");
@@ -53,79 +52,14 @@ function CreateStoryPage() {
 		]);
 	}
 
+	// standalone script to automatically adjust textarea height
+	autosize(document.querySelectorAll("textarea"));
+
 	return (
 		<MainLayout footer="noFooter">
-			{/* <aside
-				className="fixed left-0 z-40 w-44 h-full transition-transform -translate-x-full sm:translate-x-0 font-poppins"
-				aria-label="Sidebar"
-			>
-				<div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800 justify-between flex flex-col">
-					<ul class="space-y-2">
-						<li>
-							<a
-								href="#"
-								class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-							>
-								<ChatBubbleOvalLeftIcon class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
-								<span class="ml-3">Chatbot</span>
-							</a>
-						</li>
-						<li>
-							<a
-								href="#"
-								class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-							>
-								<PresentationChartLineIcon class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
-								<span class="flex-1 ml-3 whitespace-nowrap">
-									Timeline
-								</span>
-							</a>
-						</li>
-					</ul>
-					<div className="scale-75 mb-10">
-						<FeedbackCard />
-					</div>
-				</div>
-			</aside> */}
-			<div className="h-screen w-full overflow-hidden fixed bg-primaryGreen">
-				<div className="h-[92vh] p-4 flex max-h-screen overflow-y-auto">
-					<section className="storyBox ">
-						<div className="story-log">
-							{storyLog.map((message, index) => (
-								<StoryMessage
-									isLoading={isLoading}
-									key={index}
-									message={message}
-								/>
-							))}
-						</div>
-						<div className="story-input-holder">
-							<form onSubmit={handleSubmit}>
-								<input
-									rows="1"
-									value={input}
-									onChange={(e) => setInput(e.target.value)}
-									className="story-input-textarea"
-								></input>
-							</form>
-						</div>
-					</section>
-				</div>
-			</div>
-
-			{/* <div className="createStoryPageLayout">
-				<aside className="sideMenu">
-					<div className="side-menu-button" onClick={clearStory}>
-						<span>+</span>
-						Clear Chat
-					</div>
-					<div className="scale-75 mb-[-1rem] ml-[-1rem]">
-						<FeedbackCard />
-					</div>
-				</aside>
-
-				<section className="storyBox">
-					<div className="story-log">
+			<div className="h-screen w-full overflow-hidden fixed bg-primaryGreen grid grid-cols-2 font-poppins">
+				<section className="h-[92vh] max-h-screen overflow-y-auto bg-dimYellow relative text-black flex flex-col justify-between">
+					<div className=" text-left mb-[100px]">
 						{storyLog.map((message, index) => (
 							<StoryMessage
 								isLoading={isLoading}
@@ -134,44 +68,52 @@ function CreateStoryPage() {
 							/>
 						))}
 					</div>
-					<div className="story-input-holder">
-						<form onSubmit={handleSubmit}>
-							<input
-								rows="1"
+					<div className="p-[24px] flex flex-col justify-center bg-dimYellow ">
+						<div className="flex justify-between bg-[#f3f2f0] border rounded-md  shadow-md p-3 gap-2 w-full mb-4">
+							<textarea
+							id="textarea"
 								value={input}
 								onChange={(e) => setInput(e.target.value)}
-								className="story-input-textarea"
-							></input>
-						</form>
+								className=" bg-transparent outline-none w-full text-base resize-none h-10 text-center break-words p-2.5 "
+							></textarea>
+							<ArrowRightCircleIcon className=" text-lightGreen hover:cursor-pointer h-10 hover:bg-black hover:bg-opacity-10 rounded-md" onClick={handleSubmit}>click</ArrowRightCircleIcon>
+							
+						</div>
+					<p className="text-xs text-black text-opacity-50">Do you have thoughts about ComicPal?  We'd love to hear them! Fill in the <span className="text-secondary text-xs" > <Link to="/FeedbackForm" target="_blank">Feedback Form</Link></span> Your feedback will help us improve.
+					</p> 
+
 					</div>
 				</section>
-			</div> */}
+				<section className="bg-white">
+					Notepad
+				</section>
+			</div>
 		</MainLayout>
 	);
 }
 
 const StoryMessage = ({ message }) => {
 	return (
-		<div
-			className={`story-message ${message.user === "openai" && "openai"}`}
-		>
-			<div className="story-message-center">
-				<div
-					className={`avatar ${
-						message.user === "openai" && "openai"
-					}`}
-				>
-					{/* display svg */}
-					{message.user === "openai" && (
-						<img
-							src={openaiLogo}
-							alt="openai avatar"
-							width={30}
-							height={30}
-						/>
-					)}
+		<div className={`${message.user === "openai" && "bg-[#eae7d9]"}`}>
+			<div className="w-[80%]">
+				<div className="flex mx-auto py-3 px-6 ">
+					<div
+						className={`bg-white rounded-full min-w-[48px] h-[48px] flex items-center justify-center ${
+							message.user === "openai" && "bg-[#0da37f]"
+						}`}
+					>
+						{/* display svg */}
+						{message.user === "openai" && (
+							<img
+								src={openaiLogo}
+								alt="openai avatar"
+								width={30}
+								height={30}
+							/>
+						)}
+					</div>
+					<div className="px-10 text-base">{message.message}</div>
 				</div>
-				<div className="message">{message.message}</div>
 			</div>
 		</div>
 	);
