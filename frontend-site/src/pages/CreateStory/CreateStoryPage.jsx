@@ -1,6 +1,7 @@
 import { useState } from "react";
 import openaiLogo from "../../assets/openai-logo.svg";
 import MainLayout from "../../layout/MainLayout";
+import Notepad from "./Notepad";
 import {
 	ArrowRightCircleIcon,
 } from "@heroicons/react/24/outline";
@@ -57,8 +58,8 @@ function CreateStoryPage() {
 
 	return (
 		<MainLayout footer="noFooter">
-			<div className="h-screen w-full overflow-hidden fixed bg-primaryGreen grid grid-cols-2 font-poppins">
-				<section className="h-[92vh] max-h-screen overflow-y-auto bg-dimYellow relative text-black flex flex-col justify-between">
+			<div className="h-screen w-full overflow-hidden fixed bg-primaryGreen grid grid-rows-2 md:grid-cols-2 font-poppins">
+				<section className="h-full md:h-[94vh] w-full overflow-y-auto bg-dimYellow relative text-black flex flex-col justify-between">
 					<div className=" text-left mb-[100px]">
 						{storyLog.map((message, index) => (
 							<StoryMessage
@@ -68,7 +69,7 @@ function CreateStoryPage() {
 							/>
 						))}
 					</div>
-					<div className="p-[24px] flex flex-col justify-center bg-dimYellow ">
+					<div className="p-[24px] w-full flex flex-col justify-center bg-dimYellow ">
 						<div className="flex justify-between bg-[#f3f2f0] border rounded-md  shadow-md p-3 gap-2 w-full mb-4">
 							<textarea
 							id="textarea"
@@ -84,8 +85,8 @@ function CreateStoryPage() {
 
 					</div>
 				</section>
-				<section className="bg-white">
-					Notepad
+				<section className="bg-white h-full md:h-[94vh]">
+					<Notepad/>
 				</section>
 			</div>
 		</MainLayout>

@@ -42,8 +42,9 @@ export default function Navbar() {
 										</Disclosure.Button>
 									</div>
 									<div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-										<div className="flex flex-shrink-0 items-center font-bold text-secondary cursor-pointer"
-										onClick={() => navigate("/")}
+										<div
+											className="flex flex-shrink-0 items-center font-bold text-secondary cursor-pointer"
+											onClick={() => navigate("/")}
 										>
 											ComicPal
 											{/* <img
@@ -60,20 +61,44 @@ export default function Navbar() {
 										<div className="hidden sm:ml-6 sm:block">
 											<div className="flex space-x-4">
 												{navLinks.map((item) => (
-													<Link
-														key={item.name}
-														to={item.link}
-														className={classNames(
-															location.pathname ==
-																item.link
-																? "bg-lightGreen text-white "
-																: "text-dimWhite hover:bg-lightGreen hover:text-dimWhite duration-200",
-															"px-3 py-2 rounded-md text-sm font-medium "
+													<>
+														{item.name ===
+														"Feedback" ? (
+															<Link
+																key={item.name}
+																to={item.link}
+																className={classNames(
+																	location.pathname ==
+																		item.link
+																		? "bg-lightGreen text-white "
+																		: "text-dimWhite hover:bg-lightGreen hover:text-dimWhite duration-200",
+																	"px-3 py-2 rounded-md text-sm font-medium "
+																)}
+																target={
+																	item.name ===
+																	"Feedback"
+																		? "_blank"
+																		: " "
+																}
+															>
+																{item.name}
+															</Link>
+														) : (
+															<Link
+																key={item.name}
+																to={item.link}
+																className={classNames(
+																	location.pathname ==
+																		item.link
+																		? "bg-lightGreen text-white "
+																		: "text-dimWhite hover:bg-lightGreen hover:text-dimWhite duration-200",
+																	"px-3 py-2 rounded-md text-sm font-medium "
+																)}
+															>
+																{item.name}
+															</Link>
 														)}
-														target={item.name==="Feedback" ? "_blank":" "}
-													>
-														{item.name}
-													</Link>
+													</>
 												))}
 											</div>
 										</div>
