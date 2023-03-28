@@ -61,44 +61,26 @@ export default function Navbar() {
 										<div className="hidden sm:ml-6 sm:block">
 											<div className="flex space-x-4">
 												{navLinks.map((item) => (
-													<>
-														{item.name ===
-														"Feedback" ? (
-															<Link
-																key={item.name}
-																to={item.link}
-																className={classNames(
-																	location.pathname ==
-																		item.link
-																		? "bg-lightGreen text-white "
-																		: "text-dimWhite hover:bg-lightGreen hover:text-dimWhite duration-200",
-																	"px-3 py-2 rounded-md text-sm font-medium "
-																)}
-																target={
-																	item.name ===
-																	"Feedback"
-																		? "_blank"
-																		: " "
-																}
-															>
-																{item.name}
-															</Link>
-														) : (
-															<Link
-																key={item.name}
-																to={item.link}
-																className={classNames(
-																	location.pathname ==
-																		item.link
-																		? "bg-lightGreen text-white "
-																		: "text-dimWhite hover:bg-lightGreen hover:text-dimWhite duration-200",
-																	"px-3 py-2 rounded-md text-sm font-medium "
-																)}
-															>
-																{item.name}
-															</Link>
-														)}
-													</>
+													<div key={item.name}>
+														<Link
+															to={item.link}
+															className={classNames(
+																location.pathname ==
+																	item.link
+																	? "bg-lightGreen text-white "
+																	: "text-dimWhite hover:bg-lightGreen hover:text-dimWhite duration-200",
+																"px-3 py-2 rounded-md text-sm font-medium "
+															)}
+															target={
+																item.name ===
+																"Feedback"
+																	? "_blank"
+																	: "_self"
+															}
+														>
+															{item.name}
+														</Link>
+													</div>
 												))}
 											</div>
 										</div>

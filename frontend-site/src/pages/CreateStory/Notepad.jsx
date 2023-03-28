@@ -2,7 +2,7 @@ import React from 'react'
 
 function Notepad() {
   return (
-	<div>Notepadd</div>
+	<div className='h-full'>Notepadd</div>
   )
 }
 
