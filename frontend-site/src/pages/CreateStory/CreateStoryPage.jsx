@@ -4,9 +4,13 @@ import Notepad from "./Notepad";
 import StoryLog from "./StoryLog";
 import { ReflexContainer, ReflexSplitter, ReflexElement } from "react-reflex";
 import "react-reflex/styles.css";
+import Details from "./Details";
 
 function CreateStoryPage() {
-	const [splitDirection, setSplitDirection] = useState(window.innerWidth > 760 ? "vertical" : "horizontal");
+	const [description, setDescription] = useState("");
+	const [splitDirection, setSplitDirection] = useState(
+		window.innerWidth > 760 ? "vertical" : "horizontal"
+	);
 
 	useEffect(() => {
 		const handleWindowResize = () => {
@@ -27,14 +31,26 @@ function CreateStoryPage() {
 	return (
 		<MainLayout footer="noFooter">
 			<div className="h-[calc(100vh-3.5rem)]">
-				<ReflexContainer orientation={splitDirection === "vertical" ? "vertical" : "horizontal"}>
-					<ReflexElement propagateDimensions={true} >
+				<ReflexContainer
+					orientation={
+						splitDirection === "vertical"
+							? "vertical"
+							: "horizontal"
+					}
+				>
+					<ReflexElement propagateDimensions={true}>
 						<div className=" bg-dimYellow h-full">
 							<StoryLog />
 						</div>
 					</ReflexElement>
 
-					<ReflexSplitter style={splitDirection === "vertical" ?{width:'8px'} : {height:'8px'}}/>
+					<ReflexSplitter
+						style={
+							splitDirection === "vertical"
+								? { width: "8px" }
+								: { height: "8px" }
+						}
+					/>
 
 					<ReflexElement
 						className="right-pane"
@@ -42,7 +58,8 @@ function CreateStoryPage() {
 						maxSize="900"
 					>
 						<div className="bg-white h-full">
-							<Notepad />
+							<Notepad setDescription={setDescription} />
+							{/* <Details description={description} /> */}
 						</div>
 					</ReflexElement>
 				</ReflexContainer>
