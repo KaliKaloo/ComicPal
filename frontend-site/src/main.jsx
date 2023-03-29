@@ -10,6 +10,7 @@ import CreateCharacterPage from "./pages/CreateCharacter/CreateCharacterPage";
 import CreateComicPage from "./pages/CreateComicPage/CreateComicPage";
 import About from "./pages/About/About";
 import FeedbackPage from "./pages/Feedback/FeedbackPage";
+import StoryOptions from "./pages/Playground/StoryOptions";
 
 const router = createBrowserRouter([
 	{
@@ -25,9 +26,14 @@ const router = createBrowserRouter([
 		element: <About />,
 	},
 	{
+		path:"CreateStoryOptions",
+		element: <StoryOptions/>
+	},
+	{
 		path: "CreateStory",
 		element: <CreateStoryPage />,
 	},
+	
 	{
 		path:"CreateStoryTimeline",
 		element: <CreateStoryTimeline/>

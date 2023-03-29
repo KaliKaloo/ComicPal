@@ -38,7 +38,7 @@ function GenerateTextBubble({ deleteFunc, focus }) {
 				<div
 					id="textarea"
 					contenteditable="true"
-					className="text-center break-words font-poppins text-sm w-full resize-none mx-auto focus:outline-none cursor-text"
+					className="text-center break-words font-poppins text-sm w-full resize-none mx-auto focus:outline-none cursor-text hover:border hover:border-1 hover:border-gray-500"
 					value={text}
 					onChange={(e) => setText(e.target.value)}
 					placeholder="text"

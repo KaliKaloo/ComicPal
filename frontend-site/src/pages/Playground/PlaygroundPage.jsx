@@ -13,7 +13,7 @@ function PlaygroundPage() {
 				<div
 					className={`max-w-[1240px] mx-auto grid lg:grid-cols-3 md:grid-cols-2 md:px-4 px-14 gap-8 font-poppins`}
 				>
-					<Link to="/CreateStory">
+					<Link to="/CreateStoryOptions">
 						<div className="w-full bg-paleYellow shadow-xl flex flex-col p-4 my-4 rounded-lg hover:scale-105 duration-300 hover:text-secondary ">
 							<img
 								src={playgroundStory}

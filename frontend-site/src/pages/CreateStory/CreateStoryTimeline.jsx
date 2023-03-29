@@ -14,6 +14,7 @@ import TextBox from "./TextBox";
 function CreateStoryTimeline() {
 	const [objectList, setObjectList] = useState([]);
 	const [count, setCount] = useState(1);
+
 	const addObject = () => {
 		setObjectList([
 			...objectList,
@@ -24,7 +25,7 @@ function CreateStoryTimeline() {
 			},
 		]);
 		setCount(count + 1);
-		console.log(objectList)
+		console.log(objectList);
 	};
 	const deleteObject = (id) => {
 		setObjectList(objectList.filter((panel) => panel.id !== id));
@@ -86,12 +87,10 @@ function CreateStoryTimeline() {
 								id={obj.id}
 								key={obj.id}
 							>
-								{obj.type === "panel" && (
-									<TextBox
-										deleteFunc={() => deleteObject(obj.id)}
-										focus={obj.focus}
-									/>
-								)}
+								<TextBox
+									deleteFunc={() => deleteObject(obj.id)}
+									focus={obj.focus}
+								/>
 							</Draggable>
 						))}
 					</Droppable>
