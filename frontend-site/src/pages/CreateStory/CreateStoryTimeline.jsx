@@ -6,6 +6,10 @@ import {
 	useSensor,
 	useSensors,
 } from "@dnd-kit/core";
+import {
+	RiAddBoxLine,
+  } from "react-icons/ri";
+  import "./NotepadStyle.css";
 import { Draggable } from "../../components/ui/Draggable";
 import { Droppable } from "../../components/ui/Droppable";
 import MainLayout from "../../layout/MainLayout";
@@ -25,7 +29,6 @@ function CreateStoryTimeline() {
 			},
 		]);
 		setCount(count + 1);
-		console.log(objectList);
 	};
 	const deleteObject = (id) => {
 		setObjectList(objectList.filter((panel) => panel.id !== id));
@@ -75,7 +78,7 @@ function CreateStoryTimeline() {
 					onDragEnd={handleDragEnd}
 					sensors={sensors}
 				>
-					<button onClick={() => addObject()}>click</button>
+					<RiAddBoxLine onClick={() => addObject()} className="h-8 w-8 hover:text-secondary"/>
 					<Droppable>
 						{objectList.map((obj) => (
 							<Draggable

@@ -19,7 +19,7 @@ function StoryOptions() {
 							<h2 className="text-xl font-bold text-center p-6">
 								Chat with AI
 							</h2>
-							<p>
+							<p className="text-center text-black text-opacity-50">
 								Collaborate with an AI to create a story. You
 								can brainstorm plot points together, ask it
 								questions and expand on any ideas you have!
@@ -36,7 +36,7 @@ function StoryOptions() {
 							<h2 className="text-xl font-bold text-center p-6">
 								Create a story timeline
 							</h2>
-							<p>
+							<p className="text-center text-black text-opacity-50">
 								Place and drag n' drop text boxes on a story
 								timeline! You have full control over the
 								narrative but the AI is still there whenever you
