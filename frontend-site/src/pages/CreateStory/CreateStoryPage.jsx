@@ -57,7 +57,7 @@ function CreateStoryPage() {
 						minSize="10"
 						maxSize="900"
 					>
-						<div className="bg-white h-full">
+						<div className="bg-white h-full flex">
 							<Notepad setDescription={setDescription} />
 							{/* <Details description={description} /> */}
 						</div>
