@@ -12,6 +12,11 @@ import {
 	RectangleGroupIcon,
 	XMarkIcon,
 } from "@heroicons/react/24/outline";
+import {
+	RiChat3Line,
+	RiCheckboxBlankLine,
+	RiCheckboxBlankCircleLine,
+  } from "react-icons/ri";
 import { useRef, useState } from "react";
 import { Draggable } from "../../components/ui/Draggable";
 import { Droppable } from "../../components/ui/Droppable";
@@ -103,21 +108,21 @@ function CreateComicPage() {
 						className={`z-20 flex shrink-0 grow-0 justify-around gap-4 border-t border-gray-200 bg-white/50 p-2.5 shadow-lg backdrop-blur-lg  fixed top-2/4 -translate-y-2/4 left-3 min-h-[auto] lg:min-w-[64px] min-w-[40px] flex-col rounded-lg border`}
 					>
 						<Tooltip text="Square Panel">
-							<RectangleGroupIcon
+							<RiCheckboxBlankLine
 								onClick={() => addObject("panel", "square")}
-								className="flex aspect-square min-h-[32px] lg:w-16 w-12 flex-col items-center justify-center gap-1 rounded-md p-1.5  text-gray-700 hover:bg-gray-200 duration-200"
+								className="aspect-square lg:h-10 h-8 lg:w-16 w-12 flex-col items-center justify-center rounded-md  text-gray-700 hover:bg-gray-200 duration-200"
 							/>
 						</Tooltip>
 						<Tooltip text="Round Panel">
-							<PlusCircleIcon
+							<RiCheckboxBlankCircleLine
 								onClick={() => addObject("panel", "circle")}
-								className="flex aspect-square min-h-[32px] lg:w-16 w-12 flex-col items-center justify-center gap-1 rounded-md p-1.5  text-gray-700 hover:bg-gray-200 duration-200 "
+								className=" aspect-square  lg:h-10 h-8 lg:w-16 w-12 flex-col items-center justify-center rounded-md  text-gray-700 hover:bg-gray-200 duration-200 "
 							/>
 						</Tooltip>
 						<Tooltip text="Speech Bubble">
-							<ChatBubbleOvalLeftIcon
+							<RiChat3Line
 								onClick={() => addObject("speech")}
-								className="flex aspect-square min-h-[32px] lg:w-16 w-12 flex-col items-center justify-center gap-1 rounded-md p-1.5  text-gray-700 hover:bg-gray-200 duration-200"
+								className=" aspect-square  lg:h-10 h-8 lg:w-16 w-12 flex-col items-center justify-center rounded-md  text-gray-700 hover:bg-gray-200 duration-200"
 							/>
 						</Tooltip>
 					</div>
