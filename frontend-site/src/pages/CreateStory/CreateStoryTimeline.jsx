@@ -8,16 +8,20 @@ import {
 } from "@dnd-kit/core";
 import {
 	RiAddBoxLine,
+	RiAddCircleLine,
   } from "react-icons/ri";
   import "./NotepadStyle.css";
 import { Draggable } from "../../components/ui/Draggable";
 import { Droppable } from "../../components/ui/Droppable";
 import MainLayout from "../../layout/MainLayout";
 import TextBox from "./TextBox";
+import Timeline from "./Timeline";
 
 function CreateStoryTimeline() {
 	const [objectList, setObjectList] = useState([]);
 	const [count, setCount] = useState(1);
+	const [timelineList, setTimelineList] = useState([]);
+
 
 	const addObject = () => {
 		setObjectList([
@@ -33,6 +37,14 @@ function CreateStoryTimeline() {
 	const deleteObject = (id) => {
 		setObjectList(objectList.filter((panel) => panel.id !== id));
 	};
+
+	const addTimeline = () => {
+		setTimelineList([
+			...timelineList,
+			""
+		]);
+	};
+
 	const sensors = useSensors(
 		useSensor(MouseSensor, {
 			activationConstraint: {
@@ -72,14 +84,24 @@ function CreateStoryTimeline() {
 
 	return (
 		<MainLayout footer="noFooter">
-			<div className="bg-dimYellow h-screen w-full">
+			<div className="bg-dimYellow h-[calc(100vh-3.5rem)] overflow-auto w-full">
 				<DndContext
 					onDragStart={handleDragStart}
 					onDragEnd={handleDragEnd}
 					sensors={sensors}
 				>
-					<RiAddBoxLine onClick={() => addObject()} className="h-8 w-8 hover:text-secondary"/>
+					<RiAddBoxLine onClick={() => addObject()} className="h-8 w-8 hover:text-secondary "/>
 					<Droppable>
+						
+						<div className="mb-10">
+							{timelineList.map((obj, index) => (
+								<Timeline id={index+1} />
+							))
+
+							}
+							<RiAddCircleLine onClick={() => addTimeline()} className="h-8 w-full flex justify-center hover:text-secondary"/>
+						</div>
+						
 						{objectList.map((obj) => (
 							<Draggable
 								styles={{

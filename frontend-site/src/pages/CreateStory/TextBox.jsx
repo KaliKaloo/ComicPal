@@ -25,16 +25,16 @@ function TextBox({ deleteFunc, focus }) {
 				bubbleClick || focus === "onFocus"
 					? " border-lightGreen border-dotted border-4"
 					: "border-black "
-			} border-2 overflow-hidden bg-white resize justify-center items-center flex flex-col h-40 w-60`}
+			} border-2 overflow-hidden bg-white resize justify-center items-center flex flex-col h-40 w-60  `}
 			onClick={() => setbubbleClick(true)}
 		>
 			<div
-				className={`relative w-full h-full p-3 `}
+				className={`relative w-full h-full p-3 cursor-move`}
 			>
 				<div
 					id="textarea"
 					contenteditable="true"
-					className="text-center break-words font-poppins text-sm w-full h-full resize-none mx-auto focus:outline-none cursor-text "
+					className="text-center break-words font-poppins text-sm w-full h-full resize-none mx-auto focus:outline-none "
 					value={text}
 					onChange={(e) => setText(e.target.value)}
 					placeholder="Enter text"
