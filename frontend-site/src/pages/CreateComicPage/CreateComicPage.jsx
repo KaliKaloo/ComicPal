@@ -100,7 +100,7 @@ function CreateComicPage() {
 				onDragEnd={handleDragEnd}
 				sensors={sensors}
 			>
-				<div className="bg-[#edecea] relative h-[calc(100vh-56px)] items-center">
+				<div className="bg-dimYellow relative h-[calc(100vh-56px)] items-center">
 					<div className="absolute bottom-0 left-0 ml-[-2rem] md:scale-75 z-40 scale-0 duration-200">
 						<FeedbackCard noIcon={true} />
 					</div>

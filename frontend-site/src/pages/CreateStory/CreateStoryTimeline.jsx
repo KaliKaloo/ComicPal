@@ -6,22 +6,31 @@ import {
 	useSensor,
 	useSensors,
 } from "@dnd-kit/core";
-import {
-	RiAddBoxLine,
-	RiAddCircleLine,
-  } from "react-icons/ri";
-  import "./NotepadStyle.css";
+import { RiTBoxLine, RiAddCircleLine } from "react-icons/ri";
+import "./NotepadStyle.css";
 import { Draggable } from "../../components/ui/Draggable";
 import { Droppable } from "../../components/ui/Droppable";
 import MainLayout from "../../layout/MainLayout";
 import TextBox from "./TextBox";
 import Timeline from "./Timeline";
+import Tooltip from "../../components/ui/Tooltip";
+import styles from "../../assets/style";
 
 function CreateStoryTimeline() {
 	const [objectList, setObjectList] = useState([]);
 	const [count, setCount] = useState(1);
-	const [timelineList, setTimelineList] = useState([]);
-
+	const [timelineCount, setTimelineCount] = useState(4);
+	const [timelineList, setTimelineList] = useState([
+		{
+			id: 1,
+		},
+		{
+			id: 2,
+		},
+		{
+			id: 3,
+		},
+	]);
 
 	const addObject = () => {
 		setObjectList([
@@ -41,8 +50,15 @@ function CreateStoryTimeline() {
 	const addTimeline = () => {
 		setTimelineList([
 			...timelineList,
-			""
+			{
+				id: timelineCount,
+			},
 		]);
+		setTimelineCount(timelineCount + 1);
+	};
+
+	const deleteTimelinePoint = (id) => {
+		setTimelineList(timelineList.filter((point) => point.id !== id));
 	};
 
 	const sensors = useSensors(
@@ -90,18 +106,48 @@ function CreateStoryTimeline() {
 					onDragEnd={handleDragEnd}
 					sensors={sensors}
 				>
-					<RiAddBoxLine onClick={() => addObject()} className="h-8 w-8 hover:text-secondary "/>
-					<Droppable>
-						
-						<div className="mb-10">
-							{timelineList.map((obj, index) => (
-								<Timeline id={index+1} />
-							))
+					<div
+						className={`z-20 flex shrink-0 grow-0 justify-around gap-4 border-t border-gray-200 bg-white/50 p-2.5 shadow-lg backdrop-blur-lg  fixed top-2/4 -translate-y-2/4 left-3 min-h-[auto] lg:min-w-[64px] min-w-[40px] flex-col rounded-lg border`}
+					>
+						<Tooltip text="Textbox">
+							<RiTBoxLine
+								onClick={() => addObject()}
+								className="aspect-square lg:h-12 h-10 lg:w-16 w-12 flex-col items-center justify-center rounded-md  text-gray-700 hover:bg-gray-200 duration-200"
+							/>
+						</Tooltip>
+					</div>
 
-							}
-							<RiAddCircleLine onClick={() => addTimeline()} className="h-8 w-full flex justify-center hover:text-secondary"/>
+					<Droppable>
+						<div className="relative">
+						<div className="mt-4 mb-14">
+						<h2
+							className={`${styles.heading2} w-full text-center pb-4 text-primaryGreen text-opacity-60`}
+						>
+							Timeline
+						</h2>
+							{timelineList.map((obj) => (
+								<Timeline
+									deleteTimelinePoint={() =>
+										deleteTimelinePoint(obj.id)
+									}
+								/>
+							))}
+							<div className="w-full flex flex-col justify-center items-center">
+								<Tooltip text="Add point to timeline">
+									<RiAddCircleLine
+										onClick={() => addTimeline()}
+										className="h-8 w-8 hover:text-secondary duration-200"
+									/>
+								</Tooltip>
+								{timelineCount <= 4 && (
+									<p className="text-xs italic text-gray-400 my-4">
+										Click on the plus button to add more
+										points to the timeline
+									</p>
+								)}
+							</div>
 						</div>
-						
+
 						{objectList.map((obj) => (
 							<Draggable
 								styles={{
@@ -118,6 +164,7 @@ function CreateStoryTimeline() {
 								/>
 							</Draggable>
 						))}
+						</div>
 					</Droppable>
 				</DndContext>
 			</div>
