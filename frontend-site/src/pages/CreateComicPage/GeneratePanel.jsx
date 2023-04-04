@@ -34,7 +34,7 @@ function GeneratePanel({ deleteFunc, shape, focus, editModeAppear }) {
 					: "border-black "
 			} border-2 overflow-hidden bg-gray-100 resize ${
 				shape === "square" ? "w-72 h-52" : " rounded-full w-72 h-72 "
-			} `}
+			}` }
 			onClick={() => setPanelClick(true)}
 		>
 			{panelClick ? (
@@ -56,7 +56,7 @@ function GeneratePanel({ deleteFunc, shape, focus, editModeAppear }) {
 				<></>
 			)}
 
-			<div className="overflow-hidden w-full h-full">
+			<div className="overflow-hidden w-full h-full  cursor-move">
 				{imageURL.length > 0 ? (
 					<img
 						src={imageURL}

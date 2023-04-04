@@ -6,7 +6,7 @@ import {
 	useSensor,
 	useSensors,
 } from "@dnd-kit/core";
-import { RiTBoxLine, RiAddCircleLine } from "react-icons/ri";
+import { RiTBoxLine, RiAddCircleLine, RiCloseFill } from "react-icons/ri";
 import "./NotepadStyle.css";
 import { Draggable } from "../../components/ui/Draggable";
 import { Droppable } from "../../components/ui/Droppable";
@@ -15,6 +15,8 @@ import TextBox from "./TextBox";
 import Timeline from "./Timeline";
 import Tooltip from "../../components/ui/Tooltip";
 import styles from "../../assets/style";
+import StoryLog from "./StoryLog";
+import openaiLogo from "../../assets/openai-logo.svg";
 
 function CreateStoryTimeline() {
 	const [objectList, setObjectList] = useState([]);
@@ -31,6 +33,7 @@ function CreateStoryTimeline() {
 			id: 3,
 		},
 	]);
+	const [aiChat, setAiChat] = useState(false);
 
 	const addObject = () => {
 		setObjectList([
@@ -64,13 +67,13 @@ function CreateStoryTimeline() {
 	const sensors = useSensors(
 		useSensor(MouseSensor, {
 			activationConstraint: {
-				delay: 150,
+				delay: 200,
 				tolerance: 8,
 			},
 		}),
 		useSensor(TouchSensor, {
 			activationConstraint: {
-				delay: 150,
+				delay: 200,
 				tolerance: 8,
 			},
 		})
@@ -119,54 +122,84 @@ function CreateStoryTimeline() {
 
 					<Droppable>
 						<div className="relative">
-						<div className="mt-4 mb-14">
-						<h2
-							className={`${styles.heading2} w-full text-center pb-4 text-primaryGreen text-opacity-60`}
-						>
-							Timeline
-						</h2>
-							{timelineList.map((obj) => (
-								<Timeline
-									deleteTimelinePoint={() =>
-										deleteTimelinePoint(obj.id)
-									}
-								/>
-							))}
-							<div className="w-full flex flex-col justify-center items-center">
-								<Tooltip text="Add point to timeline">
-									<RiAddCircleLine
-										onClick={() => addTimeline()}
-										className="h-8 w-8 hover:text-secondary duration-200"
+							<div className="mt-4 mb-14">
+								<h2
+									className={`${styles.heading2} w-full text-center pb-4 text-primaryGreen text-opacity-60`}
+								>
+									Timeline
+								</h2>
+								{timelineList.map((obj) => (
+									<Timeline
+										deleteTimelinePoint={() =>
+											deleteTimelinePoint(obj.id)
+										}
 									/>
-								</Tooltip>
-								{timelineCount <= 4 && (
-									<p className="text-xs italic text-gray-400 my-4">
-										Click on the plus button to add more
-										points to the timeline
-									</p>
-								)}
+								))}
+								<div className="w-full flex flex-col justify-center items-center">
+									<Tooltip text="Add point to timeline">
+										<RiAddCircleLine
+											onClick={() => addTimeline()}
+											className="h-8 w-8 hover:text-secondary duration-200"
+										/>
+									</Tooltip>
+									{timelineCount <= 4 && (
+										<p className="text-xs italic text-gray-400 my-4">
+											Click on the plus button to add more
+											points to the timeline
+										</p>
+									)}
+								</div>
 							</div>
-						</div>
 
-						{objectList.map((obj) => (
-							<Draggable
-								styles={{
-									position: "absolute",
-									left: `${obj.position.x}px`,
-									top: `${obj.position.y}px`,
-								}}
-								id={obj.id}
-								key={obj.id}
-							>
-								<TextBox
-									deleteFunc={() => deleteObject(obj.id)}
-									focus={obj.focus}
-								/>
-							</Draggable>
-						))}
+							{objectList.map((obj) => (
+								<Draggable
+									styles={{
+										position: "absolute",
+										left: `${obj.position.x}px`,
+										top: `${obj.position.y}px`,
+									}}
+									id={obj.id}
+									key={obj.id}
+								>
+									<TextBox
+										deleteFunc={() => deleteObject(obj.id)}
+										focus={obj.focus}
+									/>
+								</Draggable>
+							))}
 						</div>
 					</Droppable>
 				</DndContext>
+				<div
+					className={` ${
+						aiChat ? "scale-100" : "scale-0"
+					} z-20 flex shrink-0 grow-0 justify-around gap-2 fixed bottom-0 right-3 `}
+				>
+					<RiCloseFill
+						onClick={() => setAiChat(!aiChat)}
+						className="h-6 w-6 hover:bg-black hover:bg-opacity-10 rounded-full"
+					/>
+					<div
+						className={`border-t border-gray-200 bg-white p-1.5 shadow-lg h-[90%] md:h-[35rem] w-[95%] md:w-[35rem] flex-col rounded-lg border overflow-y-aut`}
+					>
+						<StoryLog />
+					</div>
+				</div>
+				{!aiChat && (
+					<Tooltip text="Chat with the AI to get some help!">
+						<div
+							onClick={() => setAiChat(true)}
+							className="z-20 fixed bottom-3 md:bottom-8 right-3 md:right-10 h-16 w-16 rounded-full  bg-lightGreen  text-white cursor-pointer hover:bg-primaryGreen  duration-200 flex justify-center items-center text-center"
+						>
+							<img
+								src={openaiLogo}
+								alt="openai avatar"
+								width={50}
+								height={50}
+							/>
+						</div>
+					</Tooltip>
+				)}
 			</div>
 		</MainLayout>
 	);

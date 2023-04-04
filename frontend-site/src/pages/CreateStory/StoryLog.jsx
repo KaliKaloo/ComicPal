@@ -52,7 +52,7 @@ function StoryLog() {
 	// standalone script to automatically adjust textarea height
 	autosize(document.querySelectorAll("textarea"));
 	return (
-		<div className="overflow-y-auto h-full relative text-black flex flex-col justify-between">
+		<div className="overflow-y-auto h-full relative text-black flex flex-col justify-between bg-dimYellow">
 		
 			<div className=" text-left mb-[100px]">
 				{storyLog.map((message, index) => (
@@ -69,7 +69,7 @@ function StoryLog() {
 						id="textarea"
 						value={input}
 						onChange={(e) => setInput(e.target.value)}
-						className=" bg-transparent outline-none w-full text-base resize-none h-10 text-center break-words p-2.5 "
+						className=" bg-transparent outline-none w-full text-base resize-none h-10 break-words p-2.5 "
 					></textarea>
 					<ArrowRightCircleIcon
 						className=" text-lightGreen hover:cursor-pointer h-10 hover:bg-black hover:bg-opacity-10 rounded-md"
@@ -99,8 +99,8 @@ const StoryMessage = ({ message }) => {
 			<div className="w-full">
 				<div className="flex mx-auto py-3 px-6 ">
 					<div
-						className={`bg-white rounded-full min-w-[48px] h-[48px] flex items-center justify-center ${
-							message.user === "openai" && "bg-[#0da37f]"
+						className={` rounded-full min-w-[48px] h-[48px] flex items-center justify-center ${
+							message.user === "openai" ? 'bg-[#0da37f]' : 'bg-white'
 						}`}
 					>
 						{/* display svg */}

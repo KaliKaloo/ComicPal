@@ -29,12 +29,12 @@ function TextBox({ deleteFunc, focus }) {
 			onClick={() => setbubbleClick(true)}
 		>
 			<div
-				className={`relative w-full h-full p-3 cursor-move`}
+				className={`relative w-full h-full p-2 cursor-move`}
 			>
 				<div
 					id="textarea"
 					contenteditable="true"
-					className="text-center break-words font-poppins text-sm w-full h-full resize-none mx-auto focus:outline-none "
+					className="break-words font-poppins text-sm w-full h-full resize-none focus:outline-none "
 					value={text}
 					onChange={(e) => setText(e.target.value)}
 					placeholder="Enter text"
