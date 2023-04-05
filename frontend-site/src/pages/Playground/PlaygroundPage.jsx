@@ -9,9 +9,9 @@ import playgroundCharacter from "../../assets/playgroundCharacter.png";
 function PlaygroundPage() {
 	return (
 		<MainLayout>
-			<div className="w-full h-[calc(100vh-3.5rem)] py-[6rem] px-4 flex justify-center items-center ">
+			<div className="w-full h-full py-[6rem] px-4 flex justify-center items-center ">
 				<div
-					className={`max-w-[1240px] mx-auto flex md:flex-row flex-col  md:px-4 px-14 gap-8 font-poppins`}
+					className={`max-w-[1240px]  mx-auto flex md:flex-row flex-col  md:px-4 px-14 gap-8 font-poppins`}
 				>
 					<Link to="/CreateStoryOptions">
 						<div className="w-80 bg-paleYellow shadow-xl flex flex-col p-4 my-4 rounded-lg hover:scale-105 duration-300 hover:text-secondary ">

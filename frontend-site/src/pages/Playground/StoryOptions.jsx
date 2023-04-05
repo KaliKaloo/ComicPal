@@ -5,8 +5,8 @@ import playgroundStory from "../../assets/playgroundStory.png";
 
 function StoryOptions() {
 	return (
-		<MainLayout footer="noFooter">
-			<div className="w-full h-[calc(100vh-3.5rem)] py-[6rem] px-4 flex justify-center items-center ">
+		<MainLayout>
+			<div className="w-full py-[6rem] px-4 flex justify-center items-center ">
 				<div
 					className={`max-w-[1240px] mx-auto flex md:flex-row flex-col  md:px-4 px-14 gap-8 font-poppins`}
 				>

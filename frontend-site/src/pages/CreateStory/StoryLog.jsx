@@ -53,7 +53,6 @@ function StoryLog() {
 	autosize(document.querySelectorAll("textarea"));
 	return (
 		<div className="overflow-y-auto h-full relative text-black flex flex-col justify-between bg-dimYellow">
-		
 			<div className=" text-left mb-[100px]">
 				{storyLog.map((message, index) => (
 					<StoryMessage
@@ -64,6 +63,19 @@ function StoryLog() {
 				))}
 			</div>
 			<div className="p-[24px] w-full flex flex-col justify-center bg-dimYellow ">
+				<button
+					className="flex justify-end p-2 font-poppins text-md text-black text-opacity-50 hover:text-secondary"
+					onClick={() =>
+						setStoryLog([
+							{
+								user: "openai",
+								message: `Lets make a story together. Start by asking me a question about the story you want to make :)`,
+							},
+						])
+					}
+				>
+					clear
+				</button>
 				<div className="flex justify-between bg-[#f3f2f0] border rounded-md  shadow-md p-3 gap-2 w-full mb-4">
 					<textarea
 						id="textarea"
@@ -100,7 +112,9 @@ const StoryMessage = ({ message }) => {
 				<div className="flex mx-auto py-3 px-6 ">
 					<div
 						className={` rounded-full min-w-[48px] h-[48px] flex items-center justify-center ${
-							message.user === "openai" ? 'bg-[#0da37f]' : 'bg-white'
+							message.user === "openai"
+								? "bg-[#0da37f]"
+								: "bg-white"
 						}`}
 					>
 						{/* display svg */}

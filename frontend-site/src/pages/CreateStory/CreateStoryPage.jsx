@@ -11,6 +11,7 @@ function CreateStoryPage() {
 	const [splitDirection, setSplitDirection] = useState(
 		window.innerWidth > 760 ? "vertical" : "horizontal"
 	);
+	const [notepadMin, setNotepadMin] = useState(false);
 
 	useEffect(() => {
 		const handleWindowResize = () => {
@@ -51,13 +52,13 @@ function CreateStoryPage() {
 								: { height: "8px" }
 						}
 					/>
-
+				
 					<ReflexElement
 						className="right-pane"
 						minSize="10"
 						maxSize="900"
 					>
-						<div className="bg-white h-full flex">
+						<div className={`bg-white h-full flex ${notepadMin ? "10":"900"}`}>
 							<Notepad setDescription={setDescription} />
 							{/* <Details description={description} /> */}
 						</div>

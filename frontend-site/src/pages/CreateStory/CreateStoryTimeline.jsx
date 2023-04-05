@@ -175,21 +175,31 @@ function CreateStoryTimeline() {
 						aiChat ? "scale-100" : "scale-0"
 					} z-20 flex shrink-0 grow-0 justify-around gap-2 fixed bottom-0 right-3 `}
 				>
-					<RiCloseFill
-						onClick={() => setAiChat(!aiChat)}
-						className="h-6 w-6 hover:bg-black hover:bg-opacity-10 rounded-full"
-					/>
 					<div
-						className={`border-t border-gray-200 bg-white p-1.5 shadow-lg h-[90%] md:h-[35rem] w-[95%] md:w-[35rem] flex-col rounded-lg border overflow-y-aut`}
+						className={`border-1 border-gray-300 shadow-xl h-[90%] md:h-[35rem] w-[95%] md:w-[35rem] flex-col rounded-md border overflow-hidden`}
 					>
-						<StoryLog />
+						<div className="h-10 w-full bg-lightGreen flex justify-between items-center p-2 border-b-4 border-[#007864]">
+							<p className="font-medium text-darkGreen text-opacity-70 font-poppins ml-3 text-lg ">
+								AI ChatBot
+							</p>
+							<RiCloseFill
+								onClick={() => setAiChat(!aiChat)}
+								className="h-6 w-6 hover:bg-black hover:bg-opacity-20 text-white rounded-full"
+							/>
+						</div>
+						<div className="h-full overflow-y-auto">
+							<StoryLog />
+						</div>
 					</div>
 				</div>
 				{!aiChat && (
-					<Tooltip text="Chat with the AI to get some help!">
+					<div className="group relative">
+						<div className="font-poppins text-sm pointer-events-none fixed bottom-28 right-3 whitespace-nowrap rounded bg-gray-700 px-2 py-2 text-white opacity-0 transition  before:absolute before:left-[70%] before:top-full before:-translate-x-1/2 before:border-4 before:border-transparent before:border-t-gray-700 before:content-[''] group-hover:opacity-100">
+							Chat with the AI to get some help!
+						</div>
 						<div
 							onClick={() => setAiChat(true)}
-							className="z-20 fixed bottom-3 md:bottom-8 right-3 md:right-10 h-16 w-16 rounded-full  bg-lightGreen  text-white cursor-pointer hover:bg-primaryGreen  duration-200 flex justify-center items-center text-center"
+							className="z-20 fixed bottom-3 md:bottom-8 right-3 md:right-10 h-16 w-16 rounded-full  bg-lightGreen  text-white cursor-pointer hover:bg-primaryGreen  duration-200 flex justify-center items-center text-center shadow-lg"
 						>
 							<img
 								src={openaiLogo}
@@ -198,7 +208,7 @@ function CreateStoryTimeline() {
 								height={50}
 							/>
 						</div>
-					</Tooltip>
+					</div>
 				)}
 			</div>
 		</MainLayout>
