@@ -109,6 +109,7 @@ function EditModal({ onClose, imgUrl, text }) {
 							/>
 						</div>
 					</div>
+					{JSON.parse(localStorage.getItem("characters")|| "[]")}
 					<div className="overflow-hidden ">
 						{isLoading ? (
 							<div className="h-96 w-96 flex justify-center items-center">

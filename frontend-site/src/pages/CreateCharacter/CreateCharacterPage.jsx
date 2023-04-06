@@ -20,7 +20,7 @@ function CreateCharacterPage() {
 	const onSubmit = async (data) => {
 		setIsLoading(true);
 
-		let combinedData =
+		var combinedData =
 			data.gender +
 			" with " +
 			data.eyeColor +
@@ -31,23 +31,49 @@ function CreateCharacterPage() {
 			"skin. " +
 			data.other;
 
-		const response = await fetch(
-			process.env.NODE_ENV === "production"
-				? "https://comicpal.vercel.app/image"
-				: "http://localhost:3080/image",
-			{
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					prompt: combinedData,
-				}),
-			}
-		);
-		const res = await response.json();
-		setImageURL(res.url);
-		setIsLoading(false);
+		// var charList = JSON.parse(localStorage.getItem("characters") || "[]");
+		// console.log(localStorage.getItem("characters") || "[]");
+
+		// console.log("# of chars: " + charList.length);
+		// var newId = data.name === "" ? "char " + charList.length + 1 : data.name;
+
+		// var newChar = {
+		// 	id: newId,
+		// 	info: combinedData,
+		// };
+		
+		// charList.push(newChar);
+		// console.log("Added char " + newChar.id);
+
+		// localStorage.setItem("characters", JSON.stringify(charList));
+		// localStorage.setItem("characters", JSON.stringify({name:data.name}));
+		console.log(JSON.parse(localStorage.getItem("characters") || "[]"));
+
+		// console.log("current list: "+charList);
+		// console.log(localStorage.getItem("characters") || "[]");
+
+		// localStorage.removeItem("characters")
+		// localStorage.clear()
+
+	/* ----- COMMENTED OUT FOR NOW WHILST TRYING TO GET LOCALSTORAGE TO WORK ----*/
+	/* ----- fetch request to get the AI generated image from the prompt ----- */
+		// const response = await fetch(
+		// 	process.env.NODE_ENV === "production"
+		// 		? "https://comicpal.vercel.app/image"
+		// 		: "http://localhost:3080/image",
+		// 	{
+		// 		method: "POST",
+		// 		headers: {
+		// 			"Content-Type": "application/json",
+		// 		},
+		// 		body: JSON.stringify({
+		// 			prompt: combinedData,
+		// 		}),
+		// 	}
+		// );
+		// const res = await response.json();
+		// setImageURL(res.url);
+		// setIsLoading(false);
 	};
 
 	function handleDownload() {
@@ -59,10 +85,10 @@ function CreateCharacterPage() {
 			<div
 				className={`${styles.flexCenter} bg-[#edecea] relative h-[calc(100vh-56px)] items-center font-poppins overflow-auto`}
 			>
-				<div className="absolute bottom-0 left-0 ml-[-2rem] md:scale-75 z-40 scale-0 duration-200">
+				<div className="fixed bottom-0 left-0 ml-[-2rem] md:scale-75 z-40 scale-0 duration-200">
 					<FeedbackCard noIcon={true} />
 				</div>
-
+				{localStorage.setItem("characters", [])}
 				<div className=" flex flex-col gap-10 lg:py-0 py-12  h-full w-[80%]">
 					<div className="flex-1 flex lg:flex-row flex-col justify-between gap-4 items-center ">
 						<div
@@ -100,6 +126,15 @@ function CreateCharacterPage() {
 								className="flex flex-col space-y-3 lg:mt-16 w-full"
 								onSubmit={handleSubmit(onSubmit)}
 							>
+								<label className="block text-gray-700 text-md font-bold mt-3 mb-2">
+									Name
+								</label>
+								<input
+									className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+									type="text"
+									id="Name"
+									{...register("name")}
+								/>
 								<label className="block text-gray-700 text-md font-bold mt-3 mb-2">
 									Gender
 								</label>
