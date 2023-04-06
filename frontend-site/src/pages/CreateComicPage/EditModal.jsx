@@ -88,8 +88,6 @@ function EditModal({ onClose, imgUrl, text }) {
 			<div className="flex flex-col justify-between space-y-2">
 				<div className=" bg-white p-2 rounded-lg">
 					<div className="flex justify-end rounded-md">
-						
-
 						<div className="font-poppins flex gap-2 items-center">
 							<span className=" text-sm font-medium text-gray-700">
 								Style:
@@ -109,7 +107,7 @@ function EditModal({ onClose, imgUrl, text }) {
 							/>
 						</div>
 					</div>
-					{JSON.parse(localStorage.getItem("characters")|| "[]")}
+
 					<div className="overflow-hidden ">
 						{isLoading ? (
 							<div className="h-96 w-96 flex justify-center items-center">
@@ -130,6 +128,13 @@ function EditModal({ onClose, imgUrl, text }) {
 							</div>
 						)}
 					</div>
+
+				{/* ---- SAVED STORY CHARACTERS ----*/}
+					<div>
+						<p>Add character:</p>
+						{JSON.parse(localStorage.getItem("characters") || "[]")}
+					</div>
+
 					<div className="bg-gray-200 bg-opacity-90 rounded-lg w-full mx-auto flex flex-row items-center">
 						<textarea
 							id="textarea"
@@ -164,4 +169,3 @@ function EditModal({ onClose, imgUrl, text }) {
 }
 
 export default EditModal;
-
