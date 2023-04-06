@@ -20,6 +20,7 @@ function CreateCharacterPage() {
 	const onSubmit = async (data) => {
 		setIsLoading(true);
 
+		// fix this to be better
 		var combinedData =
 			data.gender +
 			" with " +
@@ -30,29 +31,19 @@ function CreateCharacterPage() {
 			data.skin +
 			"skin. " +
 			data.other;
-
-		// var charList = JSON.parse(localStorage.getItem("characters") || "[]");
-		// console.log(localStorage.getItem("characters") || "[]");
-
-		// console.log("# of chars: " + charList.length);
-		// var newId = data.name === "" ? "char " + charList.length + 1 : data.name;
-
-		// var newChar = {
-		// 	id: newId,
-		// 	info: combinedData,
-		// };
 		
-		// charList.push(newChar);
-		// console.log("Added char " + newChar.id);
+		var charList = JSON.parse(localStorage.getItem("testJSON") || "[]");
+		var newName = data.name === "" ? "char " + (charList.length + 1) : data.name;
+		var newChar = {
+			id: (charList.length+1),
+			name: newName,
+			data: combinedData
+		}
+		charList.push(newChar)
+		localStorage.setItem("testJSON", JSON.stringify(charList));
+		console.log(charList)
 
-		// localStorage.setItem("characters", JSON.stringify(charList));
-		// localStorage.setItem("characters", JSON.stringify({name:data.name}));
-		console.log(JSON.parse(localStorage.getItem("characters") || "[]"));
-
-		// console.log("current list: "+charList);
-		// console.log(localStorage.getItem("characters") || "[]");
-
-		// localStorage.removeItem("characters")
+		// localStorage.removeItem("testJSON")
 		// localStorage.clear()
 
 	/* ----- COMMENTED OUT FOR NOW WHILST TRYING TO GET LOCALSTORAGE TO WORK ----*/
