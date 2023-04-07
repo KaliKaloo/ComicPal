@@ -74,9 +74,9 @@ function CharacterGenerator({setCharList}) {
 	}
 	return (
 		<div className=" flex flex-col gap-10  h-full w-full">
-			<div className="flex-1 flex lg:flex-row flex-col justify-between gap-4 items-center ">
+			<div className="flex-1 flex lg:flex-row flex-col justify-between gap-4 ">
 				<div
-					className="relative flex-1 bg-white items-center justify-center flex h-[70%] w-[70%] rounded-md shadow-lg"
+					className="relative flex-1 bg-white items-center justify-center flex h-[70%] w-[70%] rounded-md shadow-lg lg:mt-20 mx-auto"
 					ref={exportRef}
 				>
 					<div
@@ -110,7 +110,7 @@ function CharacterGenerator({setCharList}) {
 						className="flex flex-col space-y-3 lg:mt-16 w-full"
 						onSubmit={handleSubmit(onSubmit)}
 					>
-						<label className="block text-gray-700 text-md font-bold mt-3 mb-2">
+						<label className="block text-gray-700 text-md font-bold mb-2">
 							Name
 						</label>
 						<input
@@ -119,7 +119,7 @@ function CharacterGenerator({setCharList}) {
 							id="Name"
 							{...register("name")}
 						/>
-						<label className="block text-gray-700 text-md font-bold mt-3 mb-2">
+						<label className="block text-gray-700 text-md font-bold mb-2">
 							Gender
 						</label>
 						<input
@@ -128,7 +128,7 @@ function CharacterGenerator({setCharList}) {
 							id="Gender"
 							{...register("gender")}
 						/>
-						<label className="block text-gray-700 text-md font-bold mt-3 mb-2">
+						<label className="block text-gray-700 text-md font-bold mb-2">
 							Eye Color
 						</label>
 						<input
@@ -137,7 +137,7 @@ function CharacterGenerator({setCharList}) {
 							id="EyeColor"
 							{...register("eyeColor")}
 						/>
-						<label className="block text-gray-700 text-md font-bold mt-3 mb-2">
+						<label className="block text-gray-700 text-md font-bold mb-2">
 							Skin description
 						</label>
 						<textarea
@@ -146,7 +146,7 @@ function CharacterGenerator({setCharList}) {
 							id="Skin"
 							{...register("skin")}
 						/>
-						<label className="block text-gray-700 text-md font-bold mt-3 mb-2">
+						<label className="block text-gray-700 text-md font-bold mb-2">
 							Hair description
 						</label>
 						<textarea
