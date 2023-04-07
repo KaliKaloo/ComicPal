@@ -38,7 +38,7 @@ function CreateCharacterPage() {
 						))}
 					</div>
 
-					<CharacterGenerator />
+					<CharacterGenerator setCharList={setCharList}/>
 				</div>
 				<div className="fixed bottom-0 left-0 ml-[-2rem] md:scale-75 z-40 scale-0 duration-200">
 					<FeedbackCard noIcon={true} />

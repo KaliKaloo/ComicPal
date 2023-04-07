@@ -6,7 +6,7 @@ import exportAsImage from "../../lib/exportAsImage";
 import React from "react";
 import styles from "../../assets/style";
 
-function CharacterGenerator() {
+function CharacterGenerator({setCharList}) {
 	const [imageURL, setImageURL] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
 	const {
@@ -60,6 +60,7 @@ function CharacterGenerator() {
 		};
 		charList.push(newChar);
 		localStorage.setItem("charJSON", JSON.stringify(charList));
+		setCharList(charList)
 		console.log(charList);
 		
 		setIsLoading(false);
