@@ -74,7 +74,7 @@ function CharacterGenerator({setCharList}) {
 		exportAsImage(exportRef.current, "page1");
 	}
 	return (
-		<div className=" flex flex-col gap-10  h-full w-full">
+		<div className=" flex flex-col gap-10 h-full w-full">
 			<div className="flex-1 flex lg:flex-row flex-col justify-between gap-4 ">
 				<div
 					className="relative flex-1 bg-white items-center justify-center flex h-[70%] w-[70%] rounded-md shadow-lg  mx-auto"
@@ -106,7 +106,7 @@ function CharacterGenerator({setCharList}) {
 					)}
 				</div>
 
-				<div className="flex-1 w-full">
+				<div className="flex-1 w-full mb-10">
 					<form
 						className="flex flex-col space-y-3  w-full"
 						onSubmit={handleSubmit(onSubmit)}

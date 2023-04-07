@@ -1,18 +1,14 @@
-import {
-	ArrowRightCircleIcon,
-	CheckIcon,
-	PhotoIcon,
-	XMarkIcon,
-} from "@heroicons/react/24/outline";
+import { ArrowRightCircleIcon, PhotoIcon } from "@heroicons/react/24/outline";
+import { RiAddLine } from "react-icons/ri";
 import autosize from "autosize/dist/autosize.js";
 import { useState } from "react";
 import Dropdown from "../../components/ui/Dropdown";
 import Spinner from "../../components/ui/Spinner";
-import MainButton from "../../components/ui/MainButton";
-import SecondaryButton from "../../components/ui/SecondaryButton";
+import { ChevronUpIcon } from "@heroicons/react/20/solid";
 
-function EditModal({ onClose, imgUrl, text }) {
+function EditModal({ onClose, imgUrl, text, charInPromptList }) {
 	const [prompt, setPrompt] = useState(text);
+	// const [hiddenPrompt, setHiddenPrompt] = useState(text);
 	const [imageURL, setImageURL] = useState(imgUrl);
 	const realismLevels = ["0%", "25%", "50%", "75%", "100%"];
 	const [realismLevel, setRealismLevel] = useState("");
@@ -27,43 +23,94 @@ function EditModal({ onClose, imgUrl, text }) {
 	];
 	const [styleOption, setStyleOption] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
+	const [charInPrompt, setCharInPrompt] = useState(charInPromptList);
+
+	const handleClickChar = (char) => {
+		setPrompt(prompt + " " + char.name + " ");
+		setCharInPrompt([...charInPrompt, char]);
+	};
+
+	const characterList = () => {
+		var charList = JSON.parse(localStorage.getItem("charJSON") || "[]");
+
+		return (
+			<div className="dropdown dropdown-top my-2 font-poppins">
+				<label
+					tabIndex={0}
+					className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+				>
+					<RiAddLine
+						className="-mr-1 h-5 w-5 text-gray-400"
+						aria-hidden="true"
+					/>
+					Character
+					<ChevronUpIcon
+						className="-mr-1 h-5 w-5 text-gray-400"
+						aria-hidden="true"
+					/>
+				</label>
+				<ul
+					tabIndex={0}
+					className="dropdown-content menu p-2 shadow bg-base-100 w-52 rounded-md ring-1 ring-black ring-opacity-5 focus:outline-none mb-2"
+				>
+					{charList.map((char) => (
+						<li>
+							<button
+								onClick={() => handleClickChar(char)}
+								className="text-left text-gray-700 block px-4 py-2 text-sm text-wrap`"
+							>
+								{char.name}
+							</button>
+						</li>
+					))}
+				</ul>
+			</div>
+		);
+	};
 
 	const generateImage = async (e) => {
 		e.preventDefault();
 		setIsLoading(true);
-		let newPrompt =
+
+		let newPrompt = prompt;
+
+		charInPrompt.map(
+			(char) => (newPrompt = newPrompt.replace(char.name, char.data))
+		);
+		newPrompt =
 			realismLevel === "" || realismLevel === "100%"
-				? prompt
-				: prompt + ". " + realismLevel + " photo realistic";
+				? newPrompt
+				: newPrompt + ". " + realismLevel + " photo realistic";
 
 		newPrompt =
 			styleOption === "n/a" || styleOption === ""
 				? newPrompt
 				: newPrompt + " " + styleOption + " style";
+		
+		console.log(charInPrompt);
 
-		console.log(newPrompt);
-		const response = await fetch(
-			process.env.NODE_ENV === "production"
-				? "https://comicpal.vercel.app/image"
-				: "http://localhost:3080/image",
-			{
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					prompt: newPrompt,
-				}),
-			}
-		);
-		const res = await response.json();
-		setImageURL(res.url);
+		// const response = await fetch(
+		// 	process.env.NODE_ENV === "production"
+		// 		? "https://comicpal.vercel.app/image"
+		// 		: "http://localhost:3080/image",
+		// 	{
+		// 		method: "POST",
+		// 		headers: {
+		// 			"Content-Type": "application/json",
+		// 		},
+		// 		body: JSON.stringify({
+		// 			prompt: newPrompt,
+		// 		}),
+		// 	}
+		// );
+		// const res = await response.json();
+		// setImageURL(res.url);
 		setIsLoading(false);
 	};
 
 	const handleOnClose = (save) => {
 		if (save) {
-			onClose(true, imageURL, prompt);
+			onClose(true, imageURL, prompt, charInPrompt);
 		} else {
 			onClose(false, "", "");
 		}
@@ -75,6 +122,10 @@ function EditModal({ onClose, imgUrl, text }) {
 
 	const handleStyleDropdown = (style) => {
 		setStyleOption(style);
+	};
+
+	const handleInput = (e) => {
+		setPrompt(e.target.value);
 	};
 
 	// standalone script to automatically adjust textarea height
@@ -129,18 +180,15 @@ function EditModal({ onClose, imgUrl, text }) {
 						)}
 					</div>
 
-				{/* ---- SAVED STORY CHARACTERS ----*/}
-					<div>
-						<p>Add character:</p>
-						{localStorage.getItem("charJSON")}
-					</div>
+					{/* ---- SAVED STORY CHARACTERS ----*/}
+					<div>{characterList()}</div>
 
 					<div className="bg-gray-200 bg-opacity-90 rounded-lg w-full mx-auto flex flex-row items-center">
 						<textarea
 							id="textarea"
 							className="h-8 p-1.5 text-center break-words bg-transparent font-poppins text-sm rounded-md mx-auto w-[85%] focus:outline-none resize-none "
 							value={prompt}
-							onChange={(e) => setPrompt(e.target.value)}
+							onChange={(e) => handleInput(e)}
 							placeholder="Type a prompt..."
 						/>
 						<ArrowRightCircleIcon

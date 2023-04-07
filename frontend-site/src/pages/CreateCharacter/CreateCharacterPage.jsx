@@ -15,20 +15,19 @@ function CreateCharacterPage() {
 	const [deleteChar, setDeleteChar] = useState();
 	const [deletePopup, setDeletePopup] = useState(false);
 
+	const openCharacterGenerator =()=>{
+		console.log("hello")
+		setOpenGenerator(false);
+		setOpenGenerator(true);
+	}
+
 	const handleDeletePopupClick = (char) => {
 		setDeleteChar(char);
 		setDeletePopup(true);
 	};
 	const handleDeleteChar = (deleteCharBool) => {
-		// console.log(deleteChar)
 		if (deleteCharBool) {
 			setCharList(charList.filter((char) => char.id !== deleteChar.id));
-			// console.log(JSON.parse(localStorage.getItem("charJSON") || "[]"));
-			// for (let i = 0; i < charList.length; i++) {
-			// 	if (charList[i].id === deleteChar.id) {
-			// 		console.log(charList[i]);
-			// 	}
-			// }
 			setDeletePopup(false);
 		} else {
 			setDeletePopup(false);
@@ -44,9 +43,9 @@ function CreateCharacterPage() {
 		<MainLayout footer="noFooter">
 			{deletePopup && <Popup deleteFunc={handleDeleteChar} />}
 			<div
-				className={`${styles.flexCenter} bg-[#edecea] relative h-[calc(100vh-56px)] items-center justify-center font-poppins overflow-auto`}
+				className={`${styles.flexCenter} bg-[#edecea] relative h-[calc(100vh-56px)] items-center justify-center font-poppins overflow-auto `}
 			>
-				<div className="w-[80%] md:w-[60%] h-[90%] my-12 ">
+				<div className="w-[80%] md:w-[60%] h-[90%] mt-12">
 					<h1 className={`${styles.heading2}`}>Character List</h1>
 					<div className="h-96 bg-white bg-opacity-30 rounded-lg border border-1 border-gray-600 border-opacity-20 shadow-sm grid lg:grid-cols-6 md:grid-cols-3 grid-cols-2 gap-5 p-8  overflow-y-auto mb-10">
 						{charList.map((char, index) => (
@@ -74,7 +73,7 @@ function CreateCharacterPage() {
 							</div>
 						))}
 						<div
-							onClick={() => setOpenGenerator(true)}
+							onClick={openCharacterGenerator}
 							className="flex flex-col h-36 w-28 items-center gap-2 "
 						>
 							<div className=" w-28 h-28 bg-black bg-opacity-10 rounded-full shadow-md hover:shadow-md hover:shadow-gray-400 hover:scale-110 duration-200 cursor-pointer overflow-hidden flex justify-center items-center">

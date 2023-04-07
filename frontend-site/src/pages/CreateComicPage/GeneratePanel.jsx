@@ -9,13 +9,15 @@ function GeneratePanel({ deleteFunc, shape, focus, editModeAppear }) {
 	const [editMode, setEditMode] = useState(false);
 	const [prompt, setPrompt] = useState("");
 	const [imageURL, setImageURL] = useState("");
+	const [charInPrompt, setCharInPrompt] = useState([]);
 	const panelRef = useRef();
 
-	const handleOnCloseEditMode = (save, url, text) => {
+	const handleOnCloseEditMode = (save, url, text, charList) => {
 		setEditMode(false);
 		if (save) {
 			setImageURL(url);
 			setPrompt(text);
+			setCharInPrompt(charList);
 		}
 	};
 
@@ -34,7 +36,7 @@ function GeneratePanel({ deleteFunc, shape, focus, editModeAppear }) {
 					: "border-black "
 			} border-2 overflow-hidden bg-gray-100 resize ${
 				shape === "square" ? "w-72 h-52" : " rounded-full w-72 h-72 "
-			}` }
+			}`}
 			onClick={() => setPanelClick(true)}
 		>
 			{panelClick ? (
@@ -67,21 +69,21 @@ function GeneratePanel({ deleteFunc, shape, focus, editModeAppear }) {
 					<div></div>
 				)}
 			</div>
-			
-				{editMode ? (
-					<div >
+
+			{editMode ? (
+				<div>
 					<EditModal
-					 	onClose={handleOnCloseEditMode}
-					 	imgUrl={imageURL}
-					 	text={prompt}
-					 	/>
-					</div>
-				) : (
-					<></>
-				)}
+						onClose={handleOnCloseEditMode}
+						imgUrl={imageURL}
+						text={prompt}
+						charInPromptList={charInPrompt}
+					/>
+				</div>
+			) : (
+				<></>
+			)}
 		</div>
 	);
 }
 
 export default GeneratePanel;
-
