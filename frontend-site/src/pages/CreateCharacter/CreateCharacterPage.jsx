@@ -1,198 +1,47 @@
-import { PhotoIcon } from "@heroicons/react/24/outline";
-import { useRef, useState } from "react";
-import { useForm } from "react-hook-form";
 import styles from "../../assets/style";
 import FeedbackCard from "../../components/ui/FeedbackCard";
-import Spinner from "../../components/ui/Spinner";
 import MainLayout from "../../layout/MainLayout";
-import exportAsImage from "../../lib/exportAsImage";
+import CharacterGenerator from "./CharacterGenerator";
+import { useRef, useState } from "react";
 
 function CreateCharacterPage() {
-	const [imageURL, setImageURL] = useState("");
-	const [isLoading, setIsLoading] = useState(false);
-	const {
-		register,
-		handleSubmit,
-		formState: { errors },
-	} = useForm();
-	const exportRef = useRef();
-
-	const onSubmit = async (data) => {
-		setIsLoading(true);
-
-		// fix this to be better
-		var combinedData =
-			data.gender +
-			" with " +
-			data.eyeColor +
-			" colored eyes. " +
-			data.hair +
-			" hair. " +
-			data.skin +
-			"skin. " +
-			data.other;
-		
-		var charList = JSON.parse(localStorage.getItem("testJSON") || "[]");
-		var newName = data.name === "" ? "char " + (charList.length + 1) : data.name;
-		var newChar = {
-			id: (charList.length+1),
-			name: newName,
-			data: combinedData
-		}
-		charList.push(newChar)
-		localStorage.setItem("testJSON", JSON.stringify(charList));
-		console.log(charList)
-
-		// localStorage.removeItem("testJSON")
-		// localStorage.clear()
-
-	/* ----- COMMENTED OUT FOR NOW WHILST TRYING TO GET LOCALSTORAGE TO WORK ----*/
-	/* ----- fetch request to get the AI generated image from the prompt ----- */
-		// const response = await fetch(
-		// 	process.env.NODE_ENV === "production"
-		// 		? "https://comicpal.vercel.app/image"
-		// 		: "http://localhost:3080/image",
-		// 	{
-		// 		method: "POST",
-		// 		headers: {
-		// 			"Content-Type": "application/json",
-		// 		},
-		// 		body: JSON.stringify({
-		// 			prompt: combinedData,
-		// 		}),
-		// 	}
-		// );
-		// const res = await response.json();
-		// setImageURL(res.url);
-		// setIsLoading(false);
-	};
-
-	function handleDownload() {
-		exportAsImage(exportRef.current, "page1");
-	}
+	const [charList, setCharList] = useState(
+		JSON.parse(localStorage.getItem("charJSON") || "[]")
+	);
+	const [selectedChar, setSelectedChar] = useState();
 
 	return (
 		<MainLayout footer="noFooter">
 			<div
-				className={`${styles.flexCenter} bg-[#edecea] relative h-[calc(100vh-56px)] items-center font-poppins overflow-auto`}
+				className={`${styles.flexCenter} bg-[#edecea] relative h-[calc(100vh-56px)] items-center justify-center font-poppins overflow-auto`}
 			>
-				<div className="fixed bottom-0 left-0 ml-[-2rem] md:scale-75 z-40 scale-0 duration-200">
-					<FeedbackCard noIcon={true} />
-				</div>
-				{localStorage.setItem("characters", [])}
-				<div className=" flex flex-col gap-10 lg:py-0 py-12  h-full w-[80%]">
-					<div className="flex-1 flex lg:flex-row flex-col justify-between gap-4 items-center ">
-						<div
-							className="relative flex-1 bg-white items-center justify-center flex h-[70%] w-[70%] rounded-md shadow-lg"
-							ref={exportRef}
-						>
+				<div className="w-[80%] md:w-[60%] h-[90%] my-12 ">
+					<h1 className={`${styles.heading2}`}>Character List</h1>
+					<div className="h-96 bg-white bg-opacity-30 rounded-lg border border-1 border-gray-600 border-opacity-20 shadow-sm grid lg:grid-cols-6 md:grid-cols-3 grid-cols-2 gap-5 p-8 lg:mb-0 mb-10">
+						{charList.map((char, index) => (
 							<div
-								onClick={() => handleDownload()}
-								className="absolute top-0 right-0 mr-[3.5rem] mt-[-1.6em] text-sm text-gray-500 hover:text-secondary cursor-pointer  w-5 h-5"
+								onClick={() => setSelectedChar(char)}
+								className="flex flex-col h-36 w-28 items-center gap-2 "
 							>
-								Download
-							</div>
-							{isLoading ? (
-								<div className="flex justify-center items-center">
-									<Spinner />
-								</div>
-							) : imageURL !== "" ? (
-								<img
-									src={imageURL}
-									alt=""
-									className="object-contain"
-								></img>
-							) : (
-								<div className="h-80 w-96 flex justify-center items-center text-gray-300">
-									<PhotoIcon
-										className="h-20 w-20 hover:cursor-pointer"
-										aria-hidden="true"
+								<div
+									key={index}
+									className=" w-28 h-28 bg-white rounded-full shadow-md hover:shadow-md hover:shadow-gray-400 hover:scale-110 duration-200 cursor-pointer overflow-hidden flex justify-center items-center"
+								>
+									<img
+										src={char.img}
+										alt="openai avatar"
+										className="object-contain "
 									/>
 								</div>
-							)}
-						</div>
-
-						<div className="flex-1 w-full">
-							<form
-								className="flex flex-col space-y-3 lg:mt-16 w-full"
-								onSubmit={handleSubmit(onSubmit)}
-							>
-								<label className="block text-gray-700 text-md font-bold mt-3 mb-2">
-									Name
-								</label>
-								<input
-									className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-									type="text"
-									id="Name"
-									{...register("name")}
-								/>
-								<label className="block text-gray-700 text-md font-bold mt-3 mb-2">
-									Gender
-								</label>
-								<input
-									className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-									type="text"
-									id="Gender"
-									{...register("gender")}
-								/>
-								<label className="block text-gray-700 text-md font-bold mt-3 mb-2">
-									Eye Color
-								</label>
-								<input
-									className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-									type="text"
-									id="EyeColor"
-									{...register("eyeColor")}
-								/>
-								<label className="block text-gray-700 text-md font-bold mt-3 mb-2">
-									Skin description
-								</label>
-								<textarea
-									className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-									type="text"
-									id="Skin"
-									{...register("skin")}
-								/>
-								<label className="block text-gray-700 text-md font-bold mt-3 mb-2">
-									Hair description
-								</label>
-								<textarea
-									className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-									type="text"
-									id="Hair"
-									{...register("hair")}
-								/>
-								<label className="block text-gray-700 text-md font-bold mt-3 mb-2">
-									More details
-								</label>
-								<textarea
-									className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-									type="text"
-									id="Other"
-									{...register("other")}
-								/>
-								<div className="flex justify-center">
-									<button
-										type="submit"
-										className={`py-3 px-6  font-poppins font-medium text-[18px] rounded-full ${styles}duration-300 w-36 h-20 bg-lightGreen text-white hover:bg-[#007864]`}
-									>
-										Generate
-									</button>
-								</div>
-							</form>
-						</div>
+								<p className="font-medium  text-sm">{char.name}</p>
+							</div>
+						))}
 					</div>
 
-					{/* <div className="flex-1"> */}
-					{/* <div>
-              Personality: Text generate Background: Text generate Other: Text
-              generate
-            </div>
-            <SecondaryButton
-              text="Generate a character description"
-              styles={" w-32 bg-lightGreen text-white hover:bg-[#007864]"}
-            /> */}
-					{/* </div> */}
+					<CharacterGenerator />
+				</div>
+				<div className="fixed bottom-0 left-0 ml-[-2rem] md:scale-75 z-40 scale-0 duration-200">
+					<FeedbackCard noIcon={true} />
 				</div>
 			</div>
 		</MainLayout>

@@ -132,7 +132,7 @@ function EditModal({ onClose, imgUrl, text }) {
 				{/* ---- SAVED STORY CHARACTERS ----*/}
 					<div>
 						<p>Add character:</p>
-						{localStorage.getItem("testJSON")}
+						{localStorage.getItem("charJSON")}
 					</div>
 
 					<div className="bg-gray-200 bg-opacity-90 rounded-lg w-full mx-auto flex flex-row items-center">
