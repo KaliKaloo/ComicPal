@@ -5,6 +5,7 @@ import Spinner from "../../components/ui/Spinner";
 import exportAsImage from "../../lib/exportAsImage";
 import React from "react";
 import styles from "../../assets/style";
+import { v4 as uuidv4 } from 'uuid';
 
 function CharacterGenerator({setCharList}) {
 	const [imageURL, setImageURL] = useState("");
@@ -48,12 +49,12 @@ function CharacterGenerator({setCharList}) {
 		);
 		const res = await response.json();
 		setImageURL(res.url);
-
+		var newID = uuidv4();
 		var charList = JSON.parse(localStorage.getItem("charJSON") || "[]");
 		var newName =
-			data.name === "" ? "char " + (charList.length + 1) : data.name;
+			data.name === "" ? "char " + (newID.substring(0, 7)) : data.name;
 		var newChar = {
-			id: charList.length + 1,
+			id: newID,
 			name: newName,
 			data: combinedData,
 			img: res.url
@@ -76,7 +77,7 @@ function CharacterGenerator({setCharList}) {
 		<div className=" flex flex-col gap-10  h-full w-full">
 			<div className="flex-1 flex lg:flex-row flex-col justify-between gap-4 ">
 				<div
-					className="relative flex-1 bg-white items-center justify-center flex h-[70%] w-[70%] rounded-md shadow-lg lg:mt-20 mx-auto"
+					className="relative flex-1 bg-white items-center justify-center flex h-[70%] w-[70%] rounded-md shadow-lg  mx-auto"
 					ref={exportRef}
 				>
 					<div
@@ -107,7 +108,7 @@ function CharacterGenerator({setCharList}) {
 
 				<div className="flex-1 w-full">
 					<form
-						className="flex flex-col space-y-3 lg:mt-16 w-full"
+						className="flex flex-col space-y-3  w-full"
 						onSubmit={handleSubmit(onSubmit)}
 					>
 						<label className="block text-gray-700 text-md font-bold mb-2">

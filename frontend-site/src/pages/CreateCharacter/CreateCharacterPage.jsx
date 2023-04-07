@@ -3,7 +3,7 @@ import FeedbackCard from "../../components/ui/FeedbackCard";
 import Popup from "../../components/ui/Popup";
 import MainLayout from "../../layout/MainLayout";
 import CharacterGenerator from "./CharacterGenerator";
-import { useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { RiAddLine, RiCloseLine } from "react-icons/ri";
 
 function CreateCharacterPage() {
@@ -20,25 +20,35 @@ function CreateCharacterPage() {
 		setDeletePopup(true);
 	};
 	const handleDeleteChar = (deleteCharBool) => {
+		// console.log(deleteChar)
 		if (deleteCharBool) {
 			setCharList(charList.filter((char) => char.id !== deleteChar.id));
-			localStorage.setItem("charJSON", JSON.stringify(charList));
+			// console.log(JSON.parse(localStorage.getItem("charJSON") || "[]"));
+			// for (let i = 0; i < charList.length; i++) {
+			// 	if (charList[i].id === deleteChar.id) {
+			// 		console.log(charList[i]);
+			// 	}
+			// }
 			setDeletePopup(false);
 		} else {
 			setDeletePopup(false);
 		}
 	};
 
+	useEffect(() => {
+		document.title = "ComicPal | Create a Character";
+		localStorage.setItem("charJSON", JSON.stringify(charList));
+	}, [charList]);
+
 	return (
 		<MainLayout footer="noFooter">
 			{deletePopup && <Popup deleteFunc={handleDeleteChar} />}
-
 			<div
 				className={`${styles.flexCenter} bg-[#edecea] relative h-[calc(100vh-56px)] items-center justify-center font-poppins overflow-auto`}
 			>
 				<div className="w-[80%] md:w-[60%] h-[90%] my-12 ">
 					<h1 className={`${styles.heading2}`}>Character List</h1>
-					<div className="h-96 bg-white bg-opacity-30 rounded-lg border border-1 border-gray-600 border-opacity-20 shadow-sm grid lg:grid-cols-6 md:grid-cols-3 grid-cols-2 gap-5 p-8 lg:mb-0 mb-10 overflow-y-auto">
+					<div className="h-96 bg-white bg-opacity-30 rounded-lg border border-1 border-gray-600 border-opacity-20 shadow-sm grid lg:grid-cols-6 md:grid-cols-3 grid-cols-2 gap-5 p-8  overflow-y-auto mb-10">
 						{charList.map((char, index) => (
 							<div
 								key={index}
@@ -74,7 +84,18 @@ function CreateCharacterPage() {
 					</div>
 
 					{openGenerator ? (
-						<CharacterGenerator setCharList={setCharList} />
+						<div className="h-full w-full">
+							<p
+								className="w-full my-5 text-right hover:text-secondary cursor-pointer text-gray-500 duration-200"
+								onClick={() => setOpenGenerator(false)}
+							>
+								close
+							</p>
+							<CharacterGenerator
+								setCharList={setCharList}
+								setOpenGenerator={setOpenGenerator}
+							/>
+						</div>
 					) : (
 						<></>
 					)}
