@@ -10,7 +10,7 @@ function EditModal({ onClose, imgUrl, text, charInPromptList }) {
 	const [prompt, setPrompt] = useState(text);
 	// const [hiddenPrompt, setHiddenPrompt] = useState(text);
 	const [imageURL, setImageURL] = useState(imgUrl);
-	const realismLevels = ["0%", "25%", "50%", "75%", "100%"];
+	const realismLevels = ["n/a", "0%", "25%", "50%", "75%", "100%"];
 	const [realismLevel, setRealismLevel] = useState("");
 	const styleOptions = [
 		"n/a",
@@ -78,7 +78,7 @@ function EditModal({ onClose, imgUrl, text, charInPromptList }) {
 			(char) => (newPrompt = newPrompt.replace(char.name, char.data))
 		);
 		newPrompt =
-			realismLevel === "" || realismLevel === "100%"
+			realismLevel === "" || realismLevel==="n/a" || realismLevel ==="100%" 
 				? newPrompt
 				: newPrompt + ". " + realismLevel + " photo realistic";
 

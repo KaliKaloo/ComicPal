@@ -6,6 +6,7 @@ import exportAsImage from "../../lib/exportAsImage";
 import React from "react";
 import styles from "../../assets/style";
 import { v4 as uuidv4 } from 'uuid';
+import Dropdown from "../../components/ui/Dropdown";
 
 function CharacterGenerator({setCharList}) {
 	const [imageURL, setImageURL] = useState("");
@@ -15,22 +16,27 @@ function CharacterGenerator({setCharList}) {
 		handleSubmit,
 		formState: { errors },
 	} = useForm();
+	const [styleOption, setStyleOption] = useState("");
+	const styleOptions = [
+		"n/a",
+		"Oil Painting",
+		"Watercolour",
+		"Pencil Sketch",
+		"Marvel Comics",
+		"Cartoon",
+		"Anime",
+	];
 	const exportRef = useRef();
+
+	const handleStyleDropdown = (style) => {
+		setStyleOption(style);
+	};
 
 	const onSubmit = async (data) => {
 		setIsLoading(true);
 
-		// fix this to be better
-		var combinedData =
-			data.gender +
-			" with " +
-			data.eyeColor +
-			" colored eyes. " +
-			data.hair +
-			" hair. " +
-			data.skin +
-			"skin. " +
-			data.other;
+		// add other stuff like styles
+		var combinedData = data.desc;
 
 		/* ----- fetch request to get the AI generated image from the prompt ----- */
 		const response = await fetch(
@@ -111,60 +117,26 @@ function CharacterGenerator({setCharList}) {
 						className="flex flex-col space-y-3  w-full"
 						onSubmit={handleSubmit(onSubmit)}
 					>
-						<label className="block text-gray-700 text-md font-bold mb-2">
-							Name
-						</label>
-						<input
-							className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-							type="text"
-							id="Name"
-							{...register("name")}
-						/>
-						<label className="block text-gray-700 text-md font-bold mb-2">
-							Gender
-						</label>
-						<input
-							className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-							type="text"
-							id="Gender"
-							{...register("gender")}
-						/>
-						<label className="block text-gray-700 text-md font-bold mb-2">
-							Eye Color
-						</label>
-						<input
-							className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-							type="text"
-							id="EyeColor"
-							{...register("eyeColor")}
-						/>
-						<label className="block text-gray-700 text-md font-bold mb-2">
-							Skin description
-						</label>
-						<textarea
-							className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-							type="text"
-							id="Skin"
-							{...register("skin")}
-						/>
-						<label className="block text-gray-700 text-md font-bold mb-2">
-							Hair description
-						</label>
-						<textarea
-							className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-							type="text"
-							id="Hair"
-							{...register("hair")}
-						/>
 						<label className="block text-gray-700 text-md font-bold mt-3 mb-2">
-							More details
+							Character description
 						</label>
 						<textarea
-							className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+							className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline h-48"
 							type="text"
-							id="Other"
-							{...register("other")}
+							id="desc"
+							placeholder="E.g. Japanese girl in strapless blue dress"
+							{...register("desc")}
 						/>
+						<div className="font-poppins flex gap-2 items-center">
+							<span className=" text-sm font-medium text-gray-700">
+								Style:
+							</span>
+							<Dropdown
+								handleRealisim={handleStyleDropdown}
+								defaultText={"..."}
+								dropList={styleOptions}
+							/>
+						</div>
 						<div className="flex justify-center">
 							<button
 								type="submit"
