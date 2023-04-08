@@ -21,11 +21,6 @@ function GeneratePanel({ deleteFunc, shape, focus, editModeAppear }) {
 		}
 	};
 
-	// const handleTierGaterClick = (e) => {
-	// 	e.stopPropagation(e);
-	// 	e.preventDefault(e);
-	// };
-
 	useOnClickOutside(panelRef, () => setPanelClick(false));
 
 	return (

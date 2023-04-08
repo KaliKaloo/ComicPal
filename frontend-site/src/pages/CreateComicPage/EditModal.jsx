@@ -87,24 +87,24 @@ function EditModal({ onClose, imgUrl, text, charInPromptList }) {
 				? newPrompt
 				: newPrompt + " " + styleOption + " style";
 		
-		console.log(charInPrompt);
+		console.log(newPrompt);
 
-		// const response = await fetch(
-		// 	process.env.NODE_ENV === "production"
-		// 		? "https://comicpal.vercel.app/image"
-		// 		: "http://localhost:3080/image",
-		// 	{
-		// 		method: "POST",
-		// 		headers: {
-		// 			"Content-Type": "application/json",
-		// 		},
-		// 		body: JSON.stringify({
-		// 			prompt: newPrompt,
-		// 		}),
-		// 	}
-		// );
-		// const res = await response.json();
-		// setImageURL(res.url);
+		const response = await fetch(
+			process.env.NODE_ENV === "production"
+				? "https://comicpal.vercel.app/image"
+				: "http://localhost:3080/image",
+			{
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					prompt: newPrompt,
+				}),
+			}
+		);
+		const res = await response.json();
+		setImageURL(res.url);
 		setIsLoading(false);
 	};
 

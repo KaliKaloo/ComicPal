@@ -16,7 +16,6 @@ function CreateCharacterPage() {
 	const [deletePopup, setDeletePopup] = useState(false);
 
 	const openCharacterGenerator =()=>{
-		console.log("hello")
 		setOpenGenerator(false);
 		setOpenGenerator(true);
 	}
@@ -46,7 +45,7 @@ function CreateCharacterPage() {
 				className={`${styles.flexCenter} bg-[#edecea] relative h-[calc(100vh-56px)] items-center justify-center font-poppins overflow-auto `}
 			>
 				<div className="w-[80%] md:w-[60%] h-[90%] mt-12">
-					<h1 className={`${styles.heading2}`}>Character List</h1>
+					<h1 className={`${styles.heading2} py-4`}>Character List</h1>
 					<div className="h-96 bg-white bg-opacity-30 rounded-lg border border-1 border-gray-600 border-opacity-20 shadow-sm grid lg:grid-cols-6 md:grid-cols-3 grid-cols-2 gap-5 p-8  overflow-y-auto mb-10">
 						{charList.map((char, index) => (
 							<div
