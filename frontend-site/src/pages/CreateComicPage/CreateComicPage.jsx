@@ -5,18 +5,12 @@ import {
 	useSensor,
 	useSensors,
 } from "@dnd-kit/core";
-import {
-	ChatBubbleOvalLeftIcon,
-	PlusCircleIcon,
-	PlusIcon,
-	RectangleGroupIcon,
-	XMarkIcon,
-} from "@heroicons/react/24/outline";
+import { PlusIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import {
 	RiChat3Line,
 	RiCheckboxBlankLine,
 	RiCheckboxBlankCircleLine,
-  } from "react-icons/ri";
+} from "react-icons/ri";
 import { useRef, useState } from "react";
 import { Draggable } from "../../components/ui/Draggable";
 import { Droppable } from "../../components/ui/Droppable";
@@ -26,6 +20,7 @@ import MainLayout from "../../layout/MainLayout";
 import exportAsImage from "../../lib/exportAsImage";
 import GeneratePanel from "./GeneratePanel";
 import GenerateTextBubble from "./GenerateTextBubble";
+import DrawingCanvas from "./DrawingCanvas";
 
 function CreateComicPage() {
 	const [objectList, setObjectList] = useState([]);
@@ -104,6 +99,7 @@ function CreateComicPage() {
 					<div className="absolute bottom-0 left-0 ml-[-2rem] md:scale-75 z-40 scale-0 duration-200">
 						<FeedbackCard noIcon={true} />
 					</div>
+
 					<div
 						className={`z-20 flex shrink-0 grow-0 justify-around gap-4 border-t border-gray-200 bg-white/50 p-2.5 shadow-lg backdrop-blur-lg  fixed top-2/4 -translate-y-2/4 left-3 min-h-[auto] lg:min-w-[64px] min-w-[40px] flex-col rounded-lg border`}
 					>
@@ -126,7 +122,6 @@ function CreateComicPage() {
 							/>
 						</Tooltip>
 					</div>
-
 					<div
 						className={`flex ${
 							newPage ? "justify-start ml-20" : "justify-center"
@@ -144,38 +139,42 @@ function CreateComicPage() {
 												: "w-smallerPage h-smallerPage"
 										}`}
 									>
-										<select
-											onChange={(e) =>
-												setPageSize(e.target.value)
-											}
-											className="w-28 font-poppins text-sm absolute top-0 left-0 mt-[-1.6rem] h-5 text-gray-500 text-center outline-none bg-transparent"
-										>
-											<option value="a4">
-												210 x 297
-											</option>
-											<option value="smallerPage">
-												174 x 264
-											</option>
-										</select>
-										<div
-											onClick={() => handleDownload()}
-											className="absolute top-0 right-0 mr-[5.5rem] mt-[-1.6em] text-gray-500 hover:text-secondary cursor-pointer  w-5 h-5"
-										>
-											Download
-										</div>
-										{!newPage ? (
-											<PlusIcon
-												onClick={() => setNewPage(true)}
-												className="absolute top-0 right-0 mt-[-1.6em] hover:bg-[#e0dfdb] rounded-full w-5 h-5"
-											/>
-										) : (
-											<XMarkIcon
-												onClick={() =>
-													setNewPage(false)
+										<DrawingCanvas>
+											<select
+												onChange={(e) =>
+													setPageSize(e.target.value)
 												}
-												className="absolute top-0 right-[-2rem] mt-[-1.6em] hover:bg-[#e0dfdb] rounded-full w-5 h-5"
-											/>
-										)}
+												className="w-28 font-poppins text-sm absolute top-0 left-0 mt-[-1.6rem] h-5 text-gray-500 text-center outline-none bg-transparent"
+											>
+												<option value="a4">
+													210 x 297
+												</option>
+												<option value="smallerPage">
+													174 x 264
+												</option>
+											</select>
+											<div
+												onClick={() => handleDownload()}
+												className="absolute top-0 right-0 mr-[5.5rem] mt-[-1.6em] text-gray-500 hover:text-secondary cursor-pointer  w-5 h-5"
+											>
+												Download
+											</div>
+											{!newPage ? (
+												<PlusIcon
+													onClick={() =>
+														setNewPage(true)
+													}
+													className="absolute top-0 right-0 mt-[-1.6em] hover:bg-[#e0dfdb] rounded-full w-5 h-5"
+												/>
+											) : (
+												<XMarkIcon
+													onClick={() =>
+														setNewPage(false)
+													}
+													className="absolute top-0 right-[-2rem] mt-[-1.6em] hover:bg-[#e0dfdb] rounded-full w-5 h-5"
+												/>
+											)}
+										</DrawingCanvas>
 									</div>
 									<div>
 										{newPage ? (
@@ -216,7 +215,6 @@ function CreateComicPage() {
 										)}
 									</Draggable>
 								))}
-						
 
 								{/* DISPLAY THE SPEECH BUBBLES */}
 								{objectList.map((obj) => (

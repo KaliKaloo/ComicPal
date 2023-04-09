@@ -124,7 +124,7 @@ function CharacterGenerator({setCharList}) {
 							className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline h-48"
 							type="text"
 							id="desc"
-							placeholder="E.g. Japanese girl in strapless blue dress"
+							placeholder="E.g. Professional fantasy oil painting of a young japanese girl wearing a blue dress"
 							{...register("desc")}
 						/>
 						<div className="font-poppins flex gap-2 items-center">

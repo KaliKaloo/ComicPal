@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import rough from "roughjs/bundled/rough.esm";
 import getStroke from "perfect-freehand";
 
@@ -15,8 +15,6 @@ const createElement = (id, x1, y1, x2, y2, type) => {
       return { id, x1, y1, x2, y2, type, roughElement };
     case "pencil":
       return { id, type, points: [{ x: x1, y: y1 }] };
-    case "text":
-      return { id, type, x1, y1, x2, y2, text: "" };
     default:
       throw new Error(`Type not recognised: ${type}`);
   }
@@ -56,8 +54,6 @@ const positionWithinElement = (x, y, element) => {
         return onLine(point.x, point.y, nextPoint.x, nextPoint.y, x, y, 5) != null;
       });
       return betweenAnyPoint ? "inside" : null;
-    case "text":
-      return x >= x1 && x <= x2 && y >= y1 && y <= y2 ? "inside" : null;
     default:
       throw new Error(`Type not recognised: ${type}`);
   }
@@ -170,11 +166,6 @@ const drawElement = (roughCanvas, context, element) => {
       const stroke = getSvgPathFromStroke(getStroke(element.points));
       context.fill(new Path2D(stroke));
       break;
-    case "text":
-      context.textBaseline = "top";
-      context.font = "24px sans-serif";
-      context.fillText(element.text, element.x1, element.y1);
-      break;
     default:
       throw new Error(`Type not recognised: ${element.type}`);
   }
@@ -182,12 +173,11 @@ const drawElement = (roughCanvas, context, element) => {
 
 const adjustmentRequired = type => ["line", "rectangle"].includes(type);
 
-const App = () => {
+const DrawingCanvas = (props) => {
   const [elements, setElements, undo, redo] = useHistory([]);
   const [action, setAction] = useState("none");
-  const [tool, setTool] = useState("text");
+  const [tool, setTool] = useState("pencil");
   const [selectedElement, setSelectedElement] = useState(null);
-  const textAreaRef = useRef();
 
   useLayoutEffect(() => {
     const canvas = document.getElementById("canvas");
@@ -196,11 +186,8 @@ const App = () => {
 
     const roughCanvas = rough.canvas(canvas);
 
-    elements.forEach(element => {
-      if (action === "writing" && selectedElement.id === element.id) return;
-      drawElement(roughCanvas, context, element);
-    });
-  }, [elements, action, selectedElement]);
+    elements.forEach(element => drawElement(roughCanvas, context, element));
+  }, [elements]);
 
   useEffect(() => {
     const undoRedoFunction = event => {
@@ -219,15 +206,7 @@ const App = () => {
     };
   }, [undo, redo]);
 
-  useEffect(() => {
-    const textArea = textAreaRef.current;
-    if (action === "writing") {
-      textArea.focus();
-      textArea.value = selectedElement.text;
-    }
-  }, [action, selectedElement]);
-
-  const updateElement = (id, x1, y1, x2, y2, type, options) => {
+  const updateElement = (id, x1, y1, x2, y2, type) => {
     const elementsCopy = [...elements];
 
     switch (type) {
@@ -238,17 +217,6 @@ const App = () => {
       case "pencil":
         elementsCopy[id].points = [...elementsCopy[id].points, { x: x2, y: y2 }];
         break;
-      case "text":
-        const textWidth = document
-          .getElementById("canvas")
-          .getContext("2d")
-          .measureText(options.text).width;
-        const textHeight = 24;
-        elementsCopy[id] = {
-          ...createElement(id, x1, y1, x1 + textWidth, y1 + textHeight, type),
-          text: options.text,
-        };
-        break;
       default:
         throw new Error(`Type not recognised: ${type}`);
     }
@@ -257,8 +225,6 @@ const App = () => {
   };
 
   const handleMouseDown = event => {
-    if (action === "writing") return;
-
     const { clientX, clientY } = event;
     if (tool === "selection") {
       const element = getElementAtPosition(clientX, clientY, elements);
@@ -286,7 +252,7 @@ const App = () => {
       setElements(prevState => [...prevState, element]);
       setSelectedElement(element);
 
-      setAction(tool === "text" ? "writing" : "drawing");
+      setAction("drawing");
     }
   };
 
@@ -320,8 +286,7 @@ const App = () => {
         const height = y2 - y1;
         const newX1 = clientX - offsetX;
         const newY1 = clientY - offsetY;
-        const options = type === "text" ? { text: selectedElement.text } : {};
-        updateElement(id, newX1, newY1, newX1 + width, newY1 + height, type, options);
+        updateElement(id, newX1, newY1, newX1 + width, newY1 + height, type);
       }
     } else if (action === "resizing") {
       const { id, type, position, ...coordinates } = selectedElement;
@@ -330,18 +295,8 @@ const App = () => {
     }
   };
 
-  const handleMouseUp = event => {
-    const { clientX, clientY } = event;
+  const handleMouseUp = () => {
     if (selectedElement) {
-      if (
-        selectedElement.type === "text" &&
-        clientX - selectedElement.offsetX === selectedElement.x1 &&
-        clientY - selectedElement.offsetY === selectedElement.y1
-      ) {
-        setAction("writing");
-        return;
-      }
-
       const index = selectedElement.id;
       const { id, type } = elements[index];
       if ((action === "drawing" || action === "resizing") && adjustmentRequired(type)) {
@@ -349,23 +304,13 @@ const App = () => {
         updateElement(id, x1, y1, x2, y2, type);
       }
     }
-
-    if (action === "writing") return;
-
     setAction("none");
     setSelectedElement(null);
-  };
-
-  const handleBlur = event => {
-    const { id, x1, y1, type } = selectedElement;
-    setAction("none");
-    setSelectedElement(null);
-    updateElement(id, x1, y1, null, null, type, { text: event.target.value });
   };
 
   return (
-    <div>
-      <div style={{ position: "fixed" }}>
+    <div className="">
+      {/* <div>
         <input
           type="radio"
           id="selection"
@@ -389,45 +334,24 @@ const App = () => {
           onChange={() => setTool("pencil")}
         />
         <label htmlFor="pencil">Pencil</label>
-        <input type="radio" id="text" checked={tool === "text"} onChange={() => setTool("text")} />
-        <label htmlFor="text">Text</label>
-      </div>
-      <div style={{ position: "fixed", bottom: 0, padding: 10 }}>
+      </div> */}
+      {/* <div className="h-full w-full">
         <button onClick={undo}>Undo</button>
         <button onClick={redo}>Redo</button>
-      </div>
-      {action === "writing" ? (
-        <textarea
-          ref={textAreaRef}
-          onBlur={handleBlur}
-          style={{
-            position: "fixed",
-            top: selectedElement.y1 - 2,
-            left: selectedElement.x1,
-            font: "24px sans-serif",
-            margin: 0,
-            padding: 0,
-            border: 0,
-            outline: 0,
-            resize: "auto",
-            overflow: "hidden",
-            whiteSpace: "pre",
-            background: "transparent",
-          }}
-        />
-      ) : null}
+      </div> */}
       <canvas
         id="canvas"
+		// className="w-screen h-screen"
         width={window.innerWidth}
         height={window.innerHeight}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
       >
-        Canvas
+        {props.children}
       </canvas>
     </div>
   );
 };
 
-export default App;
+export default DrawingCanvas;
