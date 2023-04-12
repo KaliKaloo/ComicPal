@@ -4,6 +4,7 @@ import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link, useLocation } from "react-router-dom";
 import { navLinks } from "../constants";
 import styles from "../assets/style";
+import { useNavigate } from "react-router-dom";
 
 function classNames(...classes) {
 	return classes.filter(Boolean).join(" ");
@@ -11,6 +12,7 @@ function classNames(...classes) {
 
 export default function Navbar() {
 	const location = useLocation();
+	const navigate = useNavigate();
 
 	return (
 		<Disclosure as="nav" className="bg-mediumGreen font-poppins ">
@@ -40,7 +42,10 @@ export default function Navbar() {
 										</Disclosure.Button>
 									</div>
 									<div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-										<div className="flex flex-shrink-0 items-center font-bold text-secondary">
+										<div
+											className="flex flex-shrink-0 items-center font-bold text-secondary cursor-pointer"
+											onClick={() => navigate("/")}
+										>
 											ComicPal
 											{/* <img
                       className="block h-8 w-auto lg:hidden"
@@ -56,19 +61,26 @@ export default function Navbar() {
 										<div className="hidden sm:ml-6 sm:block">
 											<div className="flex space-x-4">
 												{navLinks.map((item) => (
-													<Link
-														key={item.name}
-														to={item.link}
-														className={classNames(
-															location.pathname ==
-																item.link
-																? "bg-lightGreen text-white "
-																: "text-dimWhite hover:bg-lightGreen hover:text-dimWhite duration-200",
-															"px-3 py-2 rounded-md text-sm font-medium "
-														)}
-													>
-														{item.name}
-													</Link>
+													<div key={item.name}>
+														<Link
+															to={item.link}
+															className={classNames(
+																location.pathname ==
+																	item.link
+																	? "bg-lightGreen text-white "
+																	: "text-dimWhite hover:bg-lightGreen hover:text-dimWhite duration-200",
+																"px-3 py-2 rounded-md text-sm font-medium "
+															)}
+															target={
+																item.name ===
+																"Feedback"
+																	? "_blank"
+																	: "_self"
+															}
+														>
+															{item.name}
+														</Link>
+													</div>
 												))}
 											</div>
 										</div>

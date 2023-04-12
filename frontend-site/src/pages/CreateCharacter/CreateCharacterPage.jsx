@@ -1,172 +1,105 @@
-import { PhotoIcon } from "@heroicons/react/24/outline";
-import { useRef, useState } from "react";
-import { useForm } from "react-hook-form";
 import styles from "../../assets/style";
 import FeedbackCard from "../../components/ui/FeedbackCard";
-import Spinner from "../../components/ui/Spinner";
+import Popup from "../../components/ui/Popup";
 import MainLayout from "../../layout/MainLayout";
-import exportAsImage from "../../lib/exportAsImage";
+import CharacterGenerator from "./CharacterGenerator";
+import { useEffect, useState } from "react";
+import { RiAddLine, RiCloseLine } from "react-icons/ri";
 
 function CreateCharacterPage() {
-	const [imageURL, setImageURL] = useState("");
-	const [isLoading, setIsLoading] = useState(false);
-	const {
-		register,
-		handleSubmit,
-		formState: { errors },
-	} = useForm();
-	const exportRef = useRef();
+	const [charList, setCharList] = useState(
+		JSON.parse(localStorage.getItem("charJSON") || "[]")
+	);
+	const [selectedChar, setSelectedChar] = useState();
+	const [openGenerator, setOpenGenerator] = useState(false);
+	const [deleteChar, setDeleteChar] = useState();
+	const [deletePopup, setDeletePopup] = useState(false);
 
-	const onSubmit = async (data) => {
-		setIsLoading(true);
+	const openCharacterGenerator =()=>{
+		setOpenGenerator(false);
+		setOpenGenerator(true);
+	}
 
-		let combinedData =
-			data.gender +
-			" with " +
-			data.eyeColor +
-			" colored eyes. " +
-			data.hair +
-			" hair. " +
-			data.skin +
-			"skin. " +
-			data.other;
-
-		const response = await fetch(
-			process.env.NODE_ENV === "production"
-				? "https://comicpal.vercel.app/image"
-				: "http://localhost:3080/image",
-			{
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					prompt: combinedData,
-				}),
-			}
-		);
-		const res = await response.json();
-		setImageURL(res.url);
-		setIsLoading(false);
+	const handleDeletePopupClick = (char) => {
+		setDeleteChar(char);
+		setDeletePopup(true);
+	};
+	const handleDeleteChar = (deleteCharBool) => {
+		if (deleteCharBool) {
+			setCharList(charList.filter((char) => char.id !== deleteChar.id));
+			setDeletePopup(false);
+		} else {
+			setDeletePopup(false);
+		}
 	};
 
-	function handleDownload() {
-		exportAsImage(exportRef.current, "page1");
-	}
+	useEffect(() => {
+		document.title = "ComicPal | Create a Character";
+		localStorage.setItem("charJSON", JSON.stringify(charList));
+	}, [charList]);
 
 	return (
 		<MainLayout footer="noFooter">
+			{deletePopup && <Popup deleteFunc={handleDeleteChar} />}
 			<div
-				className={`${styles.flexCenter} bg-[#edecea] relative h-[calc(100vh-56px)] items-center font-poppins overflow-auto`}
+				className={`${styles.flexCenter} bg-[#edecea] relative h-[calc(100vh-56px)] items-center justify-center font-poppins overflow-auto `}
 			>
-				<div className="absolute bottom-0 left-0 ml-[-2rem] md:scale-75 z-40 scale-0 duration-200">
-					<FeedbackCard noIcon={true} />
-				</div>
-
-				<div className=" flex flex-col gap-10 lg:py-0 py-12  h-full w-[80%]">
-					<div className="flex-1 flex lg:flex-row flex-col justify-between gap-4 items-center ">
-						<div
-							className="relative flex-1 bg-white items-center justify-center flex h-[70%] w-[70%] rounded-md shadow-lg"
-							ref={exportRef}
-						>
+				<div className="w-[80%] md:w-[60%] h-[90%] mt-12">
+					<h1 className={`${styles.heading2} py-4`}>Character List</h1>
+					<div className="h-96 bg-white bg-opacity-30 rounded-lg border border-1 border-gray-600 border-opacity-20 shadow-sm grid lg:grid-cols-6 md:grid-cols-3 grid-cols-2 gap-5 p-8  overflow-y-auto mb-10">
+						{charList.map((char, index) => (
 							<div
-								onClick={() => handleDownload()}
-								className="absolute top-0 right-0 mr-[3.5rem] mt-[-1.6em] text-sm text-gray-500 hover:text-secondary cursor-pointer  w-5 h-5"
+								key={index}
+								onClick={() => setSelectedChar(char)}
+								className="flex flex-col h-36 w-28 items-center gap-2 realtive group"
 							>
-								Download
-							</div>
-							{isLoading ? (
-								<div className="flex justify-center items-center">
-									<Spinner />
-								</div>
-							) : imageURL !== "" ? (
-								<img
-									src={imageURL}
-									alt=""
-									className="object-contain"
-								></img>
-							) : (
-								<div className="h-80 w-96 flex justify-center items-center text-gray-300">
-									<PhotoIcon
-										className="h-20 w-20 hover:cursor-pointer"
-										aria-hidden="true"
+								<div className=" w-28 h-28 bg-white rounded-full shadow-md hover:shadow-md hover:shadow-gray-400 hover:scale-110 duration-200 cursor-pointer overflow-hidden flex justify-center items-center">
+									<img
+										src={char.img}
+										alt="openai avatar"
+										className="object-contain "
 									/>
 								</div>
-							)}
-						</div>
-
-						<div className="flex-1 w-full">
-							<form
-								className="flex flex-col space-y-3 lg:mt-16 w-full"
-								onSubmit={handleSubmit(onSubmit)}
-							>
-								<label className="block text-gray-700 text-md font-bold mt-3 mb-2">
-									Gender
-								</label>
-								<input
-									className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-									type="text"
-									id="Gender"
-									{...register("gender")}
-								/>
-								<label className="block text-gray-700 text-md font-bold mt-3 mb-2">
-									Eye Color
-								</label>
-								<input
-									className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-									type="text"
-									id="EyeColor"
-									{...register("eyeColor")}
-								/>
-								<label className="block text-gray-700 text-md font-bold mt-3 mb-2">
-									Skin description
-								</label>
-								<textarea
-									className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-									type="text"
-									id="Skin"
-									{...register("skin")}
-								/>
-								<label className="block text-gray-700 text-md font-bold mt-3 mb-2">
-									Hair description
-								</label>
-								<textarea
-									className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-									type="text"
-									id="Hair"
-									{...register("hair")}
-								/>
-								<label className="block text-gray-700 text-md font-bold mt-3 mb-2">
-									More details
-								</label>
-								<textarea
-									className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-									type="text"
-									id="Other"
-									{...register("other")}
-								/>
-								<div className="flex justify-center">
-									<button
-										type="submit"
-										className={`py-3 px-6  font-poppins font-medium text-[18px] rounded-full ${styles}duration-300 w-36 h-20 bg-lightGreen text-white hover:bg-[#007864]`}
-									>
-										Generate
-									</button>
+								<div
+									onClick={() => handleDeletePopupClick(char)}
+									className="absolute mr-[-7.5rem] z-10 text-gray-500  opacity-0 group-hover:opacity-100 cursor-pointer rounded-full hover:bg-gray-300"
+								>
+									<RiCloseLine className="w-6 h-6" />
 								</div>
-							</form>
+								<p className="font-medium  text-sm">
+									{char.name}
+								</p>
+							</div>
+						))}
+						<div
+							onClick={openCharacterGenerator}
+							className="flex flex-col h-36 w-28 items-center gap-2 "
+						>
+							<div className=" w-28 h-28 bg-black bg-opacity-10 rounded-full shadow-md hover:shadow-md hover:shadow-gray-400 hover:scale-110 duration-200 cursor-pointer overflow-hidden flex justify-center items-center">
+								<RiAddLine className="w-10 h-10 text-gray-400" />
+							</div>
 						</div>
 					</div>
 
-					{/* <div className="flex-1"> */}
-					{/* <div>
-              Personality: Text generate Background: Text generate Other: Text
-              generate
-            </div>
-            <SecondaryButton
-              text="Generate a character description"
-              styles={" w-32 bg-lightGreen text-white hover:bg-[#007864]"}
-            /> */}
-					{/* </div> */}
+					{openGenerator ? (
+						<div className="h-full w-full">
+							<p
+								className="w-full my-5 text-right hover:text-secondary cursor-pointer text-gray-500 duration-200"
+								onClick={() => setOpenGenerator(false)}
+							>
+								close
+							</p>
+							<CharacterGenerator
+								setCharList={setCharList}
+								setOpenGenerator={setOpenGenerator}
+							/>
+						</div>
+					) : (
+						<></>
+					)}
+				</div>
+				<div className="fixed bottom-0 left-0 ml-[-2rem] md:scale-75 z-40 scale-0 duration-200">
+					<FeedbackCard noIcon={true} />
 				</div>
 			</div>
 		</MainLayout>
