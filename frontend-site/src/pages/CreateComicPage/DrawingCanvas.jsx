@@ -310,7 +310,7 @@ const DrawingCanvas = (props) => {
 
   return (
     <div className="">
-      {/* <div>
+      <div>
         <input
           type="radio"
           id="selection"
@@ -334,11 +334,11 @@ const DrawingCanvas = (props) => {
           onChange={() => setTool("pencil")}
         />
         <label htmlFor="pencil">Pencil</label>
-      </div> */}
-      {/* <div className="h-full w-full">
+      </div>
+      <div className="h-full w-full">
         <button onClick={undo}>Undo</button>
         <button onClick={redo}>Redo</button>
-      </div> */}
+      </div>
       <canvas
         id="canvas"
 		// className="w-screen h-screen"

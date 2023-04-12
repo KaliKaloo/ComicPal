@@ -127,8 +127,8 @@ function CreateComicPage() {
 							newPage ? "justify-start ml-20" : "justify-center"
 						} flex-1 p-12 h-full overflow-auto `}
 					>
+			{/* ----------------- THE COMIC PAGE/S ----------------------*/}
 						<Droppable styles={`h-a4`}>
-							{/* THE COMIC PAGES */}
 							<div className="relative" ref={exportRef}>
 								<div className={`flex `}>
 									<div
@@ -193,7 +193,8 @@ function CreateComicPage() {
 										)}
 									</div>
 								</div>
-								{/* DISPLAY THE PANELS */}
+				
+				{/* ----------- DISPLAY THE PANELS ----------- */}
 								{objectList.map((obj) => (
 									<Draggable
 										styles={{
