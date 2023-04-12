@@ -1,6 +1,6 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
-import rough from "roughjs/bundled/rough.esm";
 import getStroke from "perfect-freehand";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import rough from "roughjs/bundled/rough.esm";
 
 const generator = rough.generator();
 
@@ -178,6 +178,7 @@ const DrawingCanvas = (props) => {
   const [action, setAction] = useState("none");
   const [tool, setTool] = useState("pencil");
   const [selectedElement, setSelectedElement] = useState(null);
+  const ref = useRef(null);
 
   useLayoutEffect(() => {
     const canvas = document.getElementById("canvas");
@@ -225,7 +226,8 @@ const DrawingCanvas = (props) => {
   };
 
   const handleMouseDown = event => {
-    const { clientX, clientY } = event;
+    const { clientX, clientY } = getCursorPosition(event);
+
     if (tool === "selection") {
       const element = getElementAtPosition(clientX, clientY, elements);
       if (element) {
@@ -257,7 +259,7 @@ const DrawingCanvas = (props) => {
   };
 
   const handleMouseMove = event => {
-    const { clientX, clientY } = event;
+    const { clientX, clientY } = getCursorPosition(event);
 
     if (tool === "selection") {
       const element = getElementAtPosition(clientX, clientY, elements);
@@ -308,6 +310,19 @@ const DrawingCanvas = (props) => {
     setSelectedElement(null);
   };
 
+  const getCursorPosition = (event) => {
+    if (!ref.current) {
+      return;
+    }
+
+    const rect = ref.current.getBoundingClientRect();
+
+    return {
+      clientX: event.clientX - rect.left,
+      clientY: event.clientY - rect.top
+    };
+  }
+
   return (
     <div className="">
       <div>
@@ -341,6 +356,7 @@ const DrawingCanvas = (props) => {
       </div>
       <canvas
         id="canvas"
+        ref={ref}
 		// className="w-screen h-screen"
         width={window.innerWidth}
         height={window.innerHeight}
