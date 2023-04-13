@@ -173,7 +173,7 @@ const drawElement = (roughCanvas, context, element) => {
 
 const adjustmentRequired = type => ["line", "rectangle"].includes(type);
 
-const DrawingCanvas = (props) => {
+const DrawingCanvas = ({ pages, pageWidth }) => {
   const [elements, setElements, undo, redo] = useHistory([]);
   const [action, setAction] = useState("none");
   const [tool, setTool] = useState("pencil");
@@ -188,7 +188,7 @@ const DrawingCanvas = (props) => {
     const roughCanvas = rough.canvas(canvas);
 
     elements.forEach(element => drawElement(roughCanvas, context, element));
-  }, [elements]);
+  }, [elements, pages]);
 
   useEffect(() => {
     const undoRedoFunction = event => {
@@ -324,7 +324,7 @@ const DrawingCanvas = (props) => {
   }
 
   return (
-    <div className="">
+    <div>
       <div>
         <input
           type="radio"
@@ -357,14 +357,13 @@ const DrawingCanvas = (props) => {
       <canvas
         id="canvas"
         ref={ref}
-		// className="w-screen h-screen"
-        width={window.innerWidth}
+        className="absolute z-40"
+        width={pages * pageWidth}
         height={window.innerHeight}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
       >
-        {props.children}
       </canvas>
     </div>
   );
