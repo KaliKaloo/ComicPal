@@ -163,7 +163,7 @@ const drawElement = (roughCanvas, context, element) => {
       roughCanvas.draw(element.roughElement);
       break;
     case "pencil":
-      const stroke = getSvgPathFromStroke(getStroke(element.points));
+      const stroke = getSvgPathFromStroke(getStroke(element.points, { size: 2 }));
       context.fill(new Path2D(stroke));
       break;
     default:
