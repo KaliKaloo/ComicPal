@@ -1,6 +1,6 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
-import rough from "roughjs/bundled/rough.esm";
 import getStroke from "perfect-freehand";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import rough from "roughjs/bundled/rough.esm";
 
 const generator = rough.generator();
 
@@ -163,7 +163,7 @@ const drawElement = (roughCanvas, context, element) => {
       roughCanvas.draw(element.roughElement);
       break;
     case "pencil":
-      const stroke = getSvgPathFromStroke(getStroke(element.points));
+      const stroke = getSvgPathFromStroke(getStroke(element.points, { size: 2 }));
       context.fill(new Path2D(stroke));
       break;
     default:
@@ -173,11 +173,12 @@ const drawElement = (roughCanvas, context, element) => {
 
 const adjustmentRequired = type => ["line", "rectangle"].includes(type);
 
-const DrawingCanvas = (props) => {
+const DrawingCanvas = ({ pages, pageWidth }) => {
   const [elements, setElements, undo, redo] = useHistory([]);
   const [action, setAction] = useState("none");
   const [tool, setTool] = useState("pencil");
   const [selectedElement, setSelectedElement] = useState(null);
+  const ref = useRef(null);
 
   useLayoutEffect(() => {
     const canvas = document.getElementById("canvas");
@@ -187,7 +188,7 @@ const DrawingCanvas = (props) => {
     const roughCanvas = rough.canvas(canvas);
 
     elements.forEach(element => drawElement(roughCanvas, context, element));
-  }, [elements]);
+  }, [elements, pages]);
 
   useEffect(() => {
     const undoRedoFunction = event => {
@@ -225,7 +226,8 @@ const DrawingCanvas = (props) => {
   };
 
   const handleMouseDown = event => {
-    const { clientX, clientY } = event;
+    const { clientX, clientY } = getCursorPosition(event);
+
     if (tool === "selection") {
       const element = getElementAtPosition(clientX, clientY, elements);
       if (element) {
@@ -257,7 +259,7 @@ const DrawingCanvas = (props) => {
   };
 
   const handleMouseMove = event => {
-    const { clientX, clientY } = event;
+    const { clientX, clientY } = getCursorPosition(event);
 
     if (tool === "selection") {
       const element = getElementAtPosition(clientX, clientY, elements);
@@ -308,8 +310,21 @@ const DrawingCanvas = (props) => {
     setSelectedElement(null);
   };
 
+  const getCursorPosition = (event) => {
+    if (!ref.current) {
+      return;
+    }
+
+    const rect = ref.current.getBoundingClientRect();
+
+    return {
+      clientX: event.clientX - rect.left,
+      clientY: event.clientY - rect.top
+    };
+  }
+
   return (
-    <div className="">
+    <div>
       <div>
         <input
           type="radio"
@@ -341,14 +356,14 @@ const DrawingCanvas = (props) => {
       </div>
       <canvas
         id="canvas"
-		// className="w-screen h-screen"
-        width={window.innerWidth}
+        ref={ref}
+        className="absolute z-40"
+        width={pages * pageWidth}
         height={window.innerHeight}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
       >
-        {props.children}
       </canvas>
     </div>
   );

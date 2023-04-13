@@ -6,21 +6,21 @@ import {
 	useSensors,
 } from "@dnd-kit/core";
 import { PlusIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { useRef, useState } from "react";
 import {
 	RiChat3Line,
-	RiCheckboxBlankLine,
 	RiCheckboxBlankCircleLine,
+	RiCheckboxBlankLine,
 } from "react-icons/ri";
-import { useRef, useState } from "react";
 import { Draggable } from "../../components/ui/Draggable";
 import { Droppable } from "../../components/ui/Droppable";
 import FeedbackCard from "../../components/ui/FeedbackCard";
 import Tooltip from "../../components/ui/Tooltip";
 import MainLayout from "../../layout/MainLayout";
 import exportAsImage from "../../lib/exportAsImage";
+import DrawingCanvas from "./DrawingCanvas";
 import GeneratePanel from "./GeneratePanel";
 import GenerateTextBubble from "./GenerateTextBubble";
-import DrawingCanvas from "./DrawingCanvas";
 
 function CreateComicPage() {
 	const [objectList, setObjectList] = useState([]);
@@ -139,7 +139,7 @@ function CreateComicPage() {
 												: "w-smallerPage h-smallerPage"
 										}`}
 									>
-										<DrawingCanvas>
+										<DrawingCanvas pages={newPage ? 2 : 1} pageWidth={793} />
 											<select
 												onChange={(e) =>
 													setPageSize(e.target.value)
@@ -174,10 +174,10 @@ function CreateComicPage() {
 													className="absolute top-0 right-[-2rem] mt-[-1.6em] hover:bg-[#e0dfdb] rounded-full w-5 h-5"
 												/>
 											)}
-										</DrawingCanvas>
+										{/* </DrawingCanvas> */}
 									</div>
 									<div>
-										{newPage ? (
+										{newPage &&
 											<div className="flex">
 												<div className="h-a4 w-[16px] bg-gray-300" />
 												<div
@@ -186,11 +186,11 @@ function CreateComicPage() {
 															? "w-a4 h-a4"
 															: "w-smallerPage h-smallerPage"
 													}`}
-												/>
+												>
+													{/* <DrawingCanvas /> */}
+												</div>
 											</div>
-										) : (
-											<></>
-										)}
+										}
 									</div>
 								</div>
 				
