@@ -12,6 +12,8 @@ import {
 	RiCheckboxBlankCircleLine,
 	RiCheckboxBlankLine,
 } from "react-icons/ri";
+import { BsBrush, BsXLg } from "react-icons/bs";
+
 import { Draggable } from "../../components/ui/Draggable";
 import { Droppable } from "../../components/ui/Droppable";
 import FeedbackCard from "../../components/ui/FeedbackCard";
@@ -27,6 +29,7 @@ function CreateComicPage() {
 	const [count, setCount] = useState(1);
 	const [newPage, setNewPage] = useState(false);
 	const [pageSize, setPageSize] = useState("a4");
+	const [drawingMode, setDrawingMode] = useState(false);
 	const exportRef = useRef();
 
 	const addObject = (type, shape) => {
@@ -121,13 +124,34 @@ function CreateComicPage() {
 								className=" aspect-square  lg:h-10 h-8 lg:w-16 w-12 flex-col items-center justify-center rounded-md  text-gray-700 hover:bg-gray-200 duration-200"
 							/>
 						</Tooltip>
+						<div className=" mx-auto h-1 w-12 bg-gray-200" />
+
+						{!drawingMode ? (
+							<Tooltip text="Drawing Mode ON">
+								<BsBrush
+									onClick={() => {
+										setDrawingMode(!drawingMode);
+									}}
+									className=" aspect-square  pb-1 lg:h-10 h-8 lg:w-16 w-12 flex-col items-center justify-center rounded-md  text-gray-700 hover:bg-gray-200 duration-200"
+								/>
+							</Tooltip>
+						) : (
+							<Tooltip text="Drawing Mode OFF">
+								<BsXLg
+									onClick={() => {
+										setDrawingMode(!drawingMode);
+									}}
+									className=" aspect-square  pb-1 lg:h-10 h-8 lg:w-16 w-12 flex-col items-center justify-center rounded-md  text-gray-700 hover:bg-gray-200 duration-200"
+								/>
+							</Tooltip>
+						)}
 					</div>
 					<div
 						className={`flex ${
 							newPage ? "justify-start ml-20" : "justify-center"
-						} flex-1 p-12 h-full overflow-auto `}
+						} flex-1 p-16 h-full overflow-auto `}
 					>
-			{/* ----------------- THE COMIC PAGE/S ----------------------*/}
+						{/* ----------------- THE COMIC PAGE/S ----------------------*/}
 						<Droppable styles={`h-a4`}>
 							<div className="relative" ref={exportRef}>
 								<div className={`flex `}>
@@ -139,62 +163,62 @@ function CreateComicPage() {
 												: "w-smallerPage h-smallerPage"
 										}`}
 									>
-										<DrawingCanvas pages={newPage ? 2 : 1} pageWidth={793} />
-											<select
-												onChange={(e) =>
-													setPageSize(e.target.value)
+										<DrawingCanvas
+											pages={newPage ? 2 : 1}
+											pageWidth={793}
+											pageHeight={1120}
+											drawingMode={drawingMode}
+										/>
+										<select
+											onChange={(e) =>
+												setPageSize(e.target.value)
+											}
+											className="w-28 font-poppins text-sm absolute top-0 left-0 mt-[-1.6rem] h-5 text-gray-500 text-center outline-none bg-transparent"
+										>
+											<option value="a4">
+												210 x 297
+											</option>
+											<option value="smallerPage">
+												174 x 264
+											</option>
+										</select>
+										<div
+											onClick={() => handleDownload()}
+											className="absolute top-0 right-0 mr-[5.5rem] mt-[-1.6em] text-gray-500 hover:text-secondary cursor-pointer  w-5 h-5"
+										>
+											Download
+										</div>
+										{!newPage ? (
+											<PlusIcon
+												onClick={() => setNewPage(true)}
+												className="absolute top-0 right-0 mt-[-1.6em] hover:bg-[#e0dfdb] rounded-full w-5 h-5"
+											/>
+										) : (
+											<XMarkIcon
+												onClick={() =>
+													setNewPage(false)
 												}
-												className="w-28 font-poppins text-sm absolute top-0 left-0 mt-[-1.6rem] h-5 text-gray-500 text-center outline-none bg-transparent"
-											>
-												<option value="a4">
-													210 x 297
-												</option>
-												<option value="smallerPage">
-													174 x 264
-												</option>
-											</select>
-											<div
-												onClick={() => handleDownload()}
-												className="absolute top-0 right-0 mr-[5.5rem] mt-[-1.6em] text-gray-500 hover:text-secondary cursor-pointer  w-5 h-5"
-											>
-												Download
-											</div>
-											{!newPage ? (
-												<PlusIcon
-													onClick={() =>
-														setNewPage(true)
-													}
-													className="absolute top-0 right-0 mt-[-1.6em] hover:bg-[#e0dfdb] rounded-full w-5 h-5"
-												/>
-											) : (
-												<XMarkIcon
-													onClick={() =>
-														setNewPage(false)
-													}
-													className="absolute top-0 right-[-2rem] mt-[-1.6em] hover:bg-[#e0dfdb] rounded-full w-5 h-5"
-												/>
-											)}
-										{/* </DrawingCanvas> */}
+												className="absolute top-0 right-[-1.5rem] mt-[-1.6em] hover:bg-[#e0dfdb] rounded-full w-5 h-5"
+											/>
+										)}
 									</div>
 									<div>
-										{newPage &&
+										{newPage && (
 											<div className="flex">
-												<div className="h-a4 w-[16px] bg-gray-300" />
+												<div className="h-a4 w-[1px] bg-gray-300" />
 												<div
 													className={` relative shadow-md bg-white ${
 														pageSize === "a4"
 															? "w-a4 h-a4"
 															: "w-smallerPage h-smallerPage"
 													}`}
-												>
-													{/* <DrawingCanvas /> */}
-												</div>
+												></div>
 											</div>
-										}
+										)}
 									</div>
 								</div>
-				
-				{/* ----------- DISPLAY THE PANELS ----------- */}
+
+								{/* ----------- DISPLAY THE PANELS ----------- */}
 								{objectList.map((obj) => (
 									<Draggable
 										styles={{

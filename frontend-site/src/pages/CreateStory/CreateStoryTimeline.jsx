@@ -176,10 +176,10 @@ function CreateStoryTimeline() {
 					} z-20 flex shrink-0 grow-0 justify-around gap-2 fixed bottom-0 right-3 `}
 				>
 					<div
-						className={`border-1 border-gray-300 shadow-xl h-[90%] md:h-[35rem] w-[95%] md:w-[35rem] flex-col rounded-md border overflow-hidden`}
+						className={`border-1 border-gray-300 shadow-lg shadow-gray-400 h-[90%] md:h-[35rem] w-[95%] md:w-[35rem] flex-col rounded-md border overflow-hidden`}
 					>
 						<div className="h-10 w-full bg-lightGreen flex justify-between items-center p-2 border-b-4 border-[#007864]">
-							<p className="font-medium text-darkGreen text-opacity-70 font-poppins ml-3 text-lg ">
+							<p className="pt-1 font-medium text-white text-opacity-70 font-poppins ml-3 text-lg ">
 								AI ChatBot
 							</p>
 							<RiCloseFill
