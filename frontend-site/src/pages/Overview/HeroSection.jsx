@@ -53,7 +53,7 @@ function HeroSection() {
 						onClick={() => navigate("/about")}
 					/>
 					<MainButton
-						styles="mt-6 mb-10 bg-secondary text-white hover:bg-[#E36021]"
+						styles="mt-6 mb-10 bg-secondary text-white hover:bg-darkSecondary"
 						text="Get Started"
 						onClick={() => navigate("/playground")}
 					/>
@@ -61,6 +61,7 @@ function HeroSection() {
 						styles="mt-6 mb-10 bg-lightGreen text-white hover:bg-[#007864]"
 						text="How To Use"
 						href="https://www.youtube.com/watch?v=Dqs-RYhIk44"
+						target="_blank"
 					/>
 				</div>
 			</div>

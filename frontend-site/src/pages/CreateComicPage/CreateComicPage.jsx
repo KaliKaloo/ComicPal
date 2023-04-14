@@ -5,20 +5,22 @@ import {
 	useSensor,
 	useSensors,
 } from "@dnd-kit/core";
-import {
-	ChatBubbleOvalLeftIcon,
-	PlusCircleIcon,
-	PlusIcon,
-	RectangleGroupIcon,
-	XMarkIcon,
-} from "@heroicons/react/24/outline";
+import { PlusIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useRef, useState } from "react";
+import {
+	RiChat3Line,
+	RiCheckboxBlankCircleLine,
+	RiCheckboxBlankLine,
+} from "react-icons/ri";
+import { BsBrush, BsXLg } from "react-icons/bs";
+
 import { Draggable } from "../../components/ui/Draggable";
 import { Droppable } from "../../components/ui/Droppable";
 import FeedbackCard from "../../components/ui/FeedbackCard";
 import Tooltip from "../../components/ui/Tooltip";
 import MainLayout from "../../layout/MainLayout";
 import exportAsImage from "../../lib/exportAsImage";
+import DrawingCanvas from "./DrawingCanvas";
 import GeneratePanel from "./GeneratePanel";
 import GenerateTextBubble from "./GenerateTextBubble";
 
@@ -27,6 +29,7 @@ function CreateComicPage() {
 	const [count, setCount] = useState(1);
 	const [newPage, setNewPage] = useState(false);
 	const [pageSize, setPageSize] = useState("a4");
+	const [drawingMode, setDrawingMode] = useState(false);
 	const exportRef = useRef();
 
 	const addObject = (type, shape) => {
@@ -50,20 +53,20 @@ function CreateComicPage() {
 	const sensors = useSensors(
 		useSensor(MouseSensor, {
 			activationConstraint: {
-				delay: 150,
+				delay: 200,
 				tolerance: 8,
 			},
 		}),
 		useSensor(TouchSensor, {
 			activationConstraint: {
-				delay: 150,
+				delay: 200,
 				tolerance: 8,
 			},
 		})
 	);
 
-	function handleDragStart(ev) {
-		const object = objectList.find((x) => x.id === ev.active.id);
+	function handleDragStart(e) {
+		const object = objectList.find((x) => x.id === e.active.id);
 		object.focus = "onFocus";
 		const _newList = objectList.map((x) => {
 			if (x.id === object.id) return object;
@@ -72,10 +75,10 @@ function CreateComicPage() {
 		setObjectList(_newList);
 	}
 
-	function handleDragEnd(ev) {
-		const object = objectList.find((x) => x.id === ev.active.id);
-		object.position.x += ev.delta.x;
-		object.position.y += ev.delta.y;
+	function handleDragEnd(e) {
+		const object = objectList.find((x) => x.id === e.active.id);
+		object.position.x += e.delta.x;
+		object.position.y += e.delta.y;
 		object.focus = "";
 		const _newList = objectList.map((x) => {
 			if (x.id === object.id) return object;
@@ -95,42 +98,61 @@ function CreateComicPage() {
 				onDragEnd={handleDragEnd}
 				sensors={sensors}
 			>
-				<div className="bg-[#edecea] relative h-[calc(100vh-56px)] items-center">
+				<div className="bg-dimYellow relative h-[calc(100vh-56px)] items-center">
 					<div className="absolute bottom-0 left-0 ml-[-2rem] md:scale-75 z-40 scale-0 duration-200">
 						<FeedbackCard noIcon={true} />
 					</div>
+
 					<div
 						className={`z-20 flex shrink-0 grow-0 justify-around gap-4 border-t border-gray-200 bg-white/50 p-2.5 shadow-lg backdrop-blur-lg  fixed top-2/4 -translate-y-2/4 left-3 min-h-[auto] lg:min-w-[64px] min-w-[40px] flex-col rounded-lg border`}
 					>
-						<div>
-							<Tooltip text="Square Panel">
-								<RectangleGroupIcon
-									onClick={() => addObject("panel", "square")}
-									className="flex aspect-square min-h-[32px] lg:w-16 w-10 flex-col items-center justify-center gap-1 rounded-md p-1.5  text-gray-700 hover:bg-gray-200 "
-								/>
-							</Tooltip>
-							<Tooltip text="Round Panel">
-								<PlusCircleIcon
-									onClick={() => addObject("panel", "circle")}
-									className="flex aspect-square min-h-[32px] lg:w-16 w-10 flex-col items-center justify-center gap-1 rounded-md p-1.5  text-gray-700 hover:bg-gray-200 "
-								/>
-							</Tooltip>
-							<Tooltip text="Speech Bubble">
-								<ChatBubbleOvalLeftIcon
-									onClick={() => addObject("speech")}
-									className="flex aspect-square min-h-[32px] lg:w-16 w-10 flex-col items-center justify-center gap-1 rounded-md p-1.5  text-gray-700 hover:bg-gray-200 "
-								/>
-							</Tooltip>
-						</div>
-					</div>
+						<Tooltip text="Square Panel">
+							<RiCheckboxBlankLine
+								onClick={() => addObject("panel", "square")}
+								className="aspect-square lg:h-10 h-8 lg:w-16 w-12 flex-col items-center justify-center rounded-md  text-gray-700 hover:bg-gray-200 duration-200"
+							/>
+						</Tooltip>
+						<Tooltip text="Round Panel">
+							<RiCheckboxBlankCircleLine
+								onClick={() => addObject("panel", "circle")}
+								className=" aspect-square  lg:h-10 h-8 lg:w-16 w-12 flex-col items-center justify-center rounded-md  text-gray-700 hover:bg-gray-200 duration-200 "
+							/>
+						</Tooltip>
+						<Tooltip text="Speech Bubble">
+							<RiChat3Line
+								onClick={() => addObject("speech")}
+								className=" aspect-square  lg:h-10 h-8 lg:w-16 w-12 flex-col items-center justify-center rounded-md  text-gray-700 hover:bg-gray-200 duration-200"
+							/>
+						</Tooltip>
+						<div className=" mx-auto h-1 w-12 bg-gray-200" />
 
+						{!drawingMode ? (
+							<Tooltip text="Drawing Mode ON">
+								<BsBrush
+									onClick={() => {
+										setDrawingMode(!drawingMode);
+									}}
+									className=" aspect-square  pb-1 lg:h-10 h-8 lg:w-16 w-12 flex-col items-center justify-center rounded-md  text-gray-700 hover:bg-gray-200 duration-200"
+								/>
+							</Tooltip>
+						) : (
+							<Tooltip text="Drawing Mode OFF">
+								<BsXLg
+									onClick={() => {
+										setDrawingMode(!drawingMode);
+									}}
+									className=" aspect-square  pb-1 lg:h-10 h-8 lg:w-16 w-12 flex-col items-center justify-center rounded-md  text-gray-700 hover:bg-gray-200 duration-200"
+								/>
+							</Tooltip>
+						)}
+					</div>
 					<div
 						className={`flex ${
 							newPage ? "justify-start ml-20" : "justify-center"
-						} flex-1 p-12 h-full overflow-auto `}
+						} flex-1 p-16 h-full overflow-auto `}
 					>
+						{/* ----------------- THE COMIC PAGE/S ----------------------*/}
 						<Droppable styles={`h-a4`}>
-							{/* THE COMIC PAGES */}
 							<div className="relative" ref={exportRef}>
 								<div className={`flex `}>
 									<div
@@ -141,6 +163,12 @@ function CreateComicPage() {
 												: "w-smallerPage h-smallerPage"
 										}`}
 									>
+										<DrawingCanvas
+											pages={newPage ? 2 : 1}
+											pageWidth={793}
+											pageHeight={1120}
+											drawingMode={drawingMode}
+										/>
 										<select
 											onChange={(e) =>
 												setPageSize(e.target.value)
@@ -170,28 +198,27 @@ function CreateComicPage() {
 												onClick={() =>
 													setNewPage(false)
 												}
-												className="absolute top-0 right-[-2rem] mt-[-1.6em] hover:bg-[#e0dfdb] rounded-full w-5 h-5"
+												className="absolute top-0 right-[-1.5rem] mt-[-1.6em] hover:bg-[#e0dfdb] rounded-full w-5 h-5"
 											/>
 										)}
 									</div>
 									<div>
-										{newPage ? (
+										{newPage && (
 											<div className="flex">
-												<div className="h-a4 w-[16px] bg-gray-300" />
+												<div className="h-a4 w-[1px] bg-gray-300" />
 												<div
 													className={` relative shadow-md bg-white ${
 														pageSize === "a4"
 															? "w-a4 h-a4"
 															: "w-smallerPage h-smallerPage"
 													}`}
-												/>
+												></div>
 											</div>
-										) : (
-											<></>
 										)}
 									</div>
 								</div>
-								{/* DISPLAY THE PANELS */}
+
+								{/* ----------- DISPLAY THE PANELS ----------- */}
 								{objectList.map((obj) => (
 									<Draggable
 										styles={{

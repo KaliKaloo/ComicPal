@@ -9,12 +9,12 @@ import playgroundCharacter from "../../assets/playgroundCharacter.png";
 function PlaygroundPage() {
 	return (
 		<MainLayout>
-			<div className="w-full py-[6rem] px-4 ">
+			<div className="w-full h-full py-[6rem] px-4 flex justify-center items-center ">
 				<div
-					className={`max-w-[1240px] mx-auto grid lg:grid-cols-3 md:grid-cols-2 md:px-4 px-14 gap-8 font-poppins`}
+					className={`max-w-[1240px]  mx-auto flex md:flex-row flex-col  md:px-4 px-14 gap-8 font-poppins`}
 				>
-					<Link to="/CreateStory">
-						<div className="w-full bg-paleYellow shadow-xl flex flex-col p-4 my-4 rounded-lg hover:scale-105 duration-300 hover:text-secondary ">
+					<Link to="/CreateStoryOptions">
+						<div className="w-80 bg-paleYellow shadow-xl flex flex-col p-4 my-4 rounded-lg hover:scale-105 duration-300 hover:text-secondary ">
 							<img
 								src={playgroundStory}
 								className="mt-8 h-64 w-[200px] mx-auto border-solid border-2 border-darkGreen"
@@ -30,7 +30,7 @@ function PlaygroundPage() {
 					</Link>
 
 					<Link to="/CreateComicPage">
-						<div className="w-full bg-paleYellow shadow-xl flex flex-col p-4 my-4 rounded-lg hover:scale-105 duration-300 hover:text-secondary">
+						<div className="w-80 bg-paleYellow shadow-xl flex flex-col p-4 my-4 rounded-lg hover:scale-105 duration-300 hover:text-secondary">
 							<img
 								src={playgroundComic}
 								className="mt-8 h-64 w-[200px] mx-auto border-solid border-2 border-darkGreen"
@@ -46,7 +46,7 @@ function PlaygroundPage() {
 					</Link>
 
 					<Link to="/CreateCharacter">
-						<div className="w-full bg-paleYellow shadow-xl flex flex-col p-4 my-4 rounded-lg hover:scale-105 duration-300 hover:text-secondary">
+						<div className="w-80 bg-paleYellow shadow-xl flex flex-col p-4 my-4 rounded-lg hover:scale-105 duration-300 hover:text-secondary">
 							<img
 								src={playgroundCharacter}
 								className="mt-8 h-64 w-[200px] mx-auto border-solid border-2 border-darkGreen"

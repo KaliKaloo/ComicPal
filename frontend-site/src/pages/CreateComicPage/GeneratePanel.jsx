@@ -1,20 +1,23 @@
 import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
-import { useRef, useState } from "react";
+import { useRef, useState, Component } from "react";
 import useOnClickOutside from "../../lib/useOnClickOutside";
 import EditModal from "./EditModal";
+import { createPortal } from "react-dom";
 
-function GeneratePanel({ deleteFunc, shape, focus }) {
+function GeneratePanel({ deleteFunc, shape, focus, editModeAppear }) {
 	const [panelClick, setPanelClick] = useState(true);
 	const [editMode, setEditMode] = useState(false);
 	const [prompt, setPrompt] = useState("");
 	const [imageURL, setImageURL] = useState("");
+	const [charInPrompt, setCharInPrompt] = useState([]);
 	const panelRef = useRef();
 
-	const handleOnCloseEditMode = (save, url, text) => {
+	const handleOnCloseEditMode = (save, url, text, charList) => {
 		setEditMode(false);
 		if (save) {
 			setImageURL(url);
 			setPrompt(text);
+			setCharInPrompt(charList);
 		}
 	};
 
@@ -28,7 +31,7 @@ function GeneratePanel({ deleteFunc, shape, focus }) {
 					: "border-black "
 			} border-2 overflow-hidden bg-gray-100 resize ${
 				shape === "square" ? "w-72 h-52" : " rounded-full w-72 h-72 "
-			} `}
+			}`}
 			onClick={() => setPanelClick(true)}
 		>
 			{panelClick ? (
@@ -50,7 +53,7 @@ function GeneratePanel({ deleteFunc, shape, focus }) {
 				<></>
 			)}
 
-			<div className="overflow-hidden w-full h-full">
+			<div className="overflow-hidden w-full h-full  cursor-move">
 				{imageURL.length > 0 ? (
 					<img
 						src={imageURL}
@@ -63,11 +66,14 @@ function GeneratePanel({ deleteFunc, shape, focus }) {
 			</div>
 
 			{editMode ? (
-				<EditModal
-					onClose={handleOnCloseEditMode}
-					imgUrl={imageURL}
-					text={prompt}
-				/>
+				<div>
+					<EditModal
+						onClose={handleOnCloseEditMode}
+						imgUrl={imageURL}
+						text={prompt}
+						charInPromptList={charInPrompt}
+					/>
+				</div>
 			) : (
 				<></>
 			)}

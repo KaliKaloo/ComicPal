@@ -5,7 +5,7 @@ import styles from "../assets/style";
 
 function MainLayout({ footer, children }) {
 	return (
-		<div className="bg-primaryGreen w-full overflow-hidden ">
+		<div className="bg-primaryGreen w-full h-screen overflow-auto ">
 			<Navbar />
 			<div>{children}</div>
 			{footer == "noFooter" ? <></> : <Footer bgColor={"paleYellow"} />}

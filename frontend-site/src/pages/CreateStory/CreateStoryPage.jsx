@@ -1,113 +1,72 @@
-import { useState } from "react";
-import openaiLogo from "../../assets/openai-logo.svg";
-import FeedbackCard from "../../components/ui/FeedbackCard";
+import { useState, useEffect } from "react";
 import MainLayout from "../../layout/MainLayout";
-import "./CreateStoryPage.css";
+import Notepad from "./Notepad";
+import StoryLog from "./StoryLog";
+import { ReflexContainer, ReflexSplitter, ReflexElement } from "react-reflex";
+import "react-reflex/styles.css";
+import Details from "./Details";
 
 function CreateStoryPage() {
-	const [input, setInput] = useState("");
-	const [storyLog, setStoryLog] = useState([
-		{
-			user: "openai",
-			message: `Lets make a story together. Start by asking me a question about the story you want to make :)`,
-		},
-	]);
-	const [isLoading, setIsLoading] = useState(false);
+	const [description, setDescription] = useState("");
+	const [splitDirection, setSplitDirection] = useState(
+		window.innerWidth > 760 ? "vertical" : "horizontal"
+	);
+	const [notepadMin, setNotepadMin] = useState(false);
 
-	function clearStory() {
-		setStoryLog([]);
-	}
+	useEffect(() => {
+		const handleWindowResize = () => {
+			if (window.innerWidth > 760) {
+				setSplitDirection("vertical");
+			} else {
+				setSplitDirection("horizontal");
+			}
+			// setWindowWidth(window.innerWidth);
+		};
+		window.addEventListener("resize", handleWindowResize);
 
-	async function handleSubmit(e) {
-		e.preventDefault();
-		let newStoryLog = [...storyLog, { user: "me", message: `${input}` }];
-		newStoryLog = [...newStoryLog, { user: "openai", message: `...` }];
-		setInput("");
-		setStoryLog(newStoryLog);
-
-		const messages = newStoryLog.map((message) => message.message).join("");
-
-		const response = await fetch(process.env.NODE_ENV === "production" ? "https://comicpal.vercel.app/story" :"http://localhost:3080/story", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({
-				message: messages,
-			}),
-		});
-		const data = await response.json();
-		newStoryLog.pop();
-		setStoryLog([
-			...newStoryLog,
-			{ user: "openai", message: `${data.message}` },
-		]);
-	}
+		return () => {
+			window.removeEventListener("resize", handleWindowResize);
+		};
+	});
 
 	return (
 		<MainLayout footer="noFooter">
-			<div className="createStoryPageLayout">
-				<aside className="sideMenu">
-					<div className="side-menu-button" onClick={clearStory}>
-						<span>+</span>
-						Clear Chat
-					</div>
-					<div className="scale-75 mb-[-1rem] ml-[-1rem]">
-						<FeedbackCard />
-					</div>
-				</aside>
+			<div className="h-[calc(100vh-3.5rem)]">
+				<ReflexContainer
+					orientation={
+						splitDirection === "vertical"
+							? "vertical"
+							: "horizontal"
+					}
+				>
+					<ReflexElement propagateDimensions={true}>
+						<div className=" bg-dimYellow h-full">
+							<StoryLog />
+						</div>
+					</ReflexElement>
 
-				<section className="storyBox">
-					<div className="story-log">
-						{storyLog.map((message, index) => (
-							<StoryMessage
-								isLoading={isLoading}
-								key={index}
-								message={message}
-							/>
-						))}
-					</div>
-					<div className="story-input-holder">
-						<form onSubmit={handleSubmit}>
-							<input
-								rows="1"
-								value={input}
-								onChange={(e) => setInput(e.target.value)}
-								className="story-input-textarea"
-							></input>
-						</form>
-					</div>
-				</section>
+					<ReflexSplitter
+						style={
+							splitDirection === "vertical"
+								? { width: "8px" }
+								: { height: "8px" }
+						}
+					/>
+				
+					<ReflexElement
+						className="right-pane"
+						minSize="10"
+						maxSize="900"
+					>
+						<div className={`bg-white h-full flex ${notepadMin ? "10":"900"}`}>
+							<Notepad setDescription={setDescription} />
+							{/* <Details description={description} /> */}
+						</div>
+					</ReflexElement>
+				</ReflexContainer>
 			</div>
 		</MainLayout>
 	);
 }
-
-const StoryMessage = ({ message }) => {
-	return (
-		<div
-			className={`story-message ${message.user === "openai" && "openai"}`}
-		>
-			<div className="story-message-center">
-				<div
-					className={`avatar ${
-						message.user === "openai" && "openai"
-					}`}
-				>
-					{/* display svg */}
-					{message.user === "openai" && (
-						<img
-							src={openaiLogo}
-							alt="openai avatar"
-							width={30}
-							height={30}
-						/>
-					)}
-				</div>
-				<div className="message">{message.message}</div>
-			</div>
-		</div>
-	);
-};
 
 export default CreateStoryPage;
