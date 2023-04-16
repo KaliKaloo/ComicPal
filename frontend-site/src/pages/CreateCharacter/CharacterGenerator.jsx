@@ -118,6 +118,15 @@ function CharacterGenerator({setCharList}) {
 						onSubmit={handleSubmit(onSubmit)}
 					>
 						<label className="block text-gray-700 text-md font-bold mt-3 mb-2">
+									Name
+								</label>
+								<input
+									className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+									type="text"
+									id="Name"
+									{...register("name")}
+								/>
+						<label className="block text-gray-700 text-md font-bold mt-3 mb-2">
 							Character description
 						</label>
 						<textarea
