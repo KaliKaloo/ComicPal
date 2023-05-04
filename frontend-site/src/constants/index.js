@@ -36,22 +36,26 @@ export const features = [
 
 export const feedbackQuestions = {
 	questions: {
-		question1: "1. I enjoyed using ComicPal to create a comic",
-		question2: "2. It was easy to navigate and use",
-		question3: "3. It fit into my creative workflow",
+		question1: "1. What is your gender?",
+		question2: "2. You are tech-savvy",
+		question3: "3. You enjoyed using ComicPal to create a comic book",
 		question4:
-			"4. Step-by-step, what is your usual process of creating a comic?",
+			"4. ComicPal was easy to navigate and use",
 		question5:
-			"5. In comparison to your usual method, using ComicPal make it easier to create a comic?",
-		question6: "6. What features did you like?",
-		question7: "7. What features did you dislike?",
-		question8: "8. What new features would you like to have?",
+			"5. Did ComicPal fit into your creative workflow? Why?",
+		question6: "6. What is your usual process of creating a comic?",
+		question7: "7. Compared to the normal approach, using ComicPal made the comic creation process faster",
+		question8: "8.What features did you like?",
 		question9:
-			"9. When generating images, what percentage of realism did you like the most?",
-		question10: "10. How creative did ComicPal make you feel?",
-		question11: "11. I would use ComicPal again",
-		question12: "12. How do you feel about AI in the comic industry?",
-		question13: "13. Any additional comments?",
+			"9.  What features did you dislike?",
+		question10: "10. What new features would you like to have?",
+		question11: "11. When generating images, what percentage of realism did you like the most?",
+		question12: "12. Using ComicPal made me feel creative",
+		question13: "13. I would use comic pal again",
+		question14: "14. How do you feel about AI in the comic industry?",
+		question15: "15. Any additional comments?",
+
+
 	},
 };
 
