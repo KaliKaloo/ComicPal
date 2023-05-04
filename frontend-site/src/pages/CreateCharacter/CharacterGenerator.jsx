@@ -36,7 +36,7 @@ function CharacterGenerator({setCharList}) {
 		setIsLoading(true);
 
 		// add other stuff like styles
-		var combinedData = data.desc;
+		var combinedData = data.desc + " " + styleOption;
 
 		/* ----- fetch request to get the AI generated image from the prompt ----- */
 		const response = await fetch(

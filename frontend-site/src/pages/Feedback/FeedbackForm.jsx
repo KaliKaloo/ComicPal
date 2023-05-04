@@ -16,30 +16,30 @@ const FeedbackForm = ({ submitFunc }) => {
 
 	const onSubmit = (data) => {
 		setSubmitButtonDisabled(true);
-
+		submitFunc()
 		const formData = new FormData();
 
-		for (const [key, value] of Object.entries(data)) {
-			if (key === "Question8ii") {
-				formData.set(
-					"Question8",
-					[formData.get("Question8"), value].join(",")
-				);
-			} else {
-				formData.append(key, value);
-			}
-		}
+		// for (const [key, value] of Object.entries(data)) {
+		// 	if (key === "Question8ii") {
+		// 		formData.set(
+		// 			"Question8",
+		// 			[formData.get("Question8"), value].join(",")
+		// 		);
+		// 	} else {
+		// 		formData.append(key, value);
+		// 	}
+		// }
 
-		for (const [key, answer] of Object.entries(likertAnswers)) {
-			formData.append(key, answer.value);
-		}
+		// for (const [key, answer] of Object.entries(likertAnswers)) {
+		// 	formData.append(key, answer.value);
+		// }
 
-		fetch(
-			"https://script.google.com/macros/s/AKfycbwcuSinKb8mp_TYQ4WR02Qo33zEIYfal--wG1OYV7ngd0a1FjM-g4ADQN_RCFBsm5YoFA/exec",
-			{ method: "POST", body: formData }
-		)
-		.then(() => submitFunc())
-		.catch((error) => console.log(error));
+		// fetch(
+		// 	"https://script.google.com/macros/s/AKfycbwcuSinKb8mp_TYQ4WR02Qo33zEIYfal--wG1OYV7ngd0a1FjM-g4ADQN_RCFBsm5YoFA/exec",
+		// 	{ method: "POST", body: formData }
+		// )
+		// .then(() => submitFunc())
+		// .catch((error) => console.log(error));
 	};
 
 	return (
@@ -61,7 +61,14 @@ const FeedbackForm = ({ submitFunc }) => {
 						onChange={(val) => {
 							updateLikertAnswers("Question1", val);
 						}}
+						customOptions={[
+							{ value: "Male" },
+							{ value: "Female" },
+							{ value: "Non-binary" },
+							{ value: "Prefer not to say" },
+						]}
 					/>
+					
 				</div>
 
 				<div className="mb-8">
@@ -90,6 +97,18 @@ const FeedbackForm = ({ submitFunc }) => {
 					<label className="block text-gray-700 text-sm font-bold mt-3 mb-2">
 						{feedbackQuestions.questions.question4}
 					</label>
+					<LikertScale
+						checked={likertAnswers.Question3}
+						onChange={(val) => {
+							updateLikertAnswers("Question3", val);
+						}}
+					/>
+					
+				</div>
+				<div className="mb-8">
+					<label className="block text-gray-700 text-sm font-bold mt-3 mb-2">
+						{feedbackQuestions.questions.question5}
+					</label>
 					<textarea
 						className="shadow appearance-none border rounded md:w-[80%] w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
 						type="text"
@@ -99,18 +118,31 @@ const FeedbackForm = ({ submitFunc }) => {
 				</div>
 				<div className="mb-8">
 					<label className="block text-gray-700 text-sm font-bold mt-3 mb-2">
-						{feedbackQuestions.questions.question5}
+						{feedbackQuestions.questions.question6}
 					</label>
-					<LikertScale
-						checked={likertAnswers.Question5}
-						onChange={(val) => {
-							updateLikertAnswers("Question5", val);
-						}}
+					<textarea
+						className="shadow appearance-none border rounded md:w-[80%] w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+						type="text"
+						id="Question4"
+						{...register("Question4")}
 					/>
+					
 				</div>
 				<div className="mb-8">
 					<label className="block text-gray-700 text-sm font-bold mt-3 mb-2">
-						{feedbackQuestions.questions.question6}
+						{feedbackQuestions.questions.question7}
+					</label>
+					<LikertScale
+						checked={likertAnswers.Question3}
+						onChange={(val) => {
+							updateLikertAnswers("Question3", val);
+						}}
+					/>
+				</div>
+
+				<div className="mb-8">
+					<label className="block text-gray-700 text-sm font-bold mt-3 mb-2">
+						{feedbackQuestions.questions.question8}
 					</label>
 					<div className="grid md:grid-cols-2 gap-2">
 						<label className="flex space-x-3">
@@ -184,40 +216,45 @@ const FeedbackForm = ({ submitFunc }) => {
 			</div>
 			</label> */}
 					</div>
+
+					
 				</div>
 				<div className="mb-8">
 					<label className="block text-gray-700 text-sm font-bold mt-3 mb-2">
-						{feedbackQuestions.questions.question7}
+						{feedbackQuestions.questions.question9}
 					</label>
+					<div className="md:flex space-x-6">
 					<div className="grid md:grid-cols-2 gap-2">
 						<label className="flex space-x-3">
 							<input
 								type="checkbox"
 								className="checkbox checkbox-sm"
 								value="Plan a Story tool"
-								{...register("Question7")}
+								{...register("Question6")}
 							/>
 							<div className="cursor-pointer">
 								Plan a Story tool
 							</div>
 						</label>
+
 						<label className="flex space-x-3">
 							<input
 								type="checkbox"
 								className="checkbox checkbox-sm"
 								value="Create a Comic Page tool"
-								{...register("Question7")}
+								{...register("Question6")}
 							/>
 							<div className="cursor-pointer">
 								Create a Comic Page tool
 							</div>
 						</label>
+
 						<label className="flex space-x-3">
 							<input
 								type="checkbox"
 								className="checkbox checkbox-sm"
 								value="Design a Character tool"
-								{...register("Question7")}
+								{...register("Question6")}
 							/>
 							<div className="cursor-pointer">
 								Design a Character tool
@@ -229,7 +266,7 @@ const FeedbackForm = ({ submitFunc }) => {
 								className="checkbox checkbox-sm"
 								value="Chatting to the AI when creating a story
 "
-								{...register("Question7")}
+								{...register("Question6")}
 							/>
 							<div className="cursor-pointer">
 								Chatting to the AI when creating a story
@@ -240,7 +277,7 @@ const FeedbackForm = ({ submitFunc }) => {
 								type="checkbox"
 								className="checkbox checkbox-sm"
 								value="Realism percentage options when generating images"
-								{...register("Question7")}
+								{...register("Question6")}
 							/>
 							<div className="cursor-pointer">
 								Realism percentage options when generating
@@ -252,18 +289,18 @@ const FeedbackForm = ({ submitFunc }) => {
 				type="checkbox"
 				className="checkbox checkbox-sm"
 				value="Stylize options when generating images"
-				{...register("Question7")}
+				{...register("Question6")}
 			/>
 			<div className="cursor-pointer">
 				Stylize options when generating images
 			</div>
 			</label> */}
 					</div>
+					</div>
 				</div>
-
 				<div className="mb-8">
 					<label className="block text-gray-700 text-sm font-bold mt-3 mb-2">
-						{feedbackQuestions.questions.question8}
+						{feedbackQuestions.questions.question10}
 					</label>
 					<div className="grid md:grid-cols-2 gap-2">
 						<label className="flex space-x-3">
@@ -325,30 +362,11 @@ const FeedbackForm = ({ submitFunc }) => {
 							/>
 						</div>
 					</div>
+					
 				</div>
 				<div className="mb-8">
 					<label className="block text-gray-700 text-sm font-bold mt-3 mb-2">
-						{feedbackQuestions.questions.question9}
-					</label>
-					<div className="md:flex space-x-6">
-						<LikertScale
-							checked={likertAnswers.Question9}
-							onChange={(val) => {
-								updateLikertAnswers("Question9", val);
-							}}
-							customOptions={[
-								{ value: "0%" },
-								{ value: "25%" },
-								{ value: "50%" },
-								{ value: "75%" },
-								{ value: "100%" },
-							]}
-						/>
-					</div>
-				</div>
-				<div className="mb-8">
-					<label className="block text-gray-700 text-sm font-bold mt-3 mb-2">
-						{feedbackQuestions.questions.question10}
+						{feedbackQuestions.questions.question11}
 					</label>
 					<LikertScale
 						checked={likertAnswers.Question10}
@@ -356,23 +374,14 @@ const FeedbackForm = ({ submitFunc }) => {
 							updateLikertAnswers("Question10", val);
 						}}
 						customOptions={[
-							{ value: "Very Uncreative" },
-							{ value: "Uncreative" },
-							{ value: "Neutral" },
-							{ value: "Creative" },
-							{ value: "Very Creative" },
+							{ value: "0%" },
+							{ value: "25%" },
+							{ value: "50%" },
+							{ value: "75%" },
+							{ value: "100%" },
+							{ value: "None" },
+
 						]}
-					/>
-				</div>
-				<div className="mb-8">
-					<label className="block text-gray-700 text-sm font-bold mt-3 mb-2">
-						{feedbackQuestions.questions.question11}
-					</label>
-					<LikertScale
-						checked={likertAnswers.Question11}
-						onChange={(val) => {
-							updateLikertAnswers("Question11", val);
-						}}
 					/>
 				</div>
 
@@ -380,23 +389,47 @@ const FeedbackForm = ({ submitFunc }) => {
 					<label className="block text-gray-700 text-sm font-bold mt-3 mb-2">
 						{feedbackQuestions.questions.question12}
 					</label>
-					<textarea
-						className="shadow appearance-none border rounded md:w-[80%] w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-						type="text"
-						id="Question12"
-						{...register("Question12")}
+					<LikertScale
+						checked={likertAnswers.Question10}
+						onChange={(val) => {
+							updateLikertAnswers("Question10", val);
+						}}
 					/>
 				</div>
 				<div className="mb-8">
 					<label className="block text-gray-700 text-sm font-bold mt-3 mb-2">
 						{feedbackQuestions.questions.question13}
 					</label>
-					<textarea
-						className="shadow appearance-none border rounded md:w-[80%] w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-						type="text"
-						id="Question13"
-						{...register("Question13")}
+					<LikertScale
+						checked={likertAnswers.Question10}
+						onChange={(val) => {
+							updateLikertAnswers("Question10", val);
+						}}
 					/>
+				</div>
+
+				<div className="mb-8">
+					<label className="block text-gray-700 text-sm font-bold mt-3 mb-2">
+						{feedbackQuestions.questions.question14}
+					</label>
+					<textarea
+								className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+								type="text"
+								id="Question8ii"
+								{...register("Question8ii")}
+							/>
+				</div>
+
+				<div className="mb-8">
+					<label className="block text-gray-700 text-sm font-bold mt-3 mb-2">
+						{feedbackQuestions.questions.question15}
+					</label>
+					<textarea
+								className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+								type="text"
+								id="Question8ii"
+								{...register("Question8ii")}
+							/>
 				</div>
 
 				<div className="flex justify-end gap-3 items-center">
