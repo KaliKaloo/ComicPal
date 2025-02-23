@@ -27,7 +27,7 @@ function About() {
 							<h2
 								className={`${styles.heading2} w-[470px] text-secondary`}
 							>
-								Why AI and comics?
+								Why AI and Comics?
 							</h2>
 							<p
 								className={`${styles.paragraphDark} max-w-[470px] mt-5`}
@@ -44,7 +44,7 @@ function About() {
 								opposition to the use of AI in creative
 								endeavours. This resistance is not unfounded, as
 								some nefarious actors have exploited AI to
-								deceive and steal others' works. Regrettably,
+								deceive and steal others works. Regrettably,
 								this has resulted in a taboo surrounding any
 								discussion of AI, preventing a productive
 								dialogue on the subject.
