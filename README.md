@@ -3,7 +3,7 @@
 As part of my final year thesis, I wanted to explore how AI can be intergrated into the comic creation process. Do investigate this, I created an webtool called ComicPal using Reactjs, Nodejs and OpenAI's API. Comic creators then used this tool in their workflow and I gathered data on how their expreinces and thoughts.
 
 ## Thesis
-Link: TBA
+
 ### Abstract
 The use of artificial intelligence (AI) has been steadily increasing across many industries, including the
 comic book industry. While there have been numerous studies exploring people’s perceptions of AI and
